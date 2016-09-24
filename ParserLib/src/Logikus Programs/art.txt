@@ -1,0 +1,14 @@
+// facts from an art database
+painting("Bathers at Asnières", seurat, 1884);
+painting("Sunday Afternoon", seurat, 1886);
+painting("The Models", seurat, 1888);
+//...
+artist(cezanne, paul, 1839);
+artist(gauguin, paul, 1848);
+artist(seurat, georges, 1859);
+//...
+
+painterAge(Artist, Title, Age) :-
+    artist(Artist, First, Born),
+    painting(Title, Artist, Year),
+    #(Age, Year - Born);

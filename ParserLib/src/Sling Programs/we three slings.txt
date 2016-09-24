@@ -1,0 +1,3 @@
+nLine = 1000;
+plot sling(1, 1) + sling(s1, -9) + sling(s2, 516);
+/* This looks nice with s1 ~= .28, s2 ~= .1*/

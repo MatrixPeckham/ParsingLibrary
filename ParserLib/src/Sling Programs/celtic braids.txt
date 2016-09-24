@@ -1,0 +1,5 @@
+nLine = 400;
+theta = 2 * pi * t;
+len = 1 + .5 * sin(8 * theta);
+plot polar(len, 3 * theta);
+plot polar(len - .2, 3 * theta);

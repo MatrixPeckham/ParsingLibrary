@@ -1,0 +1,15 @@
+bachelor(X) :- 
+    male(X), oldEnough(X), not married(X);
+
+oldEnough(Person) :- 
+    age(Person, Age), >=(Age, 18);
+
+married(steve);
+
+age(steve, 29);
+age(dirk, 25);
+age(frank, 9);
+
+male(steve);
+male(dirk); 
+male(frank);

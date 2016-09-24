@@ -1,0 +1,6 @@
+nLine = 5;
+s = sling(1, 2);
+max = 13;
+for(x, 1, max) {
+    theta = s1*x/max*2*pi; 
+    plot polar(10, theta) + s;}

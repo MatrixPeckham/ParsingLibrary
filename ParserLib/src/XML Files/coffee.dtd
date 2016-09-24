@@ -1,0 +1,16 @@
+<?xml encoding="UTF-8"?>
+<!ELEMENT brochureCoffees (coffee)+>
+
+<!ELEMENT coffee (name, formerName?, roast, orFrench?, country, price)>
+
+<!ELEMENT name (#PCDATA)>
+
+<!ELEMENT formerName (#PCDATA)>
+
+<!ELEMENT roast (#PCDATA)>
+
+<!ELEMENT orFrench (#PCDATA)>
+
+<!ELEMENT country (#PCDATA)>
+
+<!ELEMENT price (#PCDATA)> 

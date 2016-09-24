@@ -1,0 +1,9 @@
+/* while(X, Start); 
+ * For example, while(X, 1) starts X at 1 and
+ * increments it with each proof. */
+
+while(I, I);
+while(I, LastValue) :-      
+    #(NextValue, LastValue + 1), 
+    while(I, NextValue);
+

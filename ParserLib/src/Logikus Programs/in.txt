@@ -1,0 +1,12 @@
+// in.txt
+in(englewood, colorado);  in(fortCollins, colorado);
+in(westbrook, maine);     in(yarmouth, maine);
+in(austin, texas);        in(menzingen, zug);
+in(lexington, kentucky);  in(richmond, virginia);
+in(colorado, us);         in(maine, us); 
+in(texas, us);            in(zug, switzerland); 
+in(kentucky, us);         in(virginia, us); 
+
+within(X, Y) :- in(X, Y);
+within(X, Y) :- in(X, Z), within(Z, Y);
+leaf(X) :- in(X, _), not in(_, X);

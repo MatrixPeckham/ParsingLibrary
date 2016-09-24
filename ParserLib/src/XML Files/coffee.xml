@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<brochureCoffees>
+<coffee>
+    <name>Brimful</name>
+    <roast>Regular</roast>
+    <price>6.95</price>
+    <country>Kenya</country>
+</coffee>
+
+<coffee>
+    <name>Caress</name>
+    <formerName>Smackin</formerName>
+    <roast>French</roast>
+    <price>7.95</price>
+    <country>Sumatra</country>
+</coffee>
+
+<coffee>
+    <name>Fragrant Delicto</name>
+    <roast>Regular</roast>
+    <orFrench/>
+    <price>9.95</price>
+    <country>Peru</country>
+</coffee>
+
+<coffee>
+    <name>Havalavajava</name>
+    <roast>Regular</roast>
+    <price>11.95</price>
+    <country>Hawaii</country>
+</coffee>
+
+<coffee>
+    <name>Launch Mi</name>
+    <roast>French</roast>
+    <price>6.95</price>
+    <country>Kenya</country>
+</coffee>
+
+<coffee>
+    <name>Roman Spur</name>
+    <formerName>Revit</formerName>
+    <roast>Italian</roast>
+    <price>7.95</price>
+    <country>Guatemala</country>
+</coffee>
+
+<coffee>
+    <name>Simplicity House</name>
+    <roast>Regular</roast>
+    <orFrench/>
+    <price>5.95</price>
+    <country>Columbia</country>
+</coffee>
+</brochureCoffees>
+

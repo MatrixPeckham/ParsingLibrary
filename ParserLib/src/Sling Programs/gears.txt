@@ -1,0 +1,3 @@
+k = 100*s1;
+nLine = 2*k;
+plot sling(1, 1) + sling(s2, k + 1);

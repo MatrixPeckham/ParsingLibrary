@@ -1,0 +1,7 @@
+// Shows that the Sling environment 
+// draws the largest possible figure 
+// that is to scale.
+
+nLine = 3;
+plot polar(1, 2*pi*(t + s1));
+

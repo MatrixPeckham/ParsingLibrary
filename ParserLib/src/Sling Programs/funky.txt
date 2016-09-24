@@ -1,0 +1,4 @@
+nLine = 2000;
+theta = scale(-3.14, 3.14);
+r = 1 + .33 * sin(14*theta);
+plot sling(r, 3) + sling(.1, 1950 + s1*100);

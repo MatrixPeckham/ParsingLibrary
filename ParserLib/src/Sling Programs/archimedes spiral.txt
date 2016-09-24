@@ -1,0 +1,2 @@
+plot sling(t, s1*3);
+

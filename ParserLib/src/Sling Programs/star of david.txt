@@ -1,0 +1,4 @@
+nLine = 3;
+theta = 2*pi*t + pi/6;
+plot polar(1, theta);
+plot polar(-1, theta);

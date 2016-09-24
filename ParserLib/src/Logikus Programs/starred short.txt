@@ -1,0 +1,5 @@
+starred(jamesCagney, "Mutiny on the Bounty", 1935);
+starred(jamesCagney, "Yankee Doodle Dandy", 1942);
+starred(jamesCagney, "Mister Roberts", 1955);
+starred(jamesCagney, "Ragtime", 1981);
+

@@ -1,0 +1,17 @@
+coffee("Launch Mi", french, kenya, 6.95);
+coffee("Simple Best", regular, columbia, 5.95);
+coffee("Revit", italian, guatemala, 7.95);
+coffee("Brimful", regular, kenya, 6.95);
+coffee("Smackin", french, columbia, 7.95);
+
+customer("Jim Johnson", 2024);
+customer("Jane Jerrod", 2077);
+customer("Jasmine Jones", 2093);
+
+order(2024, "Simple Best", 1);
+order(2077, "Launch Mi", 3);
+order(2077, "Smackin", 3);
+order(2093, "Brimful", 2);
+
+q (Name, Type) :- customer(Name, CustomerNum),
+    order(CustomerNum, Type, Pounds);

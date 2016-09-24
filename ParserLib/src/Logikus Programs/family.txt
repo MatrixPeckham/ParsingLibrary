@@ -1,0 +1,57 @@
+begat(900, jim, 19350801, male);
+begat(901, janie, 19370310, female);
+
+begat(902, kyle, 19600829, male);
+begat(903, kirk, 19550404, male);
+begat(904, kevin, 19580815, male);
+ 
+marriage(001, jim, janie, 19560512, present);
+begat(001, karla, 19570114, female);
+begat(001, katie, 19590712, female);
+
+marriage(002, kevin, karla, 19790623, 19831112);
+begat(002, leo, 19800115, male);
+begat(002, lisa, 19810226, female);
+
+marriage(003, kirk, karla, 19900114, present);
+
+marriage(004, katie, kyle, 19951203, present);
+begat(004, laura, 19980217, female);
+
+male(X) :- begat(_, X, _, male);
+female(X) :- begat(_, X, _, female);
+birthdate(X, D) :- begat(_, X, D, _);
+
+marriagePartner(M, X) :- marriage(M, X, _, _, _);
+marriagePartner(M, X) :- marriage(M, _, X, _, _);
+
+husband(M, X) :- marriagePartner(M, X), male(X);
+wife(M, X) :- marriagePartner(M, X), female(X);
+
+// if X & Y are siblings, this relation will find both (X, Y)
+// and (Y, X). The siblingPair relations finds only one of
+// these.
+siblings(X, Y) :- 
+    begat(MarriageID, X, _, _),
+    begat(MarriageID, Y, _, _),
+    !=(X, Y);
+
+siblingPair(X, Y) :- 
+    begat(MarriageID, X, Dx, _),
+    begat(MarriageID, Y, Dy, _),
+    <(Dx, Dy);
+
+parent(P, C) :- 
+    marriagePartner(MarriageID, P),
+    begat(MarriageID, C, _, _);
+
+father(P, C) :- parent(P, C), male(P);
+mother(P, C) :- parent(P, C), female(P);
+sister(X, Y) :- siblings(X, Y), female(X);
+brother(X, Y) :- siblings(X, Y), male(X);
+
+grandparent(G, C) :- parent(G, P), parent(P, C);
+grandfather(G, C) :- father(G, P), parent(P, C);
+grandmother(G, C) :- mother(G, P), parent(P, C);
+
+

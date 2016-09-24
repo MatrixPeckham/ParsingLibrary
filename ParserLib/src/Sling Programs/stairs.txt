@@ -1,0 +1,5 @@
+// Shows a staircase.
+
+x = 10*t;
+plot cartesian(floor(x), ceil(x));
+

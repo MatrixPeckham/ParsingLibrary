@@ -1,0 +1,3 @@
+/* usage: suffix(SuffixList, LongerList) */
+suffix(List, List);
+suffix(List1, [X | Rest]) :- suffix(List1, Rest);

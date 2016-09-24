@@ -1,0 +1,10 @@
+priv(jim, operate, sputter);
+priv(jim, operate, implant);
+priv(janie, supervise, sputter);
+priv(rivki, operate, photo);
+priv(bill, supervise, photo);
+
+teammates(P1, P2) :-
+    priv(P1, _, Machine),
+    priv(P2, _, Machine),
+    !=(P1, P2);

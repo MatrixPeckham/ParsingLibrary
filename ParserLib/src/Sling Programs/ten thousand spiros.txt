@@ -1,0 +1,1 @@
+plot sling(1, 1) + sling(s2, 100*s1);

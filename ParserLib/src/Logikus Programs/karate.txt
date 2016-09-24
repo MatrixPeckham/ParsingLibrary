@@ -1,0 +1,103 @@
+/*
+ * This program solves the following puzzle:
+ * 
+ * Each of four martial arts students has a different specialty. 
+ * From the following clues, can you determine each student's 
+ * full name and her special skill? 
+ *
+ *   1. Ms. Ellis (whose instructor is Mr. Caldwell), Amy, and 
+ *      Ms. Fowler are all martial arts students. 
+ *   2. Sparring isn't the specialty of either Carla or Dianne. 
+ *   3. Neither the shoot fighting expert nor the pressure 
+ *      point fighter is named Fowler. 
+ *   4. Childrens techniques aren't the specialty of Dianne 
+ *      (whose instructor is Ms. Sherman). 
+ *   5. Amy, who disdains pressure point fighting, isn't Ms. 
+ *      Goodrich. 
+ *   6. Betti and Ms. Fowler are roommates.
+ *   7. Ms. Hightower avoids sparring because of its point 
+ *      scoring nature.
+ */
+geneval(Solution) :-
+    generate(Solution),
+    evaluate(Solution);
+
+// generate all possible solutions
+select(X, [X | Rest], Rest);
+select(X, [Y | Rest1], [Y | Rest2]) :- 
+    select(X, Rest1, Rest2);
+
+permutation(InList, [H | OutRest]) :- 
+    select(H, InList, InOther), 
+    permutation(InOther, OutRest);
+permutation([], []);
+
+generate(Solution) :-
+    permutation(
+        [ellis, fowler, goodrich, hightower], 
+        LastNames),
+
+    permutation(
+        [sparring, shootFighting, pressurePoints, 
+         childrens], 
+        Specialties),
+
+    associate(
+        [amy, betti, carla, dianne], 
+        LastNames, 
+        Specialties, 
+        Solution);
+
+// "associate" combines three lists into one list of 
+// students with three attributes
+
+associate(
+    [FirstName | Frest], 
+    [LastName | Lrest], 
+    [Specialty | Srest], 
+    [student(FirstName, LastName, Specialty) | 
+     StudentsRest]) 
+
+    :- associate(
+        Frest, 
+        Lrest, 
+        Srest, 
+        StudentsRest);
+
+associate([], [], [], []);
+
+// "evaluate" takes a list of "student" structures, and 
+// succeeds if all the criteria are met.
+
+member(X, [X | Rest]);
+member(X, [Y | Rest]) :- member(X, Rest);
+
+evaluate(Solution) :-
+    // Clue 1
+    not member(student(amy, ellis, _), Solution),
+    not member(student(amy, fowler, _), Solution),
+
+    // Clue 2
+    not member(student(carla, _, sparring), Solution),
+    not member(student(dianne, _, sparring), Solution),
+
+    // Clue 3
+    not member(student(_, fowler, shootFighting), Solution),
+    not member(student(_, fowler, pressurePoints), 
+               Solution),
+
+    // Clue 4
+    not member(student(dianne, _, childrens), Solution),
+
+    // Clue 5
+    not member(student(amy, goodrich, _), Solution),
+    not member(student(amy, _, pressurePoints), Solution),
+
+    // Clue 6
+    not member(student(betti, fowler, _), Solution),
+
+    // Clue 7
+    not member(student(_, hightower, sparring), Solution),
+
+    // Clue 4, 1
+    not member(student(dianne, ellis, _), Solution);

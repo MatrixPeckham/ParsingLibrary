@@ -1,0 +1,12 @@
+// prime.txt contains factor and prime proofs
+factor(N, I, J) :- 
+    for(I, 2, N), for(J, 2, N), =(N, I*J);
+
+for(I, I, Upper) :- <= (I, Upper);
+for(I, Lower, Upper) :- 
+    <(Lower, Upper), 
+    #(LowerPlusOne, Lower + 1), 
+    for(I, LowerPlusOne, Upper);
+
+prime(N) :- not factor(N, _, _);
+

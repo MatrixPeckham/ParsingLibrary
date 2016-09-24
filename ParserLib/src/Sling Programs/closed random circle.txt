@@ -1,0 +1,5 @@
+// Shows the trick of plotting a 
+// random circle that is not open
+// at the ends.
+
+plot sling(1 + ceil(t%1)*random, 1);

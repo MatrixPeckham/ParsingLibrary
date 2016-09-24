@@ -1,0 +1,5 @@
+for(X, X, Upper) :- <= (X, Upper);
+for(X, Lower, Upper) :- 
+    <(Lower, Upper), 
+    #(LowerPlusOne, Lower + 1), 
+    for(X, LowerPlusOne, Upper);

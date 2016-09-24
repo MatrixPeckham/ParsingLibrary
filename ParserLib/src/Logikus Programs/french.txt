@@ -1,0 +1,12 @@
+french([dark, full, high, viennese, continental]);
+
+ok(N, A, B) :- #(N, 1), french([A, B, C, D, E]);
+ok(N, A, B) :- #(N, 2), french([E, D, C, B, A]);
+ok(N, A, B) :- #(N, 3), french([A | B]);
+ok(N, A, B) :- #(N, 4), french([C, D, E | [A, B]]); 
+ok(N, A, B) :- #(N, 5), french([C, D, E | [A | B]]);
+
+// these fail:
+ok(N, A, B) :- #(N, -1), french(A, B, C, D, E);
+ok(N, A, B) :- #(N, -2), french([A, B]);
+

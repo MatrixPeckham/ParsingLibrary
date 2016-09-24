@@ -1,0 +1,4 @@
+permutation(
+    ["get kids", "mail package", "buy milk"], ToDo)
+
+in(X, Y), not leaf(X) // for 'in'

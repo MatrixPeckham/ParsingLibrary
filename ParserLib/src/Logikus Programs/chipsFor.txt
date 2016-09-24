@@ -1,0 +1,5 @@
+
+
+chipsFor(CustId, ChipName, Bags) :-
+    order(CustId, ChipId, Bags),
+    chip(ChipId, ChipName, Price, Ounces, Oil);

@@ -1,0 +1,6 @@
+nLine = 1;
+for (g, -10, 10) {
+    p1 = cartesian(g, -10);
+    p2 = cartesian(10, g);
+    plot scale(p1, p2);
+}

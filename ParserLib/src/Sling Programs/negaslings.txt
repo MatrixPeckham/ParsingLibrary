@@ -1,0 +1,3 @@
+theta = 2 * pi * t;
+offset = pi * s1;
+plot polar(1, theta + offset) + polar(s2, -2 * theta + offset);

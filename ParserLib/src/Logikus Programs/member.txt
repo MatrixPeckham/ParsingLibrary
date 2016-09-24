@@ -1,0 +1,2 @@
+member(X, [X | Rest]);
+member(X, [Y | Rest]) :- member(X, Rest);

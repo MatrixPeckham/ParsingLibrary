@@ -1,0 +1,20 @@
+// crosshairs
+s = scale(-1.1, 1.1); 
+plot cartesian(s, 0); 
+plot cartesian(0, s); 
+
+// arrow arc 
+r = s2;
+angle = 2*pi * (1 - s1);
+plot polar(r, angle*t); 
+
+// arrow head 
+tip = polar(r, angle);
+plot tip + polar(.1*t, angle - pi/4);
+plot tip + polar(.1*t, angle - 3/4 * pi); 
+
+// stone
+plot polar(1, angle) + sling(.1, 1);
+
+// sling strap
+plot polar(t, angle);

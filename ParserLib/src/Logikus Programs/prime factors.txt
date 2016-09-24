@@ -1,0 +1,6 @@
+member(X, [X | Rest]);
+member(X, [Y | Rest]) :- member(X, Rest);
+primes([2, 3, 5, 7, 11, 13]);
+factor(X, P, Q) :- 
+    primes(Primes), member(P, Primes),
+    member(Q, Primes), =(P*Q, X);

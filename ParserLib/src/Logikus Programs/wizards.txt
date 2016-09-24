@@ -1,0 +1,6 @@
+prefix([], List);
+prefix([X | Rest1], [X | Rest2]) :- 
+    prefix(Rest1, Rest2); 
+
+show(Wizard) :- prefix(
+    Wizard, [merlin, prospero, gandalf, harry]);		

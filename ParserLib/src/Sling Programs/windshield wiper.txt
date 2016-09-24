@@ -1,0 +1,10 @@
+// A windshield wiper that moves with 
+// the s1 slider.
+
+theta = 4*pi*s1;
+x = scale(0, cos(theta));
+y = abs(scale(0, sin(theta)));
+plot cartesian(x, y);
+plot cartesian(scale(-1, 1), 0);
+plot cartesian(0, scale(0, 1));
+
