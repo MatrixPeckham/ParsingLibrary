@@ -5,11 +5,11 @@ Working with the code however, I found that sometimes I would end up with ClassC
 
 Tok is a parameter for token type; this parameter is usually provided by the implementing class of Parser. When Tok is not provided it will be either Token or Character, and must be the same as any sub-parsers.  
 
-Val is a parameter for another type that will be on the Assembly's stack; this will be either one type, like Integer, or an amalgamation type like TypeOrType. This will usually be something the assembler creates and pushes back on the stack.
+Val is a parameter for another type that will be on the Assembly's stack; this will be either one type, like Integer, or an amalgamation type, like TypeOrType, or an abstract base class that is parent to all types used by the parser. This will usually be something the assembler creates and pushes back on the stack.
 
 Tar is a parameter for the PubliclyClonable Target of the parser.  It must be PubliclyCloneable<Tar>
 
-These changes make code using this version of the parsing toolkit make the code a bit more verbose, but much more explicit and  less prone to errors. 
+These changes make code using this version of the parsing toolkit a bit more verbose, but much more explicit and  less prone to errors. 
 
 I have also eliminated all warnings in the code.
 
