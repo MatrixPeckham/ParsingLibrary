@@ -41,7 +41,7 @@ public class Token {
     public static final TokenType TT_WORD = new TokenType("word");
 
     /**
-     * A constant indicating that a token is a symbol like "<=".
+     * A constant indicating that a token is a symbol like "&lt;=".
      */
     public static final TokenType TT_SYMBOL = new TokenType("symbol");
 
@@ -85,13 +85,15 @@ public class Token {
      * values.
      *
      * @param ttype the type of the token, typically one of the constants this
-     * class defines
+     *              class defines
      *
-     * @param sval the string value of the token, typically null except for WORD
-     * and QUOTED tokens
+     * @param sval  the string value of the token, typically null except for
+     *              WORD
+     *              and QUOTED tokens
      *
-     * @param nval the numeric value of the token, typically 0 except for NUMBER
-     * tokens
+     * @param nval  the numeric value of the token, typically 0 except for
+     *              NUMBER
+     *              tokens
      *
      */
     public Token(TokenType ttype, String sval, double nval) {
@@ -144,7 +146,7 @@ public class Token {
      * @param o the object to compare
      *
      * @return true, if the supplied object is of the same type and value. This
-     * method disregards case when comparing the string value of tokens.
+     *         method disregards case when comparing the string value of tokens.
      */
     public boolean equalsIgnoreCase(Object o) {
         if (!(o instanceof Token)) {
@@ -235,7 +237,7 @@ public class Token {
      * Returns the type of this token.
      *
      * @return the type of this token, typically one of the constants this class
-     * defines
+     *         defines
      */
     public TokenType ttype() {
         return ttype;

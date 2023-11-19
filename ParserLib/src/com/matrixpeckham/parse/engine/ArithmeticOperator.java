@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * For example, an ArithmeticOperator might be appear in a comparison, as
  * follows:
  * <blockquote><pre>
- *     >(+(X, 3), 42)
+ *     &gt;(+(X, 3), 42)
  * </pre></blockquote>
  * The arithmetic operator will have a valid value if X is instantiated to a
  * NumberStructure object. If X is instantiated to, say, 40, then the arithmetic
@@ -59,8 +59,8 @@ public class ArithmeticOperator extends Structure
      *
      * @param operator the operator
      *
-     * @param term0 the first term
-     * @param term1 the second term
+     * @param term0    the first term
+     * @param term1    the second term
      *
      */
     public ArithmeticOperator(
@@ -92,6 +92,7 @@ public class ArithmeticOperator extends Structure
      *
      * @param d0
      * @param d1
+     *
      * @return
      */
     protected Object arithmeticValue(double d0, double d1) {
@@ -122,7 +123,7 @@ public class ArithmeticOperator extends Structure
      * Create a copy using the supplied scope for variables.
      *
      * @param ignored
-     * @param scope the scope to use for variables
+     * @param scope   the scope to use for variables
      *
      * @return a copy with variables from the supplied scope
      */
@@ -137,7 +138,7 @@ public class ArithmeticOperator extends Structure
     /**
      * Returns the result of applying this object's operator against the
      * arithmetic values of its two terms. For example,
-     *
+     * <p>
      * <blockquote><pre>
      *     NumberStructure two = new NumberStructure(2);
      *     ArithmeticOperator x, y;
@@ -145,18 +146,18 @@ public class ArithmeticOperator extends Structure
      *     y = new ArithmeticOperator('+', x, two);
      *     System.out.println(y + " = " + y.eval());
      * </pre></blockquote>
-     *
+     * <p>
      * prints out:
-     *
+     * <p>
      * <blockquote><pre>
      *     +(*(2, 2), 2) = 6.0
      * </pre></blockquote>
      *
      * @return the result of applying this object's operator to the arithmetic
-     * value of its two terms
+     *         value of its two terms
      *
      * @exception EvaluationException if either term is not a valid arithmetic
-     * value
+     *                                value
      */
     @Override
     public Object eval() {
@@ -166,6 +167,7 @@ public class ArithmeticOperator extends Structure
 
         return arithmeticValue(d0, d1);
     }
+
     /*
      * get the "double" value of this term
      */
@@ -173,6 +175,7 @@ public class ArithmeticOperator extends Structure
     /**
      *
      * @param t
+     *
      * @return
      */
     protected double eval(ArithmeticTerm t) {

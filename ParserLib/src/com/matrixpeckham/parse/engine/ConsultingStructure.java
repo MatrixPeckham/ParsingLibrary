@@ -1,6 +1,5 @@
 package com.matrixpeckham.parse.engine;
 
-import static java.lang.Thread.yield;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -25,6 +24,7 @@ public class ConsultingStructure extends Structure {
      *
      */
     protected DynamicRule resolvent;
+
     /*
      * Constructs a consulting structure with the specified functor
      * and terms, to consult against the supplied axiom source.
@@ -43,6 +43,7 @@ public class ConsultingStructure extends Structure {
         super(functor, terms);
         this.source = source;
     }
+
     /*
      * Returns the axioms that a consulting structure can
      * consult. Note that after canUnify fails, this object will
@@ -116,7 +117,7 @@ public class ConsultingStructure extends Structure {
              * to distract the proof dog enough to let a halt button
              * click come through.
              */
-            yield();
+            Thread.yield();
             /*
              * Find a new axiom to prove.
              */
@@ -143,21 +144,21 @@ public class ConsultingStructure extends Structure {
      * Unification is a kind of matching. Two structures unify if they have
      * equal functors, and the terms all unify. A variable unifies with a
      * structure simply by setting its instantiation to be the structure.
-     *
+     * <p>
      * <p>
      * For example, the following structures can unify:
      * <blockquote><pre>
      *     starred(jamesCagney, Title, Year)
      *     starred(jamesCagney, "Yankee Doodle Dandy", 1942)
      * </pre></blockquote>
-     *
+     * <p>
      * When these structures unify, the variable Title will bind itself to
      * "Yankee Doodle Dandy", and Year will bind to 1942. To be more specific,
      * Title will bind to the atom whose functor is "Yankee Doodle Dandy". Year
      * will bind to the atom whose functor is the number 1942.
      *
      * @return <code>true</code>, if this structure can unify with an axiom in
-     * the axiom source
+     *         the axiom source
      */
     protected boolean canUnify() {
         while (axioms().hasMoreAxioms()) {

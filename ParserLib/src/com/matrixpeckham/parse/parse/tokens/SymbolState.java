@@ -1,6 +1,7 @@
 package com.matrixpeckham.parse.parse.tokens;
 
 import static com.matrixpeckham.parse.parse.tokens.Token.TT_SYMBOL;
+
 import java.io.IOException;
 import java.io.PushbackReader;
 import java.util.logging.Logger;
@@ -14,22 +15,24 @@ import java.util.logging.Logger;
  */
 /**
  * The idea of a symbol is a character that stands on its own, such as an
- * ampersand or a parenthesis. For example, when tokenizing the expression <code>(isReady)&
+ * ampersand or a parenthesis. For example, when tokenizing the expression <code>(isReady)&amp;
  * (isWilling) </code>, a typical tokenizer would return 7 tokens, including one
  * for each parenthesis and one for the ampersand. Thus a series of symbols such
- * as <code>)&( </code> becomes three tokens, while a series of letters such as
+ * as <code>)&amp;( </code> becomes three tokens, while a series of letters such
+ * as
  * <code>isReady</code> becomes a single word token.
  * <p>
  * Multi-character symbols are an exception to the rule that a symbol is a
  * standalone character. For example, a tokenizer may want less-than-or-equals
  * to tokenize as a single token. This class provides a method for establishing
  * which multi-character symbols an object of this class should treat as single
- * symbols. This allows, for example, <code>"cat <= dog"</code> to tokenize as
+ * symbols. This allows, for example, <code>"cat &lt;= dog"</code> to tokenize
+ * as
  * three tokens, rather than splitting the less-than and equals symbols into
  * separate tokens.
  * <p>
- * By default, this state recognizes the following multi- character symbols: <code>!=, :-, <=,
- * >=</code>
+ * By default, this state recognizes the following multi- character symbols: <code>!=, :-, &lt;=,
+ * &gt;=</code>
  *
  * @author Steven J. Metsker
  *
@@ -42,7 +45,7 @@ public class SymbolState extends TokenizerState {
     /**
      * Constructs a symbol state with a default idea of what multi-character
      * symbols to accept (as described in the class comment).
-     *
+     * <p>
      */
     public SymbolState() {
         add("!=");
@@ -65,7 +68,9 @@ public class SymbolState extends TokenizerState {
      *
      * @param r
      * @param first
+     *
      * @return a symbol token from a reader
+     *
      * @throws java.io.IOException
      */
     @Override

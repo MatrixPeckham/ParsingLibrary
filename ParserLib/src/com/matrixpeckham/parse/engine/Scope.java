@@ -16,11 +16,11 @@ import java.util.logging.Logger;
  * A scope is a repository for variables. A dynamic rule has a scope, which
  * means that variables with the same name are the same variable. Consider a
  * rule that describes big cities:
- *
+ * <p>
  * <blockquote><pre>
- *     bigCity(Name) :- city(Name, Pop), >(Pop, 1000000);
+ *     bigCity(Name) :- city(Name, Pop), &gt;(Pop, 1000000);
  * </pre></blockquote>
- *
+ * <p>
  * This example follows the Prolog convention of using capitalized words for
  * variables. The variables <code>Name
  * </code> and <code>Pop</code> have scope throughout the rule.
@@ -102,7 +102,7 @@ public class Scope implements PubliclyCloneable<Scope> {
 
     /**
      * Returns a variable of the given name from this scope.
-     *
+     * <p>
      * If the so-named variable is not already in this scope, the scope will
      * create it and add the variable to itself.
      *

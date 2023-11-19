@@ -1,6 +1,5 @@
 package com.matrixpeckham.parse.imperative;
 
-import static java.lang.Thread.yield;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
@@ -56,7 +55,7 @@ public class CommandSequence extends Command {
     public void execute() {
         Iterator<Command> e = commands().iterator();
         while (e.hasNext() && !Thread.interrupted()) {
-            yield();
+            Thread.yield();
             (e.next()).execute();
         }
     }

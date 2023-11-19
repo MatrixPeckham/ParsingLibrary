@@ -1,9 +1,6 @@
 package com.matrixpeckham.parse.examples.imperative;
 
-import com.matrixpeckham.parse.engine.ArithmeticOperator;
-import com.matrixpeckham.parse.engine.Evaluation;
-import com.matrixpeckham.parse.engine.NumberFact;
-import com.matrixpeckham.parse.engine.Variable;
+import com.matrixpeckham.parse.engine.*;
 import com.matrixpeckham.parse.imperative.AssignmentCommand;
 import com.matrixpeckham.parse.imperative.ForCommand;
 import java.util.logging.Logger;
@@ -17,19 +14,19 @@ import java.util.logging.Logger;
  */
 /**
  * This class provides an example of the assignment command.
- *
+ * <p>
  * The <code>main</code> method of this class creates a variable "x" and
  * pre-assigns it the value 0. Then the method creates a "for" command that
  * encapsulates:
- *
+ * <p>
  * <blockquote><pre>
  *
- *     for (int i = 1; i <= 4; i++) {
+ *     for (int i = 1; i &lt;= 4; i++) {
  *         x = x * 10 + 1;
  *     }
  *
  * </pre></blockquote>
- *
+ * <p>
  * The method executes the "for" command, leaving x with the value 1111.0.
  *
  * @author Steven J. Metsker

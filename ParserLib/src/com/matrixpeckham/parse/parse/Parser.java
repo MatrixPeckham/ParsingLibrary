@@ -27,7 +27,7 @@ import java.util.Iterator;
  * repetitions of other parsers. For example, the following <code>
  * Parser</code> objects culminate in a <code>good
  * </code> parser that recognizes a description of good coffee.
- *
+ * <p>
  * <blockquote><pre>
  *     Alternation adjective = new Alternation();
  *     adjective.add(new Literal("steaming"));
@@ -39,14 +39,14 @@ import java.util.Iterator;
  *     Assembly a = new TokenAssembly(s);
  *     System.out.println(good.bestMatch(a));
  * </pre></blockquote>
- *
+ * <p>
  * This prints out:
- *
+ * <p>
  * <blockquote><pre>
  *     [hot, hot, steaming, hot, coffee]
  *     hot/hot/steaming/hot/coffee^
  * </pre></blockquote>
- *
+ * <p>
  * The parser does not match directly against a string, it matches against an
  * <code>Assembly</code>. The resulting assembly shows its stack, with four
  * words on it, along with its sequence of tokens, and the index at the end of
@@ -67,9 +67,9 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * Adds the elements of one vector to another.
      *
      * @param <T> type parameter
-     * @param v1 the vector to add to
+     * @param v1  the vector to add to
      *
-     * @param v2 the vector with elements to add
+     * @param v2  the vector with elements to add
      */
     public static <T> void add(ArrayList<T> v1, ArrayList<? extends T> v2) {
         Iterator<? extends T> e = v2.iterator();
@@ -83,7 +83,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      *
      *
      * @param <T>
-     * @param v the vector to copy
+     * @param v   the vector to copy
      *
      * @return a copy of the input vector, cloning each element of the vector
      */
@@ -104,6 +104,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * a name to identify this parser
      */
     protected String name;
+
     /*
      * an object that will work on an assembly whenever this
      * parser successfully matches against the assembly
@@ -124,7 +125,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * Constructs a parser with the given name.
      *
      * @param name A name to be known by. For parsers that are deep composites,
-     * a simple name identifying its purpose is useful.
+     *             a simple name identifying its purpose is useful.
      */
     public Parser(String name) {
         this.name = name;
@@ -144,7 +145,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * Accepts a "visitor" along with a collection of previously visited
      * parsers.
      *
-     * @param pv the visitor to accept
+     * @param pv      the visitor to accept
      *
      * @param visited a collection of previously visited parsers.
      */
@@ -182,7 +183,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * consumed by matches of this parser.
      *
      * @return an assembly with the greatest possible number of elements
-     * consumed by this parser
+     *         consumed by this parser
      *
      * @param a an assembly to match against
      *
@@ -199,7 +200,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * assembly.
      *
      * @return either null, or a completely matched version of the supplied
-     * assembly
+     *         assembly
      *
      * @param a an assembly to match against
      *
@@ -236,7 +237,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * aaa^b}</code>.
      *
      * @return a ArrayList of assemblies that result from matching against a
-     * beginning set of assemblies
+     *         beginning set of assemblies
      *
      * @param in a vector of assemblies to match against
      *
@@ -249,7 +250,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * assembler against the resulting state.
      *
      * @return a ArrayList of assemblies that result from matching against a
-     * beginning set of assemblies
+     *         beginning set of assemblies
      *
      * @param in a vector of assemblies to match against
      *
@@ -265,6 +266,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
         }
         return out;
     }
+
     /*
      * Create a random expansion for this parser, where a
      * concatenation of the returned collection will be a
@@ -278,6 +280,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      *
      * @param maxDepth
      * @param separator
+     *
      * @return a random element of this parser's language
      */
     public String randomInput(int maxDepth, String separator) {
@@ -312,7 +315,7 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * Returns a textual description of this parser.
      *
      * @return String a textual description of this parser, taking care to avoid
-     * infinite recursion
+     *         infinite recursion
      */
     @Override
     public String toString() {
@@ -352,8 +355,11 @@ public abstract class Parser<Tok, Val, Tar extends PubliclyCloneable<Tar>>
             return unvisitedString(visited, level);
         }
     }
-    /*
+
+    /**
      * Returns a textual description of this string.
+     *
+     * @return a text description of the string produced by this parser.
      */
 
     protected abstract String unvisitedString(

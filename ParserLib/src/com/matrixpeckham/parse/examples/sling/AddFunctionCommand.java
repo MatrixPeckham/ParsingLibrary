@@ -3,7 +3,6 @@ package com.matrixpeckham.parse.examples.sling;
 import com.matrixpeckham.parse.imperative.Command;
 import java.util.logging.Logger;
 
-
 public class AddFunctionCommand extends Command {
 
     /**
@@ -25,13 +24,13 @@ public class AddFunctionCommand extends Command {
      * Construct a command to add the supplied function to the supplied function
      * collection.
      *
-     * @param RenderableCollection the collection
-     * @param f
+     * @param renderables the collection
      *
-     * @param SlingFunction the function to evaluate and add at execution time
+     * @param f           the function to evaluate and add at execution time
      *
-     * @param nLine a varialbe representing the number of lines to plot when
-     * rendering the function
+     * @param nLine       a varialbe representing the number of lines to plot
+     *                    when
+     *                    rendering the function
      */
     public AddFunctionCommand(
             RenderableCollection renderables,
@@ -63,4 +62,5 @@ public class AddFunctionCommand extends Command {
 
     private static final Logger LOG
             = Logger.getLogger(AddFunctionCommand.class.getName());
+
 }

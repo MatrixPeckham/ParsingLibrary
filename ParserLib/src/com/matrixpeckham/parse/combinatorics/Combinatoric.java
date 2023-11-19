@@ -1,21 +1,21 @@
 package com.matrixpeckham.parse.combinatorics;
 
 import static java.lang.Math.min;
+
 import java.math.BigInteger;
 import java.util.logging.Logger;
-
 
 public class Combinatoric {
 
     /**
      * @return BigInteger, the number of unordered subsets of m objects chosen
-     * from a group of n objects.
+     *         from a group of n objects.
      *
      * @param n int
      *
      * @param m int
      *
-     * @exception CombinatoricException unless n >= m >= 0
+     * @exception CombinatoricException unless n &gt;= m &gt;= 0
      */
     public static BigInteger c(int n, int m)
             throws CombinatoricException {
@@ -56,7 +56,7 @@ public class Combinatoric {
      *
      * @param n int
      *
-     * @exception CombinatoricException unless n >= 0
+     * @exception CombinatoricException unless n &lt;= 0
      */
     public static BigInteger factorial(int n)
             throws CombinatoricException {
@@ -76,7 +76,7 @@ public class Combinatoric {
      *
      * @param n int
      *
-     * @exception CombinatoricException unless n >= 0
+     * @exception CombinatoricException unless n &gt;= 0
      */
     public static BigInteger p(int n)
             throws CombinatoricException {
@@ -86,13 +86,13 @@ public class Combinatoric {
 
     /**
      * @return BigInteger, the number of possible arrangements, or orderings, of
-     * m objects chosen from a group of n objects.
+     *         m objects chosen from a group of n objects.
      *
      * @param n int
      *
      * @param m int
      *
-     * @exception CombinatoricException unless n >= m >= 0
+     * @exception CombinatoricException unless n &gt;= m &gt;= 0
      */
     public static BigInteger p(int n, int m)
             throws CombinatoricException {
@@ -109,4 +109,5 @@ public class Combinatoric {
 
     private static final Logger LOG
             = Logger.getLogger(Combinatoric.class.getName());
+
 }

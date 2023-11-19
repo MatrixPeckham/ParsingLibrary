@@ -1,8 +1,6 @@
 package com.matrixpeckham.parse.examples.chips;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class ChipBase {
@@ -90,8 +88,8 @@ public class ChipBase {
     /**
      * Returns a Map of customers.
      *
-     * @return
-     * @returna a Map of customers
+     *
+     * @return a Map of customers
      */
     public static synchronized Map<Integer, Customer> customer() {
         if (customer == null) {
@@ -120,7 +118,8 @@ public class ChipBase {
      * Returns a vector of orders.
      *
      * @return
-     * @returna a vector of orders
+     *
+     * @return a vector of orders
      */
     public static synchronized ArrayList<Order> order() {
         if (order == null) {

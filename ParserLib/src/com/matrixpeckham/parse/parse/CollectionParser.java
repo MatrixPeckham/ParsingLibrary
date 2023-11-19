@@ -125,9 +125,11 @@ public abstract class CollectionParser<Tok, Val, Tar extends PubliclyCloneable<T
      * Helps to textually describe this CollectionParser.
      *
      * @return
-     * @returns the string to place between parsers in the collection
+     *
+     * @return the string to place between parsers in the collection
      */
     protected abstract String toStringSeparator();
+
     /*
      * Returns a textual description of this parser.
      */
@@ -136,6 +138,7 @@ public abstract class CollectionParser<Tok, Val, Tar extends PubliclyCloneable<T
      *
      * @param visited
      * @param level
+     *
      * @return
      */
     @Override
@@ -155,4 +158,5 @@ public abstract class CollectionParser<Tok, Val, Tar extends PubliclyCloneable<T
         buf.append(">");
         return buf.toString();
     }
+
 }

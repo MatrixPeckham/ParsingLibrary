@@ -1,11 +1,12 @@
 package com.matrixpeckham.parse.examples.mechanics;
 
+import static java.lang.Character.isUpperCase;
+import static java.lang.Math.random;
+
 import com.matrixpeckham.parse.parse.Parser;
 import com.matrixpeckham.parse.parse.tokens.Token;
 import com.matrixpeckham.parse.parse.tokens.Word;
 import com.matrixpeckham.parse.utensil.PubliclyCloneable;
-import static java.lang.Character.isUpperCase;
-import static java.lang.Math.random;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -82,7 +83,7 @@ public class UppercaseWord<Val, Tar extends PubliclyCloneable<Tar>>
      *
      * @return string a textual description of this production
      *
-     * @see ProductionRule#toString()
+     * @see Parser#toString()
      */
     @Override
     protected String unvisitedString(ArrayList<Parser<Token, Val, Tar>> visited,

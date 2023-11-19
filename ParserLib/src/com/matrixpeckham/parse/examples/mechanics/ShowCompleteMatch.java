@@ -1,6 +1,7 @@
 package com.matrixpeckham.parse.examples.mechanics;
 
 import static com.matrixpeckham.parse.examples.arithmetic.ArithmeticParser.start;
+
 import com.matrixpeckham.parse.parse.Parser;
 import com.matrixpeckham.parse.parse.tokens.Token;
 import com.matrixpeckham.parse.parse.tokens.TokenAssembly;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
 public class ShowCompleteMatch {
 
     /**
-     * Show that </code>Parser.completeMatch()</code> returns a complete match,
+     * Show that <code>Parser.completeMatch()</code> returns a complete match,
      * or null.
      *
      * @param args

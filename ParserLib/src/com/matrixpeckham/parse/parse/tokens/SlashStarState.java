@@ -25,9 +25,11 @@ public class SlashStarState extends TokenizerState {
      * Ignore everything up to a closing star and slash, and then return the
      * tokenizer's next token.
      *
-     * @param r
+     * @param r       reader
      * @param theStar
+     *
      * @return the tokenizer's next token
+     *
      * @throws java.io.IOException
      */
     @Override

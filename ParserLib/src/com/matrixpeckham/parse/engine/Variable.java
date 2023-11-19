@@ -28,7 +28,7 @@ public class Variable implements ArithmeticTerm, ComparisonTerm {
      * Create a copy that uses the provided scope.
      *
      * @param ignored
-     * @param scope the scope to use for variables in the copy
+     * @param scope   the scope to use for variables in the copy
      *
      * @return a copy that uses the provided scope
      */
@@ -42,7 +42,7 @@ public class Variable implements ArithmeticTerm, ComparisonTerm {
      * its value.
      *
      * @return a string representation of this variable, showing both its name
-     * and its value.
+     *         and its value.
      */
     public String definitionString() {
         if (instantiation != null) {
@@ -57,7 +57,7 @@ public class Variable implements ArithmeticTerm, ComparisonTerm {
      * @param o the object to compare
      *
      * @return true, if the supplied object has the same name, and it the two
-     * variables' instantiations are equal
+     *         variables' instantiations are equal
      */
     @Override
     public boolean equals(Object o) {
@@ -102,8 +102,8 @@ public class Variable implements ArithmeticTerm, ComparisonTerm {
      * Returns true if this variable is uninstantiated, or if it contains a
      * list.
      *
-     * @Returns true if this variable is uninstantiated, or if it contains a
-     * list
+     * @return true if this variable is uninstantiated, or if it contains a
+     *         list
      */
     @Override
     public boolean isList() {
@@ -153,9 +153,9 @@ public class Variable implements ArithmeticTerm, ComparisonTerm {
      * @param s a structure to unify with
      *
      * @return a unification. If this variable is already instantiated, the
-     * unification is the result of unifying with the input structure.
-     * Otherwise, the result is a new unification containing just this variable,
-     * instantiated to the input structure.
+     *         unification is the result of unifying with the input structure.
+     *         Otherwise, the result is a new unification containing just this variable,
+     *         instantiated to the input structure.
      */
     @Override
     public Unification unify(Structure s) {
@@ -176,7 +176,7 @@ public class Variable implements ArithmeticTerm, ComparisonTerm {
      * @param t a term to unify with
      *
      * @return the sum of the variables that bind to values to make the
-     * unification work; Returns null if the unification fails.
+     *         unification work; Returns null if the unification fails.
      */
     @Override
     public Unification unify(Term t) {
@@ -190,7 +190,7 @@ public class Variable implements ArithmeticTerm, ComparisonTerm {
      * @param v a variable to unify with
      *
      * @return the sum of the variables that bind to values to make the
-     * unification work; Returns null if the unification fails.
+     *         unification work; Returns null if the unification fails.
      */
     @Override
     public Unification unify(Variable v) {

@@ -1,6 +1,7 @@
 package com.matrixpeckham.parse.parse.tokens;
 
 import static com.matrixpeckham.parse.parse.tokens.Token.TT_EOF;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -29,10 +30,8 @@ public class TokenStringSource {
      * @param tokenizer a tokenizer to read tokens from
      *
      * @param delimiter the character that fences off where one TokenString ends
-     * and the next begins
+     *                  and the next begins
      *
-     * @returns a TokenStringSource that will read TokenStrings from the
-     * specified tokenizer, delimited by the specified delimiter
      */
     public TokenStringSource(
             Tokenizer tokenizer, String delimiter) {
@@ -56,7 +55,7 @@ public class TokenStringSource {
      * Returns true if the source has more TokenStrings.
      *
      * @return true, if the source has more TokenStrings that have not yet been
-     * popped with <code>
+     *         popped with <code>
      *           nextTokenString</code>.
      */
     public boolean hasMoreTokenStrings() {
@@ -112,7 +111,7 @@ public class TokenStringSource {
      * delimiter or the end of the source.
      *
      * @return a ArrayList of the tokens in the source up to either the
-     * delimiter or the end of the source.
+     *         delimiter or the end of the source.
      */
     protected ArrayList<Token> nextArrayList() {
         ArrayList<Token> v = new ArrayList<>();

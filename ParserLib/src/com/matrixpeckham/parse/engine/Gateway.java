@@ -12,7 +12,7 @@ package com.matrixpeckham.parse.engine;
  * failing.
  * <p>
  * Examples of gateways are comparisons, negations, and mathematical
- * evaluations. For example, <code>Age >
+ * evaluations. For example, <code>Age &gt;
  * 18</code> is either true or not, it cannot prove itself in more than one way.
  * Also, <code> not married(X)</code> is true only if the structure
  * <code>married(X)</code> cannot prove itself at all.
@@ -21,10 +21,11 @@ package com.matrixpeckham.parse.engine;
  * example, a rule might contain:
  * <blockquote><pre>
  *     ..., plays(jim, Game, Rating),
- *         Rating >= 7, likes(jane, Game), ...
+ *         Rating &gt;= 7, likes(jane, Game), ...
  * </pre></blockquote>
  * As this rule proves itself, if it finds a game that Jim plays with a rating
- * of, say, 8, the rule will accept that <code>Rating >= 7</code>. The rule will
+ * of, say, 8, the rule will accept that <code>Rating &gt;= 7</code>. The rule
+ * will
  * then proceed to prove the structures after the comparison. The rule may
  * succeed with the latter structures many times, but eventually these
  * structures will run out of proofs, and the rule will fail back to the
@@ -47,12 +48,12 @@ package com.matrixpeckham.parse.engine;
  *
  */
 public abstract class Gateway extends Structure {
+
     /*
      * If this structure is involved in a proof, the gate is
      * open and will shut when the rule fails back to this
      * structure.
      */
-
     /**
      *
      */
@@ -64,7 +65,7 @@ public abstract class Gateway extends Structure {
      *
      * @param functor the functor for this gateway
      *
-     * @param terms the terms of the gateway
+     * @param terms   the terms of the gateway
      */
     protected Gateway(Object functor, Term[] terms) {
         super(functor, terms);
@@ -83,7 +84,6 @@ public abstract class Gateway extends Structure {
      * <p>
      * If the gate is not open, this gateway will try to prove itself. Then,
      * <ul>
-     * <p>
      * <li>
      * If the gate is not open and this gateway can prove itself, then this
      * method will return true and leave the gate open. Returning true allows
@@ -143,4 +143,5 @@ public abstract class Gateway extends Structure {
      */
     protected void cleanup() {
     }
+
 }

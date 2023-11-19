@@ -4,15 +4,8 @@ import com.matrixpeckham.parse.engine.Axiom;
 import com.matrixpeckham.parse.engine.Term;
 import com.matrixpeckham.parse.examples.logic.ArithmeticAssembler;
 import com.matrixpeckham.parse.examples.logic.AtomAssembler;
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Num;
-import com.matrixpeckham.parse.parse.tokens.QuotedString;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.Word;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.TypeOrType;
 import java.util.logging.Logger;
 
@@ -26,9 +19,9 @@ import java.util.logging.Logger;
 /**
  * This utility class provides support to the Jaql parser, specifically for
  * <code>expression()</code> and <code>comparison()</code> subparsers.
- *
+ * <p>
  * The grammar this class supports is:
- *
+ * <p>
  * <blockquote><pre>
  *     comparison = arg operator arg;
  *     arg        = expression | QuotedString;
@@ -36,7 +29,7 @@ import java.util.logging.Logger;
  *     term       = factor ('*' factor | '/' factor)*;
  *     factor     = '(' expression ')' | Num | variable;
  *     variable   = Word;
- *     operator   = "<" | ">" | "=" | "<=" | ">=" | "!=";
+ *     operator   = "&lt;" | "&gt;" | "=" | "&lt;=" | "&gt;=" | "!=";
  * </pre></blockquote>
  *
  * @author Steven J. Metsker
@@ -78,7 +71,7 @@ public class ComparisonParser {
         a.add(expression());
         a.add(
                 new QuotedString<TypeOrType<Axiom, Term>, QueryBuilder>()
-                .setAssembler(new AtomAssembler()));
+                        .setAssembler(new AtomAssembler()));
         return a;
     }
 
@@ -96,6 +89,7 @@ public class ComparisonParser {
         s.setAssembler(new ComparisonAssembler());
         return s;
     }
+
     /*
      * Recognize '/' followed by a factor.
      */
@@ -138,6 +132,7 @@ public class ComparisonParser {
         }
         return expression;
     }
+
     /*
      * Recognize an expression in parens, or a number, or a
      * variable.
@@ -167,6 +162,7 @@ public class ComparisonParser {
 
         return factor;
     }
+
     /*
      * Recognize '-' followed by a term.
      */
@@ -183,6 +179,7 @@ public class ComparisonParser {
         s.setAssembler(new ArithmeticAssembler('-'));
         return s;
     }
+
     /*
      * Recognize an operator.
      */
@@ -202,6 +199,7 @@ public class ComparisonParser {
         a.add(new Symbol<>("!="));
         return a;
     }
+
     /*
      * Recognize '+' followed by a term.
      */
@@ -218,6 +216,7 @@ public class ComparisonParser {
         s.setAssembler(new ArithmeticAssembler('+'));
         return s;
     }
+
     /*
      * Recognize a "term", per the language definition.
      */
@@ -243,6 +242,7 @@ public class ComparisonParser {
         term.add(new Repetition<>(a));
         return term;
     }
+
     /*
      * Recognize '*' followed by a factor.
      */
@@ -259,6 +259,7 @@ public class ComparisonParser {
         s.setAssembler(new ArithmeticAssembler('*'));
         return s;
     }
+
     /*
      * Recognizes any word.
      */

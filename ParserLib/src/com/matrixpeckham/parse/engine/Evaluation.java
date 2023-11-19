@@ -47,8 +47,8 @@ public class Evaluation extends Gateway {
      * If the attempt to evaluate the second term causes an exception, this
      * method swallows it and simply fails.
      *
-     * @return <code>true<</code>, if this Evaluation can unify its first term
-     * with the arithmetic value of its second term
+     * @return <code>true</code>, if this Evaluation can unify its first term
+     *         with the arithmetic value of its second term
      */
     @Override
     public boolean canProveOnce() {
@@ -61,6 +61,7 @@ public class Evaluation extends Gateway {
         currentUnification = term0.unify(new Atom(o));
         return currentUnification != null;
     }
+
     /*
      * The superclass calls this after the evaluation has
      * succeeded once, and rule is now failing backwards. The
@@ -78,7 +79,7 @@ public class Evaluation extends Gateway {
      *
      * @param ignored ignored
      *
-     * @param scope the scope to use for variables in the copy
+     * @param scope   the scope to use for variables in the copy
      *
      * @return a copy that uses the provided scope
      */
@@ -91,7 +92,7 @@ public class Evaluation extends Gateway {
 
     /**
      * Releases the variable bindings that the last unification produced.
-     *
+     * <p>
      */
     public void unbind() {
         if (currentUnification != null) {

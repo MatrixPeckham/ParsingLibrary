@@ -1,14 +1,7 @@
 package com.matrixpeckham.parse.examples.introduction;
 
-import com.matrixpeckham.parse.parse.Assembler;
-import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.TokenAssembly;
-import com.matrixpeckham.parse.parse.tokens.Word;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
@@ -37,17 +30,20 @@ public class ShowElementsAbove {
 
         Parser<Token, NullCloneable, NullCloneable> list
                 = new Sequence<Token, NullCloneable, NullCloneable>()
-                .add(new Symbol<>('{'))
-                .add(new Repetition<Token, NullCloneable, NullCloneable>(
+                        .add(new Symbol<>('{'))
+                        .add(new Repetition<Token, NullCloneable, NullCloneable>(
                                 new Word<>()))
-                .add(new Symbol<NullCloneable, NullCloneable>('}').discard());
+                        .add(new Symbol<NullCloneable, NullCloneable>('}').
+                                discard());
 
         list.setAssembler(new Assembler<Token, NullCloneable, NullCloneable>() {
+
             @Override
             public void workOn(Assembly<Token, NullCloneable, NullCloneable> a) {
                 Token fence = new Token('{');
                 System.out.println(elementsAbove(a, fence));
             }
+
         });
 
         list.bestMatch(

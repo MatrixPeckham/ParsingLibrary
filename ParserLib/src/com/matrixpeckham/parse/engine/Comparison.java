@@ -13,8 +13,9 @@ import java.util.logging.Logger;
  * A Comparison object applies a comparison operator to its terms in order to
  * prove itself.
  * <p>
- * The functor of a comparison must be one of the strings, "<",
- * ">", "<=", ">=", "=", or "!=", indicating comparison this object will perform
+ * The functor of a comparison must be one of the strings, "&lt;",
+ * "&gt;", "&lt;=", "&gt;=", "=", or "!=", indicating comparison this object
+ * will perform
  * during a proof. Any other functor will cause the comparison to always be
  * false.
  * <p>
@@ -22,11 +23,11 @@ import java.util.logging.Logger;
  * <blockquote><pre>
  *     Atom alpha = new Atom("alpha");
  *     Atom beta = new Atom("beta");
- *     Comparison c = new Comparison("<=", alpha, beta);
+ *     Comparison c = new Comparison("&lt;=", alpha, beta);
  *     System.out.println(c + ", " + c.canFindNextProof());
  * </pre></blockquote> This prints out:
  * <blockquote><pre>
- *     <=(alpha, beta), true
+ *     &lt;=(alpha, beta), true
  * </pre></blockquote>
  *
  * @author Steven J. Metsker
@@ -46,8 +47,8 @@ public class Comparison extends Gateway implements BooleanTerm {
      *
      * @param operator the comparison operator
      *
-     * @param term0 the first term
-     * @param term1 the second term
+     * @param term0    the first term
+     * @param term1    the second term
      */
     public Comparison(String operator, ComparisonTerm term0,
             ComparisonTerm term1) {
@@ -76,7 +77,7 @@ public class Comparison extends Gateway implements BooleanTerm {
      * this comparison's terms.
      *
      * @return <code>true</code> if the comparison operator holds true between
-     * the values of this comparison's terms.
+     *         the values of this comparison's terms.
      */
     @Override
     public boolean canProveOnce() {
@@ -183,7 +184,7 @@ public class Comparison extends Gateway implements BooleanTerm {
      *
      * @param ignored ignored
      *
-     * @param scope the scope to use for variables in the copy
+     * @param scope   the scope to use for variables in the copy
      *
      * @return a copy that uses the provided scope
      */
@@ -200,7 +201,7 @@ public class Comparison extends Gateway implements BooleanTerm {
      * between the values of the two terms.
      *
      * @return <code>Boolean.TRUE</code> if the comparison operator holds true
-     * between the values of the two terms.
+     *         between the values of the two terms.
      */
     @Override
     public Object eval() {
