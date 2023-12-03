@@ -1,8 +1,13 @@
 package com.matrixpeckham.parse.examples.sling;
 
 import static java.lang.Math.random;
+
 import java.util.logging.Logger;
 
+/**
+ * Objects of this class return a random number between 0
+ * and 1 when asked for their value.
+ */
 public class Random extends SlingFunction {
 
     @Override
@@ -14,7 +19,7 @@ public class Random extends SlingFunction {
      * Generate a random number r between 0 and 1, and return the point (t, r).
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return a new point: <code>(t, random())</code>
      */

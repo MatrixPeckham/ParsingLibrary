@@ -1,25 +1,19 @@
 package com.matrixpeckham.parse.examples.query;
 
-import com.matrixpeckham.parse.engine.AxiomIterator;
-import com.matrixpeckham.parse.engine.AxiomSource;
-import com.matrixpeckham.parse.engine.Fact;
-import com.matrixpeckham.parse.engine.Program;
-import com.matrixpeckham.parse.engine.ProgramEnumerator;
-import com.matrixpeckham.parse.engine.Structure;
-import com.matrixpeckham.parse.engine.Term;
-import com.matrixpeckham.parse.engine.Variable;
-import com.matrixpeckham.parse.examples.chips.Chip;
-import static com.matrixpeckham.parse.examples.chips.ChipBase.chip;
-import static com.matrixpeckham.parse.examples.chips.ChipBase.customer;
-import static com.matrixpeckham.parse.examples.chips.ChipBase.order;
-import com.matrixpeckham.parse.examples.chips.Customer;
-import com.matrixpeckham.parse.examples.chips.Order;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import static com.matrixpeckham.parse.examples.chips.ChipBase.*;
+
+import com.matrixpeckham.parse.engine.*;
+import com.matrixpeckham.parse.examples.chips.*;
+import java.util.*;
 import java.util.logging.Logger;
 
+/**
+ * This class draws on data from the class ChipBase in
+ * sjm.examples.chips, to supplies facts about chips,
+ * customers, and orders.
+ *
+ * @author Steven J. Metsker
+ */
 public class ChipSource implements AxiomSource {
 
     /**
@@ -44,11 +38,12 @@ public class ChipSource implements AxiomSource {
 
     /**
      * Returns all the data in the chip database.
-     *
+     * <p>
      * If there were thousands of chip facts, this method could use the querying
      * structure to limit the number of facts it returns.
      *
      * @param s
+     *
      * @return all the data in the chip database.
      */
     @Override
@@ -60,6 +55,7 @@ public class ChipSource implements AxiomSource {
      * Create a chip fact from a chip object.
      *
      * @param c
+     *
      * @return a chip fact, given a chip object.
      */
     public static Fact fact(Chip c) {
@@ -77,6 +73,7 @@ public class ChipSource implements AxiomSource {
      * Create a customer fact from a customer object.
      *
      * @param c
+     *
      * @return a customer fact, given a customer object
      */
     public static Fact fact(Customer c) {
@@ -91,6 +88,7 @@ public class ChipSource implements AxiomSource {
      * Create an order fact from an order object.
      *
      * @param o
+     *
      * @return an order fact, given an order object
      */
     public static Fact fact(Order o) {
@@ -134,12 +132,10 @@ public class ChipSource implements AxiomSource {
         }
         return p;
     }
-    /*
-     * Returns a Map of query structures for the chip
-     * classes, keyed by the class name.
-     */
 
     /**
+     * Returns a Map of query structures for the chip
+     * classes, keyed by the class name.
      *
      * @return
      */
@@ -152,11 +148,9 @@ public class ChipSource implements AxiomSource {
         }
         return queries;
     }
-    /*
-     * Returns a query that matches chip facts.
-     */
 
     /**
+     * Returns a query that matches chip facts.
      *
      * @return
      */
@@ -168,11 +162,9 @@ public class ChipSource implements AxiomSource {
             new Variable("Ounces"),
             new Variable("Oil")});
     }
-    /*
-     * Returns a query that matches chip facts.
-     */
 
     /**
+     * Returns a query that matches chip facts.
      *
      * @return
      */
@@ -182,11 +174,9 @@ public class ChipSource implements AxiomSource {
             new Variable("LastName"),
             new Variable("FirstName")});
     }
-    /*
-     * Returns a query that matches chip facts.
-     */
 
     /**
+     * Returns a query that matches chip facts.
      *
      * @return
      */
@@ -204,10 +194,10 @@ public class ChipSource implements AxiomSource {
      * @return a query structure
      *
      * @param className the class name (from the chip object model) for which to
-     * return a query
+     *                  return a query
      *
      * @exception UnrecognizedClassException if the class name is not part of
-     * the chip object model
+     *                                       the chip object model
      */
     public static Structure queryStructure(String className) {
         if (className.equals("chip")) {

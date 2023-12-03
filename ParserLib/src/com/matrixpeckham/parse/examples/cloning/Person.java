@@ -3,7 +3,7 @@ package com.matrixpeckham.parse.examples.cloning;
 import java.util.logging.Logger;
 
 /**
- * This type was created by Steve Metsker
+ * Demonstrates Cloneable
  */
 public class Person implements Cloneable {
 
@@ -24,6 +24,7 @@ public class Person implements Cloneable {
      * This method was created by Steve Metsker
      *
      * @return java.lang.Object
+     *
      * @throws java.lang.CloneNotSupportedException
      */
     @Override

@@ -6,20 +6,80 @@ import com.matrixpeckham.parse.examples.mechanics.LowercaseWord;
 import com.matrixpeckham.parse.examples.mechanics.UppercaseWord;
 import com.matrixpeckham.parse.examples.query.QueryBuilder;
 import com.matrixpeckham.parse.examples.track.Track;
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Empty;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Literal;
-import com.matrixpeckham.parse.parse.tokens.Num;
-import com.matrixpeckham.parse.parse.tokens.QuotedString;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import com.matrixpeckham.parse.utensil.TypeOrType;
 import java.util.logging.Logger;
 
+/**
+ * This class provides a parser for Logikus, a logic
+ * language similar to Prolog.
+ * <p>
+ * The grammar this class supports is:
+ * <blockquote><pre>
+ *
+ *     axiom        = structure (ruleDef | Empty);
+ *     structure    = functor ('(' commaList(term) ')' | Empty);
+ *     functor      = '.' | LowercaseWord | QuotedString;
+ *     term         = structure | Num | list | variable;
+ *     variable     = UppercaseWord | '_';
+ * <br>
+ *     ruleDef      = ":-" commaList(condition);
+ *     condition    = structure | not | evaluation |
+ *                    comparison | list;
+ * <br>
+ *     not          = "not" structure ;
+ * <br>
+ *     evaluation   =      '#' '(' arg ',' arg ')';
+ *     comparison   = operator '(' arg ',' arg ')';
+ *     arg          = expression | functor;
+ *     operator     = '&lt;' | '&gt;' | '=' | "&lt;=" | "&gt;=" | "!=" ;
+ *     expression   = phrase ('+' phrase | '-' phrase)*;
+ *     phrase       = factor ('*' factor | '/' factor)*;
+ *     factor       = '(' expression ')' | Num | variable;
+ * <br>
+ *     list         = '[' (listContents | Empty) ']';
+ *     listContents = commaList(term) listTail;
+ *     listTail     = ('|' (variable | list)) | Empty;
+ * <br>
+ *     commaList(p) = p (',' p)*;
+ * </pre></blockquote>
+ * <p>
+ * The following program and query use most of the features of
+ * the Logikus grammar:
+ * <p>
+ * <blockquote><pre>
+ *     // program
+ *     member(X, [X | Rest]);
+ *     member(X, [Y | Rest]) :- member(X, Rest);
+ *     primes([2, 3, 5, 7, 11, 13]);
+ *     factor(X, P, Q) :-
+ *         primes(Primes),
+ *         member(P, Primes), member(Q, Primes), =(P*Q, X);
+ * <br>
+ *     // query
+ *     factor(91, A, B)
+ * <br>
+ *     // results
+ *     A = 7.0, B = 13.0
+ *     A = 13.0, B = 7.0
+ *     no
+ * </pre></blockquote>
+ * <p>
+ * The class <code>LogikusFacade</code> simplifies the
+ * construction of <code>Program</code> and <code>Query</code>
+ * objects from the text given above. A Java program can prove
+ * the query to generate the results.
+ * <p>
+ * <p>
+ * The class <code>LogikusIde</code> is an example of using the
+ * <code>Logikus</code> parser in practice. It uses
+ * <code>LogikusFacade</code> to create a <code>Query</code>,
+ * proves the query, and displays the query's variables for
+ * each proof. As in Prolog, the Logikus development
+ * environment prints "no" when no further proofs remain.
+ */
 public class LogikusParser {
 
     /**
@@ -36,15 +96,11 @@ public class LogikusParser {
      *
      */
     protected Sequence<Token, TypeOrType<Axiom, Term>, QueryBuilder> list;
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    arg = expression | functor;
-     */
 
     /**
-     *
-     * @return
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * arg = expression | functor;
      */
     protected Parser<Token, TypeOrType<Axiom, Term>, QueryBuilder> arg() {
         Alternation<Token, TypeOrType<Axiom, Term>, QueryBuilder> a
@@ -56,7 +112,7 @@ public class LogikusParser {
 
     /**
      * Return a parser that recognizes the grammar:
-     *
+     * <p>
      * <blockquote><pre>
      *    axiom = structure (ruleDef | Empty);
      * </pre></blockquote>
@@ -77,21 +133,20 @@ public class LogikusParser {
         s.setAssembler(new AxiomAssembler());
         return s;
     }
-    /*
-     * Using the given parser, this method composes a new
-     * parser with the grammar:
-     *
-     *     commaList(p) = p (',' p)*;
-     *
-     * The Logikus language uses this construction several
-     * times.
-     */
 
     /**
+     * Using the given parser, this method composes a new
+     * parser with the grammar:
+     * <p>
+     * commaList(p) = p (',' p)*;
+     * <p>
+     * The Logikus language uses this construction several
+     * times.
      *
      * @param <Val>
      * @param <Tar>
      * @param p
+     *
      * @return
      */
     protected static <Val, Tar extends PubliclyCloneable<Tar>> Sequence<Token, Val, Tar> commaList(
@@ -108,7 +163,7 @@ public class LogikusParser {
 
     /**
      * Return a parser that recognizes the grammar:
-     *
+     * <p>
      * <blockquote><pre>
      *    comparison = operator '(' arg ',' arg ')';
      * </pre></blockquote>
@@ -130,7 +185,7 @@ public class LogikusParser {
 
     /**
      * Return a parser that recognizes the grammar:
-     *
+     * <p>
      * <blockquote><pre>
      *    condition = structure | not | evaluation | comparison |
      *                list;
@@ -148,13 +203,11 @@ public class LogikusParser {
         a.add(list());
         return a;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    divideFactor = '/' factor;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * divideFactor = '/' factor;
      *
      * @return
      */
@@ -166,19 +219,17 @@ public class LogikusParser {
         s.setAssembler(new ArithmeticAssembler('/'));
         return s;
     }
-    /*
+
+    /**
      * Return a parser that recognizes the grammar:
-     *
-     *     evaluation = '#' '(' arg ',' arg ')';
-     *
+     * <p>
+     * evaluation = '#' '(' arg ',' arg ')';
+     * <p>
      * For example, this parser will recognize
      * "#(X, 12321/111)", translating it to an Evaluation
      * object. When asked to prove itself, the Evaluation
      * object will unify its first term with the value of
      * its second term.
-     */
-
-    /**
      *
      * @return
      */
@@ -195,13 +246,11 @@ public class LogikusParser {
         t.setAssembler(new EvaluationAssembler());
         return t;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    expression = phrase ('+' phrase | '-' phrase)*;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * expression = phrase ('+' phrase | '-' phrase)*;
      *
      * @return
      */
@@ -221,13 +270,11 @@ public class LogikusParser {
         }
         return expression;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    factor = '(' expression ')' | Num | variable;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * factor = '(' expression ')' | Num | variable;
      *
      * @return
      */
@@ -244,13 +291,11 @@ public class LogikusParser {
         a.add(variable());
         return a;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    functor = '.' | LowercaseWord | QuotedString;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * functor = '.' | LowercaseWord | QuotedString;
      *
      * @return
      */
@@ -265,11 +310,11 @@ public class LogikusParser {
 
     /**
      * Return a parser that recognizes the grammar:
-     *
+     * <p>
      * <blockquote><pre>
      *    list = '[' (listContents | Empty) ']';
      * </pre></blockquote>
-     *
+     * <p>
      * The class comment gives the complete grammar for lists, as part of the
      * Logikus grammar.
      *
@@ -293,13 +338,11 @@ public class LogikusParser {
         }
         return list;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    listContents = commaList(term) listTail;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * listContents = commaList(term) listTail;
      *
      * @return
      */
@@ -309,15 +352,11 @@ public class LogikusParser {
         s.add(listTail());
         return s;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    listTail = ('|' (variable | list)) | Empty;
-     */
 
     /**
-     *
-     * @return
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * listTail = ('|' (variable | list)) | Empty;
      */
     protected Parser<Token, TypeOrType<Axiom, Term>, QueryBuilder> listTail() {
         Alternation<Token, TypeOrType<Axiom, Term>, QueryBuilder> tail
@@ -339,13 +378,11 @@ public class LogikusParser {
                 setAssembler(new ListAssembler()));
         return a;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    minusPhrase = '-' phrase;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * minusPhrase = '-' phrase;
      *
      * @return
      */
@@ -357,13 +394,11 @@ public class LogikusParser {
         s.setAssembler(new ArithmeticAssembler('-'));
         return s;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     not = "not" structure;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * not = "not" structure;
      *
      * @return
      */
@@ -376,12 +411,10 @@ public class LogikusParser {
         t.setAssembler(new NotAssembler());
         return t;
     }
-    /*
-     * Return a parser that recognizes a number and
-     * stacks a corresponding atom.
-     */
 
     /**
+     * Return a parser that recognizes a number and
+     * stacks a corresponding atom.
      *
      * @return
      */
@@ -390,13 +423,11 @@ public class LogikusParser {
         n.setAssembler(new AtomAssembler());
         return n;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     operator = '<' | '>' | '=' | "<=" | ">=" | "!=" ;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * operator = '&lt;' | '&gt;' | '=' | "&lt;=" | "&gt;=" | "!=" ;
      *
      * @return
      */
@@ -411,13 +442,11 @@ public class LogikusParser {
         a.add(new Symbol<>("!="));
         return a;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    phrase = factor ('*' factor | '/' factor)*;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * phrase = factor ('*' factor | '/' factor)*;
      *
      * @return
      */
@@ -432,13 +461,11 @@ public class LogikusParser {
         phrase.add(new Repetition<>(a));
         return phrase;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    plusPhrase = '+' phrase;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * plusPhrase = '+' phrase;
      *
      * @return
      */
@@ -453,7 +480,7 @@ public class LogikusParser {
 
     /**
      * Return a parser that recognizes the grammar:
-     *
+     * <p>
      * <blockquote><pre>
      *    query = commaList(condition);
      * </pre></blockquote>
@@ -466,13 +493,11 @@ public class LogikusParser {
         p.setAssembler(new AxiomAssembler());
         return p;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    ruleDef = ":-" commaList(condition);
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * ruleDef = ":-" commaList(condition);
      *
      * @return
      */
@@ -488,7 +513,7 @@ public class LogikusParser {
 
     /**
      * Return a parser that recognizes the grammar:
-     *
+     * <p>
      * <blockquote><pre>
      *    axiom = condition (ruleDefinition | empty);
      * </pre></blockquote>
@@ -498,18 +523,16 @@ public class LogikusParser {
     public static Parser<Token, TypeOrType<Axiom, Term>, QueryBuilder> start() {
         return new LogikusParser().axiom();
     }
-    /*
+
+    /**
      * Return a parser that recognizes the grammar:
-     *
-     *    structure = functor ( '(' commaList(term) ')' | Empty);
-     *
+     * <p>
+     * structure = functor ( '(' commaList(term) ')' | Empty);
+     * <p>
      * This definition of structure accounts for normal-looking
      * structures that have a string as a functor. Strictly
      * speaking, numbers and lists are also structures. The
      * definition for <code>term</code> includes these.
-     */
-
-    /**
      *
      * @return
      */
@@ -533,20 +556,18 @@ public class LogikusParser {
                             new StructureWithTermsAssembler()));
             a.add(
                     new Empty<Token, TypeOrType<Axiom, Term>, QueryBuilder>().
-                    setAssembler(
-                            new AtomAssembler()));
+                            setAssembler(
+                                    new AtomAssembler()));
 
             structure.add(a);
         }
         return structure;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    term = structure | Num | list | variable;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * term = structure | Num | list | variable;
      *
      * @return
      */
@@ -559,13 +580,11 @@ public class LogikusParser {
         a.add(variable());
         return a;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    timesFactor = '*' factor;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * timesFactor = '*' factor;
      *
      * @return
      */
@@ -577,16 +596,14 @@ public class LogikusParser {
         s.setAssembler(new ArithmeticAssembler('*'));
         return s;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    variable = UppercaseWord | '_';
-     *
-     * The underscore represents and will translate to an
-     * anonymous variable.
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * variable = UppercaseWord | '_';
+     * <p>
+     * The underscore represents and will translate to an
+     * anonymous variable.
      *
      * @return
      */
@@ -597,7 +614,7 @@ public class LogikusParser {
 
         Parser<Token, TypeOrType<Axiom, Term>, QueryBuilder> anon
                 = new Symbol<TypeOrType<Axiom, Term>, QueryBuilder>('_').
-                discard();
+                        discard();
         anon.setAssembler(new AnonymousAssembler());
 
         Alternation<Token, TypeOrType<Axiom, Term>, QueryBuilder> a

@@ -6,20 +6,20 @@ package com.matrixpeckham.parse.examples.sling;
 import com.matrixpeckham.parse.imperative.Command;
 import com.matrixpeckham.parse.imperative.CommandSequence;
 import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.TokenAssembly;
-import com.matrixpeckham.parse.parse.tokens.Tokenizer;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.TypeOrType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JSlider;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * This class supports a SlingIde object, handling the
+ * interaction of the IDE's components.
+ */
 public class SlingMediator
         implements ActionListener, ChangeListener, Runnable {
 
@@ -112,6 +112,7 @@ public class SlingMediator
             setComputing(false);
         }
     }
+
     /*
      * Throws a runtime exception if the input stream cannot be
      * completely recognized, and if the next element is a
@@ -136,6 +137,7 @@ public class SlingMediator
             }
         }
     }
+
     /*
      * Throws a runtime exception if the input stream cannot be
      * completely recognized.
@@ -165,6 +167,7 @@ public class SlingMediator
             }
         }
     }
+
     /*
      * This method returns a composite command that it composes
      * by popping individual commands from an assembly.
@@ -173,6 +176,7 @@ public class SlingMediator
     /**
      *
      * @param out
+     *
      * @return
      */
     protected CommandSequence command(
@@ -194,6 +198,7 @@ public class SlingMediator
         }
         return cs;
     }
+
     /*
      * Parse the user's program, if it has changed, into a
      * command. Execute the command in a separate thread to allow
@@ -251,6 +256,7 @@ public class SlingMediator
         this.messageArea = messageArea;
         this.plotPanel = plotPanel;
     }
+
     /*
      * Parse a program and return a command.
      */
@@ -258,6 +264,7 @@ public class SlingMediator
     /**
      *
      * @param program
+     *
      * @return
      */
     protected Command parse(String program) {
@@ -272,6 +279,7 @@ public class SlingMediator
         checkResult(program, ta, out);
         return command(out);
     }
+
     /*
      * Execcute the command in a separate thread. This allows,
      * in particular, halting a large "for" loop.
@@ -292,6 +300,7 @@ public class SlingMediator
             setComputing(false);
         }
     }
+
     /*
      * Sets the state of the IDE to computing or not. Most of the
      * IDE's controls are grayed out during computation of a
@@ -312,6 +321,7 @@ public class SlingMediator
 
         haltSource.setEnabled(computing);
     }
+
     /*
      * Any time a slider changes we re-plot.
      */
@@ -320,6 +330,7 @@ public class SlingMediator
     public void stateChanged(ChangeEvent e) {
         go();
     }
+
     /*
      * Try to recognize a user's program. Handle some track
      * exceptions but pass along any other exceptions.
@@ -328,6 +339,7 @@ public class SlingMediator
     /**
      *
      * @param ta
+     *
      * @return
      */
     protected Assembly<Token, TypeOrType<SlingFunction, Command>, SlingTarget> tryMatch(

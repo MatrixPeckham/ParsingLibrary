@@ -1,12 +1,11 @@
 package com.matrixpeckham.parse.parse.chars;
 
-import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.ParserTester;
+import com.matrixpeckham.parse.parse.*;
 import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import java.util.logging.Logger;
 
 /**
+ * Tester for character based parsers.
  *
  * @author Owner
  * @param <Val>
@@ -24,9 +23,10 @@ public class CharacterTester<Val, Tar extends PubliclyCloneable<Tar>>
     }
 
     /**
-     * assembly method comment.
+     * Creates a new assembly for character based assemblies.
      *
      * @param s
+     *
      * @return
      */
     @Override

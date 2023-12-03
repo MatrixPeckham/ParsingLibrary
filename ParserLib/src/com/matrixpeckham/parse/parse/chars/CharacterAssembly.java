@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
 /**
+ * A CharacterAssembly is an Assembly whose elements are
+ * characters.
  *
  * @author Owner
  * @param <Val>
@@ -45,7 +47,7 @@ public class CharacterAssembly<Val, Tar extends PubliclyCloneable<Tar>>
      * @param delimiter the mark to show between consumed elements
      *
      * @return a textual description of the amount of this assembly that has
-     * been consumed
+     *         been consumed
      */
     @Override
     public String consumed(String delimiter) {
@@ -89,7 +91,7 @@ public class CharacterAssembly<Val, Tar extends PubliclyCloneable<Tar>>
      * @return the next character from the associated token string
      *
      * @exception ArrayIndexOutOfBoundsException if there are no more characters
-     * in this assembly's string
+     *                                           in this assembly's string
      */
     @Override
     public Character next() {
@@ -135,7 +137,7 @@ public class CharacterAssembly<Val, Tar extends PubliclyCloneable<Tar>>
      * @param delimiter the mark to show between consumed elements
      *
      * @return a textual description of the amount of this assembly that remains
-     * to be consumed
+     *         to be consumed
      */
     @Override
     public String remainder(String delimiter) {

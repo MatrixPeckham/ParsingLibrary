@@ -2,6 +2,46 @@ package com.matrixpeckham.parse.engine;
 
 import java.util.logging.Logger;
 
+/**
+ *
+ * An Evaluation unifies a term with the value of
+ * another term.
+ * <p>
+ * For example,
+ * <p>
+ * <blockquote><pre>
+ *     NumberFact two = new NumberFact(2);
+ *     ArithmeticOperator x, y;
+ *     x = new ArithmeticOperator('*', two, two);
+ *     y = new ArithmeticOperator('+', x, two);
+ *
+ *     Variable result = new Variable("Result");
+ *     Evaluation e = new Evaluation(result, y);
+ *     System.out.println(e);
+ *     System.out.println(e.canFindNextProof());
+ *     System.out.println(result);
+ *
+ * </pre></blockquote>
+ * <p>
+ * prints out:
+ * <p>
+ * <blockquote><pre>
+ *     #(Result, +(*(2.0, 2.0), 2.0))
+ *     true
+ *     6.0
+ * </pre></blockquote>
+ * <p>
+ * <p>
+ * Since an Evaluation <i>unifies</i> the first term with the
+ * arithmetic value, the second term may have a value before
+ * the Evaluation proves itself. In this case, the Evaluation
+ * checks that the second term's ground value equals the
+ * arithmetic value of the first term.
+ * <p>
+ * The Evaluation fails if the arithmetic value is invalid for
+ * any reason.
+ * <p>
+ */
 public class Evaluation extends Gateway {
 
     Term term0;
@@ -68,7 +108,6 @@ public class Evaluation extends Gateway {
      * assigment needs to undo any binding it did on the way
      * forward.
      */
-
     @Override
     protected void cleanup() {
         unbind();

@@ -1,29 +1,41 @@
 package com.matrixpeckham.parse.examples.tests;
 
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Literal;
-import com.matrixpeckham.parse.parse.tokens.Num;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.Word;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
+/**
+ * This class provides an ambiguous parser in its <code>
+ * statement</code> method, which serves to show that
+ * the test classes can find ambiguity.
+ * <p>
+ * The grammar this class supports is:
+ * <blockquote><pre>
+ *
+ *     statement     = iff | ifelse | callCustomer | sendBill;
+ *     iff           = "if" comparison statement;
+ *     ifelse        = "if" comparison statement
+ *                     "else" statement;
+ *     comparison    = '(' expression operator expression ')';
+ *     expression    = Word | Num;
+ *     operator      = '&lt;' | '&gt;' | '=' | "&lt;=" | "&gt;=" | "!=";
+ *     optionalElse  = "else" statement | Empty;
+ *     callCustomer  = "callCustomer" '('')' ';';
+ *     sendBill      = "sendBill" '('')' ';';
+ * </pre></blockquote>
+ */
 public class Dangle {
 
     /**
      *
      */
     static Alternation<Token, NullCloneable, NullCloneable> statement;
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     callCustomer = "callCustomer" '(' ')' ';';
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * callCustomer = "callCustomer" '(' ')' ';';
      *
      * @return
      */
@@ -36,13 +48,11 @@ public class Dangle {
         s.add(new Symbol<>(';'));
         return s;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     comparison   = '(' expression operator expression ')';
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * comparison = '(' expression operator expression ')';
      *
      * @return
      */
@@ -56,13 +66,11 @@ public class Dangle {
         s.add(new Symbol<>(')'));
         return s;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     expression   = Word | Num;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * expression = Word | Num;
      *
      * @return
      */
@@ -73,13 +81,11 @@ public class Dangle {
         a.add(new Num<>());
         return a;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     ifelse = "if" comparison statement "else" statement;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * ifelse = "if" comparison statement "else" statement;
      *
      * @return
      */
@@ -93,13 +99,11 @@ public class Dangle {
         s.add(statement());
         return s;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     iff = "if" comparison statement;
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * iff = "if" comparison statement;
      *
      * @return
      */
@@ -111,13 +115,11 @@ public class Dangle {
         s.add(statement());
         return s;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     operator     = '<' | '>' | '=' | "<=" | ">=" | "!=";
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * operator = '<' | '>' | '=' | "<=" | ">=" | "!=";
      *
      * @return
      */
@@ -132,13 +134,11 @@ public class Dangle {
         a.add(new Symbol<>("!="));
         return a;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     sendBill     = "sendBill" '('')' ';';
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * sendBill = "sendBill" '('')' ';';
      *
      * @return
      */
@@ -154,7 +154,7 @@ public class Dangle {
 
     /**
      * Return a parser that recognizes the grammar:
-     *
+     * <p>
      * <blockquote><pre>
      *     statement    = "if" comparison statement optionalElse |
      *                     callCustomer | sendBill;

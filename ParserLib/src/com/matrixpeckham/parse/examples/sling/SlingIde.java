@@ -4,38 +4,32 @@ package com.matrixpeckham.parse.examples.sling;
 //import com.sun.java.swing.text.*;
 //import com.sun.java.swing.event.*;
 //import com.sun.java.swing.border.*;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.ideFont;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.ideTextArea;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.ideTitledBorder;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.launch;
-import java.awt.BorderLayout;
+import static com.matrixpeckham.parse.utensil.SwingUtensil.*;
 import static java.awt.Color.black;
-import java.awt.Dimension;
 import static java.awt.event.InputEvent.CTRL_MASK;
 import static java.awt.event.KeyEvent.VK_G;
 import static java.lang.Short.MAX_VALUE;
-import java.util.logging.Logger;
 import static javax.swing.BorderFactory.createCompoundBorder;
 import static javax.swing.BorderFactory.createEmptyBorder;
-import javax.swing.Box;
-import static javax.swing.Box.createHorizontalBox;
-import static javax.swing.Box.createHorizontalGlue;
-import static javax.swing.Box.createVerticalBox;
-import static javax.swing.Box.createVerticalGlue;
-import javax.swing.JButton;
+import static javax.swing.Box.*;
 import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JSplitPane;
 import static javax.swing.JSplitPane.VERTICAL_SPLIT;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
 import static javax.swing.KeyStroke.getKeyStroke;
 import static javax.swing.SwingConstants.HORIZONTAL;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.util.logging.Logger;
+import javax.swing.*;
 
+/**
+ * This class provides an interactive development environment
+ * for the Sling programming language.
+ * <p>
+ * This class contains just the Swing components, and
+ * delegates responsibility for the interaction of these
+ * components to a SlingMediator object.
+ */
 public class SlingIde {
 
     /**
@@ -92,6 +86,7 @@ public class SlingIde {
      *
      */
     protected Dimension min = new Dimension(preferredWidth, 30);
+
     /*
      * Creates and returns the box that contains the IDE's
      * buttons.
@@ -109,6 +104,7 @@ public class SlingIde {
         b.add(clearButton());
         return b;
     }
+
     /*
      * Creates and returns the box that contains the IDE's
      * buttons.
@@ -131,6 +127,7 @@ public class SlingIde {
         p.add(clearButton(), "South");
         return p;
     }
+
     /*
      * The button that clears the message area.
      */
@@ -147,6 +144,7 @@ public class SlingIde {
         }
         return clearButton;
     }
+
     /*
      * The button that starts the proof thread.
      */
@@ -169,6 +167,7 @@ public class SlingIde {
         }
         return goButton;
     }
+
     /*
      * The button that halts the proof thread.
      */
@@ -186,6 +185,7 @@ public class SlingIde {
         }
         return haltButton;
     }
+
     /*
      * The panel with the program/message split pane and the
      * button panel.
@@ -205,12 +205,14 @@ public class SlingIde {
 
     /**
      * Launch a Sling interactive development environment.
+     *
      * @param args
      */
     public static void main(String args[]) {
         launch(
                 new SlingIde().mainPane(), " Sling");
     }
+
     /*
      * A split pane that contains, ultimately, all the components
      * in the IDE.
@@ -231,6 +233,7 @@ public class SlingIde {
         sp.setDividerSize(6);
         return sp;
     }
+
     /*
      * The object that controls or "mediates" the interaction
      * of this development environment's Swing components.
@@ -255,6 +258,7 @@ public class SlingIde {
         }
         return mediator;
     }
+
     /*
      * The message text area.
      */
@@ -269,6 +273,7 @@ public class SlingIde {
         }
         return messageArea;
     }
+
     /*
      * The <code>SlingPanel</code> where plotting occurs.
      */
@@ -281,10 +286,11 @@ public class SlingIde {
         if (plotPanel == null) {
             plotPanel = new SlingPanel();
             plotPanel.setPreferredSize(new Dimension(
-                            MAX_VALUE, MAX_VALUE));
+                    MAX_VALUE, MAX_VALUE));
         }
         return plotPanel;
     }
+
     /*
      * The program text area.
      */
@@ -299,6 +305,7 @@ public class SlingIde {
         }
         return programArea;
     }
+
     /*
      * The split pane that contains the program panel and the
      * message panel.
@@ -317,6 +324,7 @@ public class SlingIde {
 
         return inner;
     }
+
     /*
      * The first slider.
      */
@@ -332,6 +340,7 @@ public class SlingIde {
         }
         return s1;
     }
+
     /*
      * The second slider.
      */
@@ -347,6 +356,7 @@ public class SlingIde {
         }
         return s2;
     }
+
     /*
      * Creates a slider that the mediator will listen to.
      */
@@ -360,6 +370,7 @@ public class SlingIde {
         s.addChangeListener(mediator());
         return s;
     }
+
     /*
      * Creates and returns the box that contains a slider.
      */
@@ -368,6 +379,7 @@ public class SlingIde {
      *
      * @param name
      * @param s
+     *
      * @return
      */
     protected Box sliderBox(String name, JSlider s) {
@@ -380,6 +392,7 @@ public class SlingIde {
         b.add(s);
         return b;
     }
+
     /*
      * The panel that contains the slider boxes.
      */
@@ -403,6 +416,7 @@ public class SlingIde {
 
         return p;
     }
+
     /*
      * Forms and returns a standard text panel, which is
      * a scroll pane around a text area, with a title border.
@@ -414,6 +428,7 @@ public class SlingIde {
      * @param ta
      * @param pref
      * @param min
+     *
      * @return
      */
     protected static JPanel textPanel(
@@ -432,6 +447,7 @@ public class SlingIde {
         p.add(s1, "Center");
         return p;
     }
+
     /*
      * The panel that wraps a title around the message area.
      */
@@ -448,6 +464,7 @@ public class SlingIde {
                 new Dimension(preferredWidth, 60),
                 min);
     }
+
     /*
      * The panel that wraps a title around the plot panel.
      */
@@ -466,6 +483,7 @@ public class SlingIde {
         p.setMinimumSize(new Dimension(50, 50));
         return p;
     }
+
     /*
      * The panel that wraps a title around the program area.
      */
@@ -482,6 +500,7 @@ public class SlingIde {
                 new Dimension(preferredWidth, 120),
                 min);
     }
+
     /*
      * The panel that contains the (titled) plot panel and the
      * slider panel.
@@ -500,4 +519,5 @@ public class SlingIde {
     }
 
     private static final Logger LOG = Logger.getLogger(SlingIde.class.getName());
+
 }

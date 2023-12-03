@@ -3,7 +3,18 @@ package com.matrixpeckham.parse.imperative;
 import com.matrixpeckham.parse.engine.BooleanTerm;
 import java.util.logging.Logger;
 
-
+/**
+ * This command mimics a normal "if" statement, such as:
+ * <p>
+ * <blockquote><pre>
+ *
+ *     if (x > 7) {
+ *         // body to execute if condition is true
+ *     } else {
+ *         // body to execute if condition is false
+ *     }
+ * </pre></blockquote>
+ */
 public class IfCommand extends Command {
 
     /**
@@ -27,7 +38,7 @@ public class IfCommand extends Command {
      * @param condition the condition to check
      *
      * @param ifCommand the command to execute if the condition evaluates to
-     * true
+     *                  true
      */
     public IfCommand(BooleanTerm condition, Command ifCommand) {
         this.condition = condition;
@@ -38,13 +49,13 @@ public class IfCommand extends Command {
     /**
      * Construct an "if" command from the given condition and command.
      *
-     * @param condition the condition to check
+     * @param condition   the condition to check
      *
-     * @param ifCommand the command to execute if the condition evaluates to
-     * true
+     * @param ifCommand   the command to execute if the condition evaluates to
+     *                    true
      *
      * @param elseCommand the command to execute if the condition evaluates to
-     * false
+     *                    false
      */
     public IfCommand(
             BooleanTerm condition, Command ifCommand,
@@ -83,4 +94,5 @@ public class IfCommand extends Command {
 
     private static final Logger LOG
             = Logger.getLogger(IfCommand.class.getName());
+
 }

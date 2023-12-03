@@ -3,6 +3,19 @@ package com.matrixpeckham.parse.engine;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * A ConsultingStructure is structure that can prove itself
+ * against an axiom source supplied with the constructor.
+ * <p>
+ * When a rule creates a dynamic version of itself, a normal
+ * structure will create a ConsultingStructure counterpart
+ * that uses the rule's scope, and that consults a given
+ * axiom source (such as a Program).
+ * <p>
+ * The primary behavior that a ConsultingStructure adds
+ * is the ability to prove itself.
+ * <p>
+ */
 public class ConsultingStructure extends Structure {
 
     /**
@@ -30,7 +43,6 @@ public class ConsultingStructure extends Structure {
      * and terms, to consult against the supplied axiom source.
      * This constructor is for use by Structure.
      */
-
     /**
      *
      * @param source
@@ -50,7 +62,6 @@ public class ConsultingStructure extends Structure {
      * set its axioms to null, which forces its proving
      * attempts to start over at the beginning of the source.
      */
-
     /**
      *
      * @return

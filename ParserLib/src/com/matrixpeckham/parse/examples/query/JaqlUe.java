@@ -3,28 +3,32 @@ package com.matrixpeckham.parse.examples.query;
 //import com.sun.java.swing.*;
 //import com.sun.java.swing.border.*;
 //import com.sun.java.swing.text.*;
-import static com.matrixpeckham.parse.examples.query.ChipSource.queryChip;
-import static com.matrixpeckham.parse.examples.query.ChipSource.queryCustomer;
-import static com.matrixpeckham.parse.examples.query.ChipSource.queryOrder;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.ideFont;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.ideTextArea;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.launch;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.textPanel;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import static com.matrixpeckham.parse.examples.query.ChipSource.*;
+import static com.matrixpeckham.parse.utensil.SwingUtensil.*;
 import static java.awt.event.InputEvent.CTRL_MASK;
 import static java.awt.event.KeyEvent.VK_G;
-import java.util.logging.Logger;
-import javax.swing.JButton;
 import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import static javax.swing.JSplitPane.VERTICAL_SPLIT;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
 import static javax.swing.KeyStroke.getKeyStroke;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.util.logging.Logger;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * This is a simple user environment (UE) for queries
+ * written in the Jaql language. This UE applies Jaql
+ * queries to the ChipSource axiom source.
+ * <p>
+ * This class contains just the methods that create Swing
+ * components, and uses a "mediator" to control how the
+ * components interact.
+ *
+ *
+ * @see JaqlMediator
+ */
 public class JaqlUe {
 
     /**
@@ -61,11 +65,9 @@ public class JaqlUe {
      *
      */
     protected static final int PREFERREDWIDTH = 600;
-    /*
-     * The panel for the "Go!" and "Clear" buttons.
-     */
 
     /**
+     * The panel for the "Go!" and "Clear" buttons.
      *
      * @return
      */
@@ -77,11 +79,9 @@ public class JaqlUe {
         p.setBorder(new EmptyBorder(10, 6, 5, 6));
         return p;
     }
-    /*
-     * The "Clear" button.
-     */
 
     /**
+     * The "Clear" button.
      *
      * @return
      */
@@ -93,12 +93,10 @@ public class JaqlUe {
         }
         return clearButton;
     }
-    /*
-     * The "Go!" button. This method also establishes "Ctrl-G"
-     * as a shortcut for pressing the button.
-     */
 
     /**
+     * The "Go!" button. This method also establishes "Ctrl-G"
+     * as a shortcut for pressing the button.
      *
      * @return
      */
@@ -116,12 +114,10 @@ public class JaqlUe {
         }
         return goButton;
     }
-    /*
-     * The split pane that contains the query area and the
-     * result area.
-     */
 
     /**
+     * The split pane that contains the query area and the
+     * result area.
      *
      * @return
      */
@@ -149,11 +145,9 @@ public class JaqlUe {
         launch(
                 new JaqlUe().mainPanel(), " Jaql and Chips");
     }
-    /*
-     * The main panel, which contains all components.
-     */
 
     /**
+     * The main panel, which contains all components.
      *
      * @return
      */
@@ -164,11 +158,9 @@ public class JaqlUe {
         p.add(metadataPanel(), "South");
         return p;
     }
-    /*
-     * The object that controls the component interactions.
-     */
 
     /**
+     * The object that controls the component interactions.
      *
      * @return
      */
@@ -184,11 +176,9 @@ public class JaqlUe {
         }
         return mediator;
     }
-    /*
-     * The metadata text area.
-     */
 
     /**
+     * The metadata text area.
      *
      * @return
      */
@@ -202,11 +192,9 @@ public class JaqlUe {
         }
         return metadataArea;
     }
-    /*
-     * The panel that contains the metadata text area.
-     */
 
     /**
+     * The panel that contains the metadata text area.
      *
      * @return
      */
@@ -217,11 +205,9 @@ public class JaqlUe {
                 new Dimension(PREFERREDWIDTH, 120),
                 new Dimension(PREFERREDWIDTH, 80));
     }
-    /*
-     * The input text area.
-     */
 
     /**
+     * The input text area.
      *
      * @return
      */
@@ -234,11 +220,9 @@ public class JaqlUe {
         }
         return queryArea;
     }
-    /*
-     * The output text area.
-     */
 
     /**
+     * The output text area.
      *
      * @return
      */
@@ -248,12 +232,10 @@ public class JaqlUe {
         }
         return resultArea;
     }
-    /*
-     * The panel that contains the query area, the result area
-     * and the buttons.
-     */
 
     /**
+     * The panel that contains the query area, the result area
+     * and the buttons.
      *
      * @return
      */

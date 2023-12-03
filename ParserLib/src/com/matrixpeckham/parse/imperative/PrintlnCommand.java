@@ -4,6 +4,10 @@ import com.matrixpeckham.parse.engine.Term;
 import java.io.PrintWriter;
 import java.util.logging.Logger;
 
+/**
+ * This command, when executed, prints out the
+ * value of a term provided in the constructor.
+ */
 public class PrintlnCommand extends Command {
 
     /**
@@ -30,7 +34,7 @@ public class PrintlnCommand extends Command {
      * supplied <code>PrintWriter</code> object.
      *
      * @param term the term to print
-     * @param out where to print
+     * @param out  where to print
      */
     public PrintlnCommand(Term term, PrintWriter out) {
         this.term = term;

@@ -4,6 +4,27 @@ import com.matrixpeckham.parse.combinatorics.CombinatoricException;
 import com.matrixpeckham.parse.combinatorics.Permutations;
 import java.util.logging.Logger;
 
+/**
+ * Each of four martial arts students has a different
+ * specialty. From the following clues, can you determine
+ * each student’s full name and her special skill?
+ * <ol>
+ * <li>Ms. Ellis (whose instructor is Mr. Caldwell), Amy, and
+ * Ms. Fowler are all martial arts students.
+ * <li>Sparring isn’t the specialty of either Carla or
+ * Dianne.
+ * <li>Neither the shoot-fighting expert nor the pressure
+ * point fighter is named Fowler.
+ * <li>Children’s techniques aren’t the specialty of Dianne
+ * (whose instructor is Ms. Sherman).
+ * <li>Amy, who disdains pressure point fighting, isn’t
+ * Ms. Goodrich.
+ * <li>Betti and Ms. Fowler are roommates.
+ * <li>Ms. Hightower avoids sparring because of its point
+ * scoring nature.
+ * </ol>
+ * <p>
+ */
 public class KaratePuzzle {
 
     /**
@@ -68,14 +89,14 @@ public class KaratePuzzle {
                 !"Ellis".equals(amy.lastName) && !"Fowler".equals(amy.lastName)
                 && // Clue 2
                 !"Sparring".equals(carla.specialty) && !"Sparring".equals(
-                        dianne.specialty)
+                dianne.specialty)
                 && // Clue 3
                 !"Shoot Fighting".equals(studentNamed("Fowler").specialty)
                 && !"Pressure Points".equals(studentNamed("Fowler").specialty)
                 && // Clue 4
                 !"Childrens".equals(dianne.specialty) && // Clue 5
                 !"Goodrich".equals(amy.lastName) && !"Pressure Points".equals(
-                        amy.specialty)
+                amy.specialty)
                 && // Clue 6
                 !"Fowler".equals(betti.lastName) && // Clue 7
                 !"Sparring".equals(studentNamed("Hightower").specialty) && // Clue 4, 1
@@ -86,6 +107,7 @@ public class KaratePuzzle {
      * Solve the karate puzzle.
      *
      * @param args
+     *
      * @exception CombinatoricException Shouldn't happen
      */
     public static void main(String[] args)
@@ -93,6 +115,7 @@ public class KaratePuzzle {
 
         new KaratePuzzle().solve();
     }
+
     /*
      * Display the student objects.
      */

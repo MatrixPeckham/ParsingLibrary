@@ -1,8 +1,40 @@
 package com.matrixpeckham.parse.engine;
 
 import static com.matrixpeckham.parse.engine.Unification.empty;
+
 import java.util.logging.Logger;
 
+/**
+ * A Fact is a Structure that contains only other Facts.
+ * <p>
+ * For example,
+ * <blockquote><pre>
+ *     Fact s = new Fact(
+ *         "starred",
+ *         new Fact[]{
+ *             new Fact("James Cagney"),
+ *             new Fact("Yankee Doodle Dandy")});
+ * </pre></blockquote>
+ * The Fact class offers several convenience constructors. For
+ * example, you can create an identical fact with:
+ * <p>
+ * <blockquote><pre>
+ *     Fact s = new Fact(
+ *         "starred", "James Cagney", "Yankee Doodle Dandy");
+ * </pre></blockquote>
+ * or with:
+ * <blockquote><pre>
+ *     Fact s = new Fact(
+ *         "starred",
+ *         new Object[]{
+ *             "James Cagney", "Yankee Doodle Dandy"});
+ * </pre></blockquote>
+ * Since they do not contain variables, Facts do not need to
+ * copy themselves when they provide a "copy" for a proof.
+ * They also avoid copying when then provide a dynamic
+ * axiom.
+ * <p>
+ */
 public class Fact extends Structure
         implements Axiom, DynamicAxiom {
 
@@ -33,7 +65,7 @@ public class Fact extends Structure
      *
      *
      * @param objects the objects to convert into atoms and use as the terms of
-     * this fact
+     *                this fact
      *
      */
     public Fact(Object functor, Object[] objects) {
@@ -44,7 +76,7 @@ public class Fact extends Structure
      * Constructs a fact with the specified functor and facts.
      *
      * @param functor the functor of the structure
-     * @param terms the terms of this fact, which can only be other facts
+     * @param terms   the terms of this fact, which can only be other facts
      */
     public Fact(Object functor, Fact[] terms) {
         super(functor, terms);
@@ -54,13 +86,13 @@ public class Fact extends Structure
      * Although "public", this method is not for public use.
      * <p>
      * Without this constructor, or if this constructor were private,
-     *
+     * <p>
      * <blockquote><pre>
      * new Fact(
      *     "starred",
      *     new Term[]{new Fact("Cagney", "Yankee Doodle Dandy")})
      * </pre></blockquote>
-     *
+     * <p>
      * would match the signature on <code>Fact(Object, Object[])
      * </code>, which is not what we want. This would wrap each fact in another
      * fact.
@@ -70,8 +102,9 @@ public class Fact extends Structure
      *
      * @param functor
      * @param objects
+     *
      * @exception RuntimeException Cannot construct a fact from generic terms;
-     * Use new Fact(functor, new Fact[]{...})
+     *                             Use new Fact(functor, new Fact[]{...})
      */
     public Fact(Object functor, Term[] objects) {
         super(functor);
@@ -86,8 +119,9 @@ public class Fact extends Structure
      *
      * @param functor the functor of the structure
      *
-     * @param o the object to convert to an atom and use as the term of this
-     * fact
+     * @param o       the object to convert to an atom and use as the term of
+     *                this
+     *                fact
      *
      */
     public Fact(Object functor, Object o) {
@@ -100,11 +134,13 @@ public class Fact extends Structure
      *
      * @param functor the functor of the structure
      *
-     * @param o1 an object to convert to an atom and use as the first term of
-     * this fact
+     * @param o1      an object to convert to an atom and use as the first term
+     *                of
+     *                this fact
      *
-     * @param o2 an object to convert to an atom and use as the second term of
-     * this fact
+     * @param o2      an object to convert to an atom and use as the second term
+     *                of
+     *                this fact
      *
      */
     public Fact(Object functor, Object o1, Object o2) {
@@ -116,6 +152,7 @@ public class Fact extends Structure
      *
      * @param ignored
      * @param ignored2
+     *
      * @return this fact
      */
     @Override
@@ -129,12 +166,14 @@ public class Fact extends Structure
      * Returns this fact.
      *
      * @param ignored
+     *
      * @return this fact
      */
     @Override
     public DynamicAxiom dynamicAxiom(AxiomSource ignored) {
         return this;
     }
+
     /*
      * Create an array of (atomic) facts from an array of
      * objects.
@@ -143,6 +182,7 @@ public class Fact extends Structure
     /**
      *
      * @param objects
+     *
      * @return
      */
     protected static Fact[] facts(Object[] objects) {
@@ -177,8 +217,9 @@ public class Fact extends Structure
      * A speedier version of <code>unify(Structure s)</code>.
      *
      * @param f
+     *
      * @return either an empty Unification, indicating success, or null,
-     * indicating failure
+     *         indicating failure
      */
     public Unification unify(Fact f) {
         if (!functorAndArityEquals(f)) {

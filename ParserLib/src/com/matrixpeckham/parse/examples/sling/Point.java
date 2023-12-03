@@ -2,6 +2,10 @@ package com.matrixpeckham.parse.examples.sling;
 
 import java.util.logging.Logger;
 
+/**
+ * Objects of this class store two numbers that effectively
+ * determine a point in two-dimensional space.
+ */
 public class Point extends SlingFunction {
 
     /**

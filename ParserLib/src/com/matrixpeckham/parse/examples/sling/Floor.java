@@ -1,8 +1,16 @@
 package com.matrixpeckham.parse.examples.sling;
 
 import static java.lang.Math.floor;
+
 import java.util.logging.Logger;
 
+/**
+ * This class wraps a floor function around another source
+ * function.
+ * <p>
+ * The floor function applied to a number x returns the
+ * largest integer that is equal to or less than x.
+ */
 public class Floor extends SlingFunction {
 
     /**
@@ -31,7 +39,7 @@ public class Floor extends SlingFunction {
      * Returns, essentially, <code>floor(source.f(t))</code>.
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return a new point: <code>(t, floor(source.f(t).y))</code>
      *

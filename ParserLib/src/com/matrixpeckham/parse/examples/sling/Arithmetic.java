@@ -2,6 +2,21 @@ package com.matrixpeckham.parse.examples.sling;
 
 import java.util.logging.Logger;
 
+/**
+ * This class wraps an arithmetic function around two source
+ * functions.
+ * <p>
+ * An <code>Arithmetic</code> object has an operator and two
+ * sources. The operator must be '+', '-', '/', '*' or '%' (or
+ * else <code>f(t)</code> of this object will always be (0,
+ * 0)).
+ * <p>
+ * The value of this function at time t is the value of the
+ * operator applied to the source functions at time t. For
+ * example, evaluating the arithmetic sum <code>f1 + f2</code>
+ * at time t creates the point <code>(f1(t).x + f2(t).x,
+ * f1(t).y + f2(t).y)</code>.
+ */
 public class Arithmetic extends SlingFunction {
 
     /**
@@ -25,11 +40,11 @@ public class Arithmetic extends SlingFunction {
      * functions.
      *
      * @param operator the operator to apply, one of the characters in
-     * <code>+-/*%</code>
+     *                 <code>+-/*%</code>
      *
-     * @param b an operand
+     * @param b        an operand
      *
-     * @param a another operand
+     * @param a        another operand
      */
     public Arithmetic(
             char operator, SlingFunction a, SlingFunction b) {
@@ -37,6 +52,7 @@ public class Arithmetic extends SlingFunction {
         super(a, b);
         this.operator = operator;
     }
+
     /*
      * Do the math.
      */
@@ -45,6 +61,7 @@ public class Arithmetic extends SlingFunction {
      *
      * @param a
      * @param b
+     *
      * @return
      */
     protected double arithmetic(double a, double b) {
@@ -75,7 +92,7 @@ public class Arithmetic extends SlingFunction {
      * @param t a number that represents how far along a plot is
      *
      * @return a new point that applies this object's operator to the values of
-     * the source functions at time t
+     *         the source functions at time t
      *
      */
     @Override

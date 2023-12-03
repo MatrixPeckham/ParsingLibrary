@@ -1,20 +1,33 @@
 package com.matrixpeckham.parse.examples.robot;
 
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.CaselessLiteral;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.Word;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
+/**
+ * This class's start() method provides a parser that
+ * will recognize a command for a track robot and build a
+ * corresponding command object.
+ * <p>
+ * The grammar for the language that this class recognizes
+ * is:
+ * <p>
+ * <blockquote><pre>
+ *     command      = pickCommand | placeCommand |
+ *                    scanCommand;
+ *     pickCommand  = "pick" "carrier" "from" location;
+ *     placeCommand = "place" "carrier" "at" location;
+ *     scanCommand  = "scan" location;
+ *     location     = Word;
+ * </pre></blockquote>
+ */
 public class RobotParser {
 
     /**
      * Returns a parser that will recognize a command for a track robot and
      * build a corresponding command object.
-     *
+     * <p>
      * (This method returns the same value as <code>start()</code>).
      *
      * @return a parser that will recognize a track robot command
@@ -22,7 +35,7 @@ public class RobotParser {
 
     /* The parser this method returns recognizes the grammar:
      *
-     *     command = pickCommand | placeCommand | scanCommand;
+     * command = pickCommand | placeCommand | scanCommand;
      */
     public Parser<Token, NullCloneable, RobotCommand> command() {
         Alternation<Token, NullCloneable, RobotCommand> a = new Alternation<>();
@@ -31,26 +44,22 @@ public class RobotParser {
         a.add(scanCommand());
         return a;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     location = Word;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * location = Word;
      *
      * @return
      */
     protected Parser<Token, NullCloneable, RobotCommand> location() {
         return new Word<>();
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     pickCommand  = "pick" "carrier" "from" location;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * pickCommand = "pick" "carrier" "from" location;
      *
      * @return
      */
@@ -63,13 +72,11 @@ public class RobotParser {
         s.setAssembler(new PickAssembler());
         return s;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     placeCommand = "place" "carrier" "at" location;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * placeCommand = "place" "carrier" "at" location;
      *
      * @return
      */
@@ -82,13 +89,11 @@ public class RobotParser {
         s.setAssembler(new PlaceAssembler());
         return s;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     scanCommand  = "scan" location;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * scanCommand = "scan" location;
      *
      * @return
      */

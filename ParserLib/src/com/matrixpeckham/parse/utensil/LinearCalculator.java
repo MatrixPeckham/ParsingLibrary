@@ -2,6 +2,23 @@ package com.matrixpeckham.parse.utensil;
 
 import java.util.logging.Logger;
 
+/**
+ * A LinearCalculator models two variables that vary
+ * linearly with each other.
+ * <p>
+ * For example, Fahrenheit and Celsius temperate scales vary
+ * linearly. Fahrenheit temperature varies from 32 to 212 as
+ * Celsius varies 0 to 100. A LinearCalculator can model the
+ * whole scale, if it is created as:
+ * <p>
+ * <blockquote><pre>
+ *
+ *     LinearCalculator lc =
+ *         new LinearCalculator(32, 212, 0, 100);
+ *     System.out.println(lc.calculateYforGivenX(68));
+ *
+ * </pre></blockquote>
+ */
 public class LinearCalculator {
 
     double xFrom;
@@ -32,8 +49,9 @@ public class LinearCalculator {
      * the second scale.
      *
      * @param y
+     *
      * @return the value on the first scale, corresponding to the given value on
-     * the second scale
+     *         the second scale
      */
     public double calculateXforGivenY(double y) {
         if (yTo == yFrom) {
@@ -47,8 +65,9 @@ public class LinearCalculator {
      * the first scale.
      *
      * @param x
+     *
      * @return the value on the second scale, corresponding to the given value
-     * on the first scale
+     *         on the first scale
      */
     public double calculateYforGivenX(double x) {
         if (xTo == xFrom) {

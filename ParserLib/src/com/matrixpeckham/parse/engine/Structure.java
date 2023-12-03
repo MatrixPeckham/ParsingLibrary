@@ -2,10 +2,54 @@ package com.matrixpeckham.parse.engine;
 
 import static com.matrixpeckham.parse.engine.Fact.facts;
 import static java.lang.System.arraycopy;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * A Structure is a functor associated with a number of terms;
+ * a functor can be any object. A term is an object that
+ * implements the Term interface, including structures and
+ * variables.
+ * <p>
+ * An example of a structure is:
+ * <blockquote><pre>
+ *     starred(jamesCagney, "Yankee Doodle Dandy", Year)
+ * </pre></blockquote>
+ * This structure has the String <code>"starred"</code> as its
+ * functor. This structure's first term is another structure
+ * that has "jamesCagney" as its functor and no terms of its own.
+ * Similarly, the second term is a structure with the functor
+ * "Yankee Doodle Dandy" and no terms of its own. The third
+ * term is a variable, Year.
+ * <p>
+ * This particular example has two elements that favor a
+ * parser: the quotes around the film title and the
+ * capitalization of the variable. When using Structure and
+ * Variable directly, you do not need the kinds of clues a
+ * parser needs. So, Yankee Doodle Dandy is just another
+ * string, whose internal blanks are not at all confusing.
+ * Further, a variable can have any string as its name, not
+ * necessarily capitalized.
+ * <p>
+ * You can create the starred example with
+ * <blockquote><pre>
+ *     Structure s = new Structure(
+ *         "starred",
+ *         new Term[]{
+ *             new Structure("jamesCagney"),
+ *             new Structure("Yankee Doodle Dandy"),
+ *             new Variable("Year")});
+ * </pre></blockquote>
+ * To be able to prove itself against a program, a structure
+ * must appear in a Rule. Rules associate like-named variables
+ * in a "scope", which is essentially a dictionary. A rule
+ * makes an executable copy of itself by creating a new
+ * variable dictionary, and by making "consulting" copies of
+ * its structures.
+ * <p>
+ */
 public class Structure implements Term {
 
     /**
@@ -17,12 +61,9 @@ public class Structure implements Term {
      *
      */
     protected Term[] terms;
-    /*
-     * the empty list singleton
-     */
 
     /**
-     *
+     * the empty list singleton
      */
     public final static EmptyList emptyList = new EmptyList();
 
@@ -39,8 +80,9 @@ public class Structure implements Term {
      * Constructs a structure with the specified functor and terms.
      *
      * @param functor the functor of the structure
-     * @param terms the terms of the structure, which may be either variables or
-     * other structures
+     * @param terms   the terms of the structure, which may be either variables
+     *                or
+     *                other structures
      */
     public Structure(Object functor, Term[] terms) {
         this.functor = functor;
@@ -79,13 +121,13 @@ public class Structure implements Term {
      * Create a <code>ConsultingStructure</code> counterpart that can unify with
      * other structures.
      *
-     * @param as where to find axioms to prove against
+     * @param as    where to find axioms to prove against
      *
      * @param scope the scope to use for variables in the
-     * <code>ConsultingStructure</code>
+     *              <code>ConsultingStructure</code>
      *
      * @return a <code>ConsultingStructure</code> counterpart that can unify
-     * with other structures.
+     *         with other structures.
      */
     @Override
     public Term copyForProof(AxiomSource as, Scope scope) {
@@ -102,7 +144,7 @@ public class Structure implements Term {
      * @param o the object to compare
      *
      * @return true, if the supplied object's functor equals this structure's
-     * functor, and both structures' terms are all equal
+     *         functor, and both structures' terms are all equal
      */
     @Override
     public boolean equals(Object o) {
@@ -148,11 +190,12 @@ public class Structure implements Term {
      * @param s the structure to compare this one against
      *
      * @return <code>true</code> if this structure's functor and number of terms
-     * match the supplied structure
+     *         match the supplied structure
      */
     public boolean functorAndArityEquals(Structure s) {
         return arity() == s.arity() && functor.equals(s.functor);
     }
+
     /*
      * This method helps the static list factories.
      *
@@ -172,11 +215,11 @@ public class Structure implements Term {
      * This list will be a concatenation of the remainder of the
      * given array with the supplied tail.
      */
-
     /**
      *
      * @param terms
      * @param tail
+     *
      * @return
      */
     protected static Term[] headAndTail(
@@ -216,6 +259,7 @@ public class Structure implements Term {
      * Constructs a list that contains the supplied object, wrapped as Facts.
      *
      * @param objects the contents of the list
+     *
      * @return
      */
     public static Structure list(Object[] objects) {
@@ -230,6 +274,7 @@ public class Structure implements Term {
      * supplied array. Its second term is a list of the remaining terms.
      *
      * @param terms the terms of the list
+     *
      * @return
      */
     public static Structure list(Term[] terms) {
@@ -240,7 +285,7 @@ public class Structure implements Term {
      * Constructs a list that terminates with a known list, or a variable.
      * <p>
      * This allows construction of a list such as:
-     *
+     * <p>
      * <blockquote><pre>
      *     Variable head = new Variable("Head");
      *     Variable tail = new Variable("Tail");
@@ -248,9 +293,10 @@ public class Structure implements Term {
      * </pre></blockquote>
      *
      * @param terms the leading terms of the list. In practice, this array
-     * usually contains a single term.
+     *              usually contains a single term.
      *
-     * @param tail a list, or a variable that represents the tail of the list
+     * @param tail  a list, or a variable that represents the tail of the list
+     *
      * @return
      */
     public static Structure list(Term[] terms, Term tail) {
@@ -266,12 +312,12 @@ public class Structure implements Term {
     public String listTailString() {
         return ", " + listTermsToString();
     }
+
     /*
      * Return a textual represenation of this list's terms, with
      * a normal representation of the first term, and with the
      * second term as the tail of a list.
      */
-
     /**
      *
      * @return
@@ -343,7 +389,7 @@ public class Structure implements Term {
      * @param s a structure to unify with
      *
      * @return the sum of the variables that bind to values to make the
-     * unification work.
+     *         unification work.
      */
     @Override
     public Unification unify(Structure s) {
@@ -373,7 +419,7 @@ public class Structure implements Term {
      * @param t a term to unify with
      *
      * @return the sum of the variables that bind to values to make the
-     * unification work. Returns null if the unification fails.
+     *         unification work. Returns null if the unification fails.
      */
     @Override
     public Unification unify(Term t) {
@@ -391,7 +437,7 @@ public class Structure implements Term {
      * @param v a term to unify with
      *
      * @return the sum of the variables that bind to values to make the
-     * unification work. Returns null if the unification fails.
+     *         unification work. Returns null if the unification fails.
      */
     @Override
     public Unification unify(Variable v) {

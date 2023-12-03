@@ -1,14 +1,15 @@
 package com.matrixpeckham.parse.examples.reserved;
 
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.TokenType;
-import com.matrixpeckham.parse.parse.tokens.Tokenizer;
-import com.matrixpeckham.parse.parse.tokens.WordState;
+import com.matrixpeckham.parse.parse.tokens.*;
 import java.io.IOException;
 import java.io.PushbackReader;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+/**
+ * Override WordState to return known reserved words as
+ * tokens of type TT_RESERVED.
+ */
 public class WordOrReservedState extends WordState {
 
     ArrayList<String> reserved = new ArrayList<>();
@@ -39,7 +40,11 @@ public class WordOrReservedState extends WordState {
     /**
      * Return a reserved token or a word token from a reader.
      *
+     * @param c
+     * @param t
+     *
      * @return a reserved token or a word token from a reader
+     *
      * @throws java.io.IOException
      */
     @Override

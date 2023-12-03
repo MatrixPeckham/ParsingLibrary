@@ -1,10 +1,11 @@
 package com.matrixpeckham.parse.parse.tokens;
 
 import static com.matrixpeckham.parse.parse.tokens.Token.TT_WORD;
-import java.io.IOException;
-import java.io.PushbackReader;
 import static java.lang.String.copyValueOf;
 import static java.lang.System.arraycopy;
+
+import java.io.IOException;
+import java.io.PushbackReader;
 import java.util.logging.Logger;
 
 /*
@@ -22,11 +23,11 @@ import java.util.logging.Logger;
  * character in a word. These are typically different sets of characters; in
  * particular, it is typical for digits to appear as parts of a word, but not as
  * the initial character of a word.
- *
+ * <p>
  * <p>
  * By default, the following characters may appear in a word. The method
  * <code>setWordChars()</code> allows customizing this.
- *
+ * <p>
  * <blockquote><pre>
  *     From    To
  *      'a', 'z'
@@ -56,7 +57,7 @@ public class WordState extends TokenizerState {
     /**
      * Constructs a word state with a default idea of what characters are
      * admissible inside a word (as described in the class comment).
-     *
+     * <p>
      */
     public WordState() {
         setWordChars('a', 'z', true);
@@ -67,11 +68,9 @@ public class WordState extends TokenizerState {
         setWordChars('\'', '\'', true);
         setWordChars(0xc0, 0xff, true);
     }
-    /*
-     * Fatten up charbuf as necessary.
-     */
 
     /**
+     * Fatten up charbuf as necessary.
      *
      * @param i
      */
@@ -87,7 +86,9 @@ public class WordState extends TokenizerState {
      * Return a word token from a reader.
      *
      * @param r
+     *
      * @return a word token from a reader
+     *
      * @throws java.io.IOException
      */
     @Override
@@ -115,9 +116,10 @@ public class WordState extends TokenizerState {
      *
      * @param from char
      *
-     * @param to char
-     * @param b true, if this state should allow characters in the given range
-     * as part of a word
+     * @param to   char
+     * @param b    true, if this state should allow characters in the given
+     *             range
+     *             as part of a word
      */
     public final void setWordChars(int from, int to, boolean b) {
         for (int i = from; i <= to; i++) {
@@ -126,13 +128,12 @@ public class WordState extends TokenizerState {
             }
         }
     }
-    /*
-     * Just a test of the wordChar array.
-     */
 
     /**
+     * Just a test of the wordChar array.
      *
      * @param c
+     *
      * @return
      */
     protected boolean wordChar(int c) {

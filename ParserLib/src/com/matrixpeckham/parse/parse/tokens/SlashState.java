@@ -1,10 +1,15 @@
 package com.matrixpeckham.parse.parse.tokens;
 
 import static com.matrixpeckham.parse.parse.tokens.Token.TT_SYMBOL;
+
 import java.io.IOException;
 import java.io.PushbackReader;
 import java.util.logging.Logger;
 
+/**
+ * A slashSlash state ignores everything up to an end-of-line
+ * and returns the tokenizer's next token.
+ */
 public class SlashState extends TokenizerState {
 
     /**
@@ -23,8 +28,10 @@ public class SlashState extends TokenizerState {
      *
      * @param r
      * @param theSlash
+     *
      * @return either just a slash token, or the results of delegating to a
-     * comment-handling state
+     *         comment-handling state
+     *
      * @throws java.io.IOException
      */
     @Override

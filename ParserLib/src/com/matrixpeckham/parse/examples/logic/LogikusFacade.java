@@ -1,45 +1,38 @@
 package com.matrixpeckham.parse.examples.logic;
 
-import com.matrixpeckham.parse.engine.Axiom;
-import com.matrixpeckham.parse.engine.AxiomSource;
-import com.matrixpeckham.parse.engine.Fact;
-import com.matrixpeckham.parse.engine.Program;
-import com.matrixpeckham.parse.engine.Query;
-import com.matrixpeckham.parse.engine.Rule;
-import com.matrixpeckham.parse.engine.Term;
+import static java.lang.Character.isUpperCase;
+
+import com.matrixpeckham.parse.engine.*;
 import com.matrixpeckham.parse.examples.query.QueryBuilder;
 import com.matrixpeckham.parse.parse.Assembly;
 import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.TokenAssembly;
-import com.matrixpeckham.parse.parse.tokens.TokenString;
-import com.matrixpeckham.parse.parse.tokens.TokenStringSource;
-import com.matrixpeckham.parse.parse.tokens.Tokenizer;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.TypeOrType;
-import static java.lang.Character.isUpperCase;
 import java.util.logging.Logger;
 
+/**
+ * This class provides utility methods that simplify the use
+ * of the Logikus parser.
+ */
 public class LogikusFacade {
-    /*
-     * Translate one axiom string into an Axiom object.
-     */
 
     /**
+     * Translate one axiom string into an Axiom object.
      *
      * @param s
+     *
      * @return
      */
     public static Axiom axiom(String s) {
         return axiom(new TokenString(s));
     }
-    /*
-     * Translate the tokens for one axiom into an Axiom
-     * object (either a Fact or a Rule);
-     */
 
     /**
+     * Translate the tokens for one axiom into an Axiom
+     * object (either a Fact or a Rule);
      *
      * @param ts
+     *
      * @return
      */
     protected static Axiom axiom(TokenString ts) {
@@ -52,12 +45,10 @@ public class LogikusFacade {
             throw new LogikusException("Axiom not found");
         }
     }
-    /*
-     * Throws an informative runtime exception if the provided
-     * string begins with an uppercase letter.
-     */
 
     /**
+     * Throws an informative runtime exception if the provided
+     * string begins with an uppercase letter.
      *
      * @param ts
      * @param type
@@ -77,17 +68,16 @@ public class LogikusFacade {
             }
         }
     }
-    /*
+
+    /**
      * Parse the given token string with the given parser,
      * throwing runtime exceptions if parsing fails
      * or is incomplete.
-     */
-
-    /**
      *
      * @param ts
      * @param p
      * @param type
+     *
      * @return
      */
     protected static Object parse(
@@ -155,15 +145,14 @@ public class LogikusFacade {
         }
         return new Query(as, (Rule) o);
     }
-    /*
-     * Throws a runtime exception reporting an incomplete
-     * parse.
-     */
 
     /**
+     * Throws a runtime exception reporting an incomplete
+     * parse.
      *
      * @param out
      * @param type
+     *
      * @return
      */
     protected static Object reportLeftovers(
@@ -172,8 +161,9 @@ public class LogikusFacade {
 
         throw new LogikusException(
                 "> Input for " + type + " appears complete after : \n> " + out.
-                consumed(" ") + "\n");
+                        consumed(" ") + "\n");
     }
+
     /*
      * Throws a runtime exception reporting failed parse.
      */

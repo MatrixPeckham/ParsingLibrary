@@ -2,6 +2,10 @@ package com.matrixpeckham.parse.examples.engine;
 
 import java.util.logging.Logger;
 
+/**
+ * This class shows a Java class counterpart to a simple
+ * structure.
+ */
 public class City {
 
     /**
@@ -17,7 +21,7 @@ public class City {
     /**
      * Constructs a city.
      *
-     * @param name the city's name
+     * @param name     the city's name
      *
      * @param altitude the city's altitude
      */

@@ -2,6 +2,10 @@ package com.matrixpeckham.parse.examples.chips;
 
 import java.util.logging.Logger;
 
+/**
+ * A chip is a type of potato or corn chip that a mythical
+ * company offers.
+ */
 public class Chip {
 
     /**

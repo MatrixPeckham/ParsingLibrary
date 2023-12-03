@@ -6,6 +6,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+/**
+ * A TokenStringSource enumerates over a specified reader,
+ * returning TokenStrings delimited by a specified delimiter.
+ * <p>
+ * For example,
+ * <blockquote><pre>
+ *
+ *    String s = "I came; I saw; I left in peace;";
+ *
+ *    TokenStringSource tss =
+ *        new TokenStringSource(new Tokenizer(s), ";");
+ *
+ *    while (tss.hasMoreTokenStrings()) {
+ *        System.out.println(tss.nextTokenString());
+ *    }
+ *
+ * </pre></blockquote>
+ * <p>
+ * prints out:
+ * <p>
+ * <blockquote><pre>
+ *     I came
+ *     I saw
+ *     I left in peace
+ * </pre></blockquote>
+ */
 public class TokenStringSource {
 
     /**

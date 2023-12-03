@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+/**
+ * Replace the nodes above a given "fence" object with
+ * a new composite that holds the popped nodes as its children.
+ */
 public class PrettyRepetitionAssembler extends Assembler<Token, ComponentNode, NullCloneable> {
 
     /**

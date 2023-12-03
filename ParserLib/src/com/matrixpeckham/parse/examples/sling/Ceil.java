@@ -2,6 +2,13 @@ package com.matrixpeckham.parse.examples.sling;
 
 import static java.lang.Math.ceil;
 
+/**
+ * This class wraps a ceil function around another source
+ * function.
+ * <p>
+ * The ceil function applied to a number x returns the
+ * smallest integer that is equal to or greater than x.
+ */
 public class Ceil extends SlingFunction {
 
     /**
@@ -30,7 +37,7 @@ public class Ceil extends SlingFunction {
      * Returns, essentially, <code>ceil(source.f(t))</code>.
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return a new point: <code>(t, ceil(source.f(t).y))</code>
      *
@@ -51,4 +58,5 @@ public class Ceil extends SlingFunction {
     public String toString() {
         return "ceil(" + source[0] + ")";
     }
+
 }

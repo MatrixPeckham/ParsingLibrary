@@ -6,6 +6,12 @@ import com.matrixpeckham.parse.parse.tokens.TokenTester;
 import com.matrixpeckham.parse.utensil.TypeOrType;
 import java.util.logging.Logger;
 
+/**
+ * This class tests that class <code>Jaql</code> can parse
+ * random language elements.
+ *
+ * @see JaqlUe
+ */
 public class JaqlTester extends TokenTester<TypeOrType<Axiom, Term>, QueryBuilder> {
 
     /**
@@ -19,11 +25,9 @@ public class JaqlTester extends TokenTester<TypeOrType<Axiom, Term>, QueryBuilde
     public JaqlTester() {
         super(new JaqlParser(speller()).start());
     }
-    /*
-     * A Jaql target is a <code>QueryBuilder</code>.
-     */
 
     /**
+     * A Jaql target is a <code>QueryBuilder</code>.
      *
      * @return
      */
@@ -40,6 +44,7 @@ public class JaqlTester extends TokenTester<TypeOrType<Axiom, Term>, QueryBuilde
     public static void main(String[] args) {
         new JaqlTester().test();
     }
+
     /*
      * Provide a spell that allows any class or variable name.
      */

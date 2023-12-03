@@ -1,14 +1,24 @@
 package com.matrixpeckham.parse.examples.tokens;
 
-import com.matrixpeckham.parse.parse.tokens.NumberState;
-import com.matrixpeckham.parse.parse.tokens.Token;
 import static com.matrixpeckham.parse.parse.tokens.Token.TT_WORD;
-import com.matrixpeckham.parse.parse.tokens.Tokenizer;
+import static java.lang.Math.pow;
+
+import com.matrixpeckham.parse.parse.tokens.*;
 import java.io.IOException;
 import java.io.PushbackReader;
-import static java.lang.Math.pow;
 import java.util.logging.Logger;
 
+/**
+ * A <code>ScientificNumberState</code> object returns a
+ * number from a reader. This state's idea of a number
+ * expands on its superclass, allowing an 'e' followed by
+ * an integer to represent 10 to the indicated power. For
+ * example, this state will recognize 1e2 as equaling 100.
+ * <p>
+ * <p>
+ * This class exists primarily to show how to introduce a
+ * new tokenizing state.
+ */
 public class ScientificNumberState extends NumberState {
 
     /**
@@ -20,6 +30,7 @@ public class ScientificNumberState extends NumberState {
      * Just a demo.
      *
      * @param args
+     *
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
@@ -32,14 +43,13 @@ public class ScientificNumberState extends NumberState {
         t.setString("1e2");
         System.out.println(t.nextToken());
     }
-    /*
-     * Parse from a decimal point to the end of a number,
-     * including exponential or "scientific" notation.
-     */
 
     /**
+     * Parse from a decimal point to the end of a number,
+     * including exponential or "scientific" notation.
      *
      * @param r
+     *
      * @throws IOException
      */
     @Override
@@ -58,11 +68,9 @@ public class ScientificNumberState extends NumberState {
             value *= pow(10, sign * absorbDigits(r, false));
         }
     }
-    /*
-     * Prepare to assemble a new number.
-     */
 
     /**
+     * Prepare to assemble a new number.
      *
      * @param cin
      */
@@ -71,15 +79,15 @@ public class ScientificNumberState extends NumberState {
         super.reset(cin);
         absorbedE = false;
     }
-    /*
-     * Put together the pieces of a number.
-     */
 
     /**
+     * Put together the pieces of a number.
      *
      * @param r
      * @param t
+     *
      * @return
+     *
      * @throws IOException
      */
     @Override

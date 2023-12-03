@@ -2,6 +2,33 @@ package com.matrixpeckham.parse.examples.sling;
 
 import java.util.logging.Logger;
 
+/**
+ * A scale represents the relationship of two temporal
+ * variables that vary linearly with each other.
+ * <p>
+ * In Sling, the most common example of a scale is the
+ * relationship of user coordinates to panel coordinates.
+ * <p>
+ * For example, in plotting a unit circle, a square that
+ * bounds the circle has its minimum point at (-1, -1), and
+ * its maximum at (1, 1). The minimum is at the lower left
+ * corner, where the panel coordinate might be (52.0, 262.0).
+ * The maximum is at the upper right, where the panel
+ * coordinate might be (314.0, 0.0).
+ * <p>
+ * If <code>c</code> is a circle function in user coordinates,
+ * then the following definition will create <code>s</code> as
+ * a function that returns the panel coordinate as a function
+ * of time:
+ * <p>
+ * <blockquote><pre>
+ *     Scale s =
+ *         new Scale(min, c, max, lowerLeft, upperRight);
+ * </pre></blockquote>
+ * <p>
+ * The function <code>s</code> maps every point on the user's
+ * circle to a point on the panel.
+ */
 public class Scale extends SlingFunction {
 
     /**
@@ -17,10 +44,10 @@ public class Scale extends SlingFunction {
      * </code>.
      *
      * @param bFrom a SlingFunction (usually a Point) that establishes the
-     * "from" bound for some variable b, which this scale represents
+     *              "from" bound for some variable b, which this scale represents
      *
-     * @param bTo a SlingFunction (also usually a Point) that establishes the
-     * "to" bound for the variable.
+     * @param bTo   a SlingFunction (also usually a Point) that establishes the
+     *              "to" bound for the variable.
      */
     public Scale(SlingFunction bFrom, SlingFunction bTo) {
         this(
@@ -61,7 +88,7 @@ public class Scale extends SlingFunction {
      * varies from bFrom to bTo as "a" varies from aFrom to aTo.
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return a new point b, that maps a.f(t) into the scale for b
      */
@@ -78,15 +105,16 @@ public class Scale extends SlingFunction {
 
         return new Point(x, y);
     }
+
     /*
      * To keep two variables "a" and "b" in a linear relationship,
      * we maintain the equation:
      *
-     *   (a - aFrom)/(aTo - aFrom) = (b - bFrom)/(bTo - bFrom)
+     * (a - aFrom)/(aTo - aFrom) = (b - bFrom)/(bTo - bFrom)
      *
      * Solving for b, we get:
      *
-     *   b = (a - aFrom)/(aTo - aFrom)*(bTo - bFrom) + bFrom
+     * b = (a - aFrom)/(aTo - aFrom)*(bTo - bFrom) + bFrom
      *
      * This method returns b, taking care to watch for division
      * by zero. That occurs when "a" does not really vary at
@@ -101,6 +129,7 @@ public class Scale extends SlingFunction {
      * @param aTo
      * @param bFrom
      * @param bTo
+     *
      * @return
      */
     protected double linear(

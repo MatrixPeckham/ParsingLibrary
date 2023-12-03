@@ -2,6 +2,11 @@ package com.matrixpeckham.parse.examples.chips;
 
 import java.util.logging.Logger;
 
+/**
+ * An order is a standing request from a customer for a
+ * monthly supply of a number of bags of a type of chip.
+ * <p>
+ */
 public class Order {
 
     /**

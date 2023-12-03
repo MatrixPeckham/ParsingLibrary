@@ -1,33 +1,42 @@
 package com.matrixpeckham.parse.examples.coffee;
 
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Empty;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.CaselessLiteral;
-import com.matrixpeckham.parse.parse.tokens.Num;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.Tokenizer;
-import com.matrixpeckham.parse.parse.tokens.Word;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
+/**
+ * This class provides a parser that recognizes a
+ * textual description of a type of coffee, and builds a
+ * corresponding coffee object.
+ * <p>
+ * The grammar this class supports is:
+ * <blockquote><pre>
+ *
+ *     coffee     = name ',' roast ',' country ',' price;
+ *     name       = Word (formerName | Empty);
+ *     formerName = '(' Word ')';
+ *     roast      = Word (orFrench | Empty);
+ *     orFrench   = '/' "french";
+ *     country    = Word;
+ *     price      = Num;
+ * </pre></blockquote>
+ */
 public class CoffeeParser {
 
     /**
      * Return a parser that will recognize the grammar:
-     *
+     * <p>
      * <blockquote><pre>
      *
      *     coffee  = name ',' roast ',' country ',' price;
      *
-     *  </pre></blockquote>
-     *
+     * </pre></blockquote>
+     * <p>
      * This parser creates a <code>Coffee</code> object as an assembly's target.
      *
      * @return a parser that will recognize and build a <code>Coffee</code>
-     * object from a textual description.
+     *         object from a textual description.
      */
     public Parser<Token, NullCloneable, Coffee> coffee() {
         Symbol<NullCloneable, Coffee> comma = new Symbol<>(',');
@@ -42,35 +51,27 @@ public class CoffeeParser {
         s.add(price());
         return s;
     }
-    /*
-     * Return a parser that will recognize the grammar:
-     *
-     *    country = Word;
-     *
-     * Use a CountryAssembler to update the target coffee
-     * object.
-     */
 
     /**
-     *
-     * @return
+     * Return a parser that will recognize the grammar:
+     * <p>
+     * country = Word;
+     * <p>
+     * Use a CountryAssembler to update the target coffee
+     * object.
      */
     protected Parser<Token, NullCloneable, Coffee> country() {
         return new Word<NullCloneable, Coffee>().setAssembler(
                 new CountryAssembler());
     }
-    /*
-     * Return a parser that will recognize the grammar:
-     *
-     *     formerName = '(' Word ')';
-     *
-     * Use a FormerNameAssembler to update the target coffee
-     * object.
-     */
 
     /**
-     *
-     * @return
+     * Return a parser that will recognize the grammar:
+     * <p>
+     * formerName = '(' Word ')';
+     * <p>
+     * Use a FormerNameAssembler to update the target coffee
+     * object.
      */
     protected Parser<Token, NullCloneable, Coffee> formerName() {
         Sequence<Token, NullCloneable, Coffee> s = new Sequence<>();
@@ -80,19 +81,15 @@ public class CoffeeParser {
         s.add(new Symbol<NullCloneable, Coffee>(')').discard());
         return s;
     }
-    /*
+
+    /**
      * Return a parser that will recognize the grammar:
-     *
-     *     name = Word (formerName | empty);
-     *
+     * <p>
+     * name = Word (formerName | empty);
+     * <p>
      * Use a NameAssembler to update the target coffee object
      * with the recognized Word; formerName also uses an
      * assembler.
-     */
-
-    /**
-     *
-     * @return
      */
     protected Parser<Token, NullCloneable, Coffee> name() {
         Sequence<Token, NullCloneable, Coffee> s = new Sequence<>();
@@ -104,18 +101,14 @@ public class CoffeeParser {
         s.add(a);
         return s;
     }
-    /*
-     * Return a parser that will recognize the sequence:
-     *
-     *    orFrench = '/' "french";
-     *
-     * Use an AlsoFrenchAssembler to update the target coffee
-     * object.
-     */
 
     /**
-     *
-     * @return
+     * Return a parser that will recognize the sequence:
+     * <p>
+     * orFrench = '/' "french";
+     * <p>
+     * Use an AlsoFrenchAssembler to update the target coffee
+     * object.
      */
     protected Parser<Token, NullCloneable, Coffee> orFrench() {
         Sequence<Token, NullCloneable, Coffee> s = new Sequence<>();
@@ -124,35 +117,27 @@ public class CoffeeParser {
         s.setAssembler(new AlsoFrenchAssembler());
         return s;
     }
-    /*
-     * Return a parser that will recognize the sequence:
-     *
-     *    price = Num;
-     *
-     * Use a PriceAssembler to update the target coffee object.
-     */
 
     /**
-     *
-     * @return
+     * Return a parser that will recognize the sequence:
+     * <p>
+     * price = Num;
+     * <p>
+     * Use a PriceAssembler to update the target coffee object.
      */
     protected Parser<Token, NullCloneable, Coffee> price() {
         return new Num<NullCloneable, Coffee>().setAssembler(
                 new PriceAssembler());
     }
-    /*
+
+    /**
      * Return a parser that will recognize the grammar:
-     *
-     *     roast = Word (orFrench | Empty);
-     *
+     * <p>
+     * roast = Word (orFrench | Empty);
+     * <p>
      * Use a RoastAssembler to update the target coffee object
      * with the recognized Word; orFrench also uses an
      * assembler.
-     */
-
-    /**
-     *
-     * @return
      */
     protected Parser<Token, NullCloneable, Coffee> roast() {
         Sequence<Token, NullCloneable, Coffee> s = new Sequence<>();
@@ -179,7 +164,7 @@ public class CoffeeParser {
      * identify a coffee's name.
      *
      * @return a tokenizer that allows spaces to appear inside the "words" that
-     * identify a coffee's name.
+     *         identify a coffee's name.
      */
     public static Tokenizer tokenizer() {
         Tokenizer t = new Tokenizer();

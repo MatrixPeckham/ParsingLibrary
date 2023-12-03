@@ -3,6 +3,57 @@ package com.matrixpeckham.parse.engine;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * A variable is a named term that can unify with other
+ * terms.
+ * <p>
+ * A variable has a name, such as "X" or "Person", and an
+ * instantiation. When a variable unifies with a term, it
+ * "instantiates" to it, taking the term as its value. The
+ * instantiation of a variable may be another variable, or a
+ * structure.
+ * <p>
+ * The scope of a variable is the rule in which it is
+ * contained. For example, consider the member program:
+ * <blockquote><pre>
+ *     member(X, [X | Rest]);
+ *     member(X, [Y | Rest]) :- member(X, Rest);
+ * </pre></blockquote>
+ * In this program, the variable "X" in the first rule is the
+ * same variable both times it appears in the rule. However,
+ * this variable is completely independent of the variable
+ * named "X" in the second rule. Variables with the same name
+ * in a rule are the same variable, but variables with the
+ * same name in different rules are different variables. This
+ * is another way of saying that a variable's scope is the
+ * rule in which it appears.
+ * <p>
+ * To be more specific, the scope of a variable is the
+ * <i>dynamic</i> rule in which the variable appears. Since
+ * rules may execute recursively, dynamic rules each need an
+ * independent copy of a defining rule's variables. In the
+ * member program, for example, the second rule may prove
+ * itself by reinvoking itself, with a (slightly) different
+ * set of variable instantiations.
+ * <p>
+ * Consider the query <code>member(c, [a, b, c])</code>. This
+ * query will unify with the second rule, and try to prove the
+ * second rule's tail, which will be <code>member(c, [b,
+ * c])</code>. This structure will try to prove itself, and it
+ * too will unify with the second rule. At this point, the
+ * proof of <code>member(c, [a, b, c])</code> will be waiting
+ * upon the proof of <code>member(c, [b, c]). That is, the two
+ * dynamic copies of the rule, will be in different states,
+ * because of their variables. For example, the instantiation
+ * of <code>Rest</code> in the first execution of the rule
+ * will be <code>[b, c]<code>, and the value of
+ * <code>Rest</code> in the second rule will <code>[c]</code>.
+ * <p>
+ * Variables have a name and an instantiation which is unique
+ * within a scope; each dynamic version of a rule has a unique
+ * Scope.
+ * <p>
+ */
 public class Variable implements ArithmeticTerm, ComparisonTerm {
 
     /**

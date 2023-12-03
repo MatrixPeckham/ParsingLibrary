@@ -2,6 +2,13 @@ package com.matrixpeckham.parse.examples.sling;
 
 import static java.lang.Math.abs;
 
+/**
+ * This class wraps an absolute value function around
+ * another source function.
+ * <p>
+ * The absolute value of x is just x if x is positive, and
+ * is –x if x is negative.
+ */
 public class Abs extends SlingFunction {
 
     /**
@@ -38,13 +45,13 @@ public class Abs extends SlingFunction {
      * The <code>Math.abs</code> function returns a single number, so this
      * method uses t as the x component of the constant that it returns. Thus
      * the return value is:
-     *
+     * <p>
      * <blockquote><pre>
      *    new Point(t, Math.abs(source.f(t).y))
      * </pre></blockquote>
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return a new point: <code>(t, abs(source.f(t).y))</code>
      */
@@ -62,4 +69,5 @@ public class Abs extends SlingFunction {
     public String toString() {
         return "abs(" + source[0] + ")";
     }
+
 }

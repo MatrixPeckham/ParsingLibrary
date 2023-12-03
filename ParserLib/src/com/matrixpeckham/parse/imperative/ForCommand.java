@@ -1,13 +1,31 @@
 package com.matrixpeckham.parse.imperative;
 
-import com.matrixpeckham.parse.engine.ArithmeticOperator;
-import com.matrixpeckham.parse.engine.BooleanTerm;
-import com.matrixpeckham.parse.engine.Comparison;
-import com.matrixpeckham.parse.engine.Evaluation;
-import com.matrixpeckham.parse.engine.NumberFact;
-import com.matrixpeckham.parse.engine.Variable;
+import com.matrixpeckham.parse.engine.*;
 import java.util.logging.Logger;
 
+/**
+ * This command mimics a normal "for" loop, such as:
+ * <p>
+ * <blockquote><pre>
+ *
+ *     for (int i = 0; i &lt; limit; i++){
+ *         // body
+ *     }
+ * </pre></blockquote>
+ * <p>
+ * This class retains four parameters which the constructors
+ * receive or establish. These parameters are a setup
+ * command, a condition, an end command, and a body command.
+ * <p>
+ * The <code>execute</code> method executes a "for" loop,
+ * essentially executing:
+ * <blockquote><pre>
+ *
+ *     for (setup; condition; endCommand){
+ *         bodyCommand;
+ *     }
+ * </pre></blockquote>
+ */
 public class ForCommand extends Command {
 
     /**
@@ -36,13 +54,13 @@ public class ForCommand extends Command {
      * "step" parameter. This command will iterate, adding step to the initial
      * value, ceasing the loop when the value is greater than the "to" limit.
      *
-     * @param v the variable to iterate
+     * @param v           the variable to iterate
      *
-     * @param from the initial value for the variable
+     * @param from        the initial value for the variable
      *
-     * @param to a value not to exceed in the loop
+     * @param to          a value not to exceed in the loop
      *
-     * @param step the amount to increment by
+     * @param step        the amount to increment by
      *
      * @param bodyCommand the command to repeatedly execute
      */
@@ -67,7 +85,7 @@ public class ForCommand extends Command {
      * Construct a "for" command that iterates the supplied variable over the
      * integers from the "from" parameter to the "to" parameter. For example,
      * the following code segment prints out <code>"my\n"</code> five times.
-     *
+     * <p>
      * <blockquote><pre>
      *
      *     Variable i = new Variable("i");
@@ -77,11 +95,11 @@ public class ForCommand extends Command {
      *
      * </pre></blockquote>
      *
-     * @param v the variable to iterate
+     * @param v           the variable to iterate
      *
-     * @param from the initial value for the variable
+     * @param from        the initial value for the variable
      *
-     * @param to the final value for the variable
+     * @param to          the final value for the variable
      * @param bodyCommand the command to repeatedly execute
      */
     public ForCommand(
@@ -96,11 +114,11 @@ public class ForCommand extends Command {
      *
      * @param setupCommand the command to execute before the "for" loop begins
      *
-     * @param condition the condition to check before executing the body
+     * @param condition    the condition to check before executing the body
      *
-     * @param endCommand the condition to check after executing the body
+     * @param endCommand   the condition to check after executing the body
      *
-     * @param bodyCommand the command to repeatedly execute
+     * @param bodyCommand  the command to repeatedly execute
      */
     public ForCommand(
             Command setupCommand, BooleanTerm condition,

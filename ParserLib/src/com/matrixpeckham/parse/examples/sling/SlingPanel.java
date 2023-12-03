@@ -2,12 +2,17 @@ package com.matrixpeckham.parse.examples.sling;
 
 //import com.sun.java.swing.*;
 import static java.awt.Color.black;
-import java.awt.Graphics;
 import static java.lang.Math.round;
+
+import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 
+/**
+ * A <code>SlingPlanel</code> draws a <code>
+ * RenderableCollection</code>.
+ */
 public class SlingPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -36,6 +41,7 @@ public class SlingPanel extends JPanel {
      *
      */
     protected int[] pointsY = new int[0];
+
     /*
      * We will plot in the largest possible rectangle that has
      * the same ratio of width to height as ratio the plot
@@ -53,9 +59,9 @@ public class SlingPanel extends JPanel {
 
         /*
          * The constraints are:
-         *     thickness/tallness = aspectRatio of the plot;
-         *     thickness <= the width of this component;
-         *     tallness <= the height of this component.
+         * thickness/tallness = aspectRatio of the plot;
+         * thickness <= the width of this component;
+         * tallness <= the height of this component.
          */
         double thickness = w;
         double tallness = thickness / aspectRatio;
@@ -76,6 +82,7 @@ public class SlingPanel extends JPanel {
                 (w - 1) / 2 + (thickness - 1) / 2,
                 (h - 1) / 2 - (tallness - 1) / 2);
     }
+
     /*
      * Ensure there is enough space to print all these points.
      */
@@ -91,6 +98,7 @@ public class SlingPanel extends JPanel {
             pointsY = new int[nPoint];
         }
     }
+
     /*
      * Display one scaled function. The scale translates the
      * function's points to pixel values.

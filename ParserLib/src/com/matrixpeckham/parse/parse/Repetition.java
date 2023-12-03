@@ -1,12 +1,15 @@
 package com.matrixpeckham.parse.parse;
 
-import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import static java.lang.Math.random;
+
+import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
 /**
+ * A <code>Repetition</code> matches its underlying parser
+ * repeatedly against a assembly.
  *
  * @author Owner
  * @param <Tok>
@@ -15,28 +18,20 @@ import java.util.logging.Logger;
  */
 public class Repetition<Tok, Val, Tar extends PubliclyCloneable<Tar>>
         extends Parser<Tok, Val, Tar> {
-    /*
-     * the parser this parser is a repetition of
-     */
 
     /**
-     *
+     * the parser this parser is a repetition of
      */
     protected Parser<Tok, Val, Tar> subparser;
 
-    /*
-     * the width of a random expansion
-     */
     /**
-     *
+     * the width of a random expansion
      */
     protected static final int EXPWIDTH = 4;
 
-    /*
-     * an assembler to apply at the beginning of a match
-     */
     /**
-     *
+     * an assembler to apply at the beginning of a match
+     * <p>
      */
     protected Assembler<Tok, Val, Tar> preAssembler;
 
@@ -54,7 +49,7 @@ public class Repetition<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      *
      * @param subparser the parser to repeat
      *
-     * @param name a name to be known by
+     * @param name      a name to be known by
      */
     public Repetition(Parser<Tok, Val, Tar> subparser, String name) {
         super(name);
@@ -64,7 +59,7 @@ public class Repetition<Tok, Val, Tar extends PubliclyCloneable<Tar>>
     /**
      * Accept a "visitor" and a collection of previously visited parsers.
      *
-     * @param pv the visitor to accept
+     * @param pv      the visitor to accept
      *
      * @param visited a collection of previously visited parsers
      */
@@ -102,7 +97,7 @@ public class Repetition<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      * {^aaab, a^aab, aa^ab, aaa^b}</code>.
      *
      * @return a ArrayList of assemblies that result from matching against a
-     * beginning set of assemblies
+     *         beginning set of assemblies
      *
      * @param in a vector of assemblies to match against
      *
@@ -131,6 +126,7 @@ public class Repetition<Tok, Val, Tar extends PubliclyCloneable<Tar>>
      *
      * @param maxDepth
      * @param depth
+     *
      * @return
      */
     @Override
@@ -164,13 +160,14 @@ public class Repetition<Tok, Val, Tar extends PubliclyCloneable<Tar>>
         this.preAssembler = preAssembler;
         return this;
     }
+
     /*
      * Returns a textual description of this parser.
      */
-
     /**
      *
      * @param visited
+     *
      * @return
      */
     @Override

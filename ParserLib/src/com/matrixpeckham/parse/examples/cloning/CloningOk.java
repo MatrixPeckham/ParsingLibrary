@@ -2,6 +2,11 @@ package com.matrixpeckham.parse.examples.cloning;
 
 import java.util.logging.Logger;
 
+/**
+ *
+ * This class will compile and run, since the class
+ * implements Cloneable.
+ */
 public class CloningOk implements Cloneable {
 
     /**

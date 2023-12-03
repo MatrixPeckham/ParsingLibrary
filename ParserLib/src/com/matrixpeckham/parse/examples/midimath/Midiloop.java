@@ -1,20 +1,28 @@
 package com.matrixpeckham.parse.examples.midimath;
 
-import com.matrixpeckham.parse.examples.arithmetic.NumAssembler;
-import com.matrixpeckham.parse.examples.arithmetic.PlusAssembler;
-import com.matrixpeckham.parse.examples.arithmetic.TimesAssembler;
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Num;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.TokenAssembly;
+import com.matrixpeckham.parse.examples.arithmetic.*;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
+/**
+ * This class creates and uses a parser that aims
+ * to recognize simple arithmetic expressions, but gets
+ * caught in a loop. Allowable expressions include the
+ * use of multiplication, addition and parentheses. The
+ * grammar for this language is:
+ * <p>
+ * <blockquote><pre>
+ *     expression = term ('+' term)*;
+ *     term       = factor ('*' factor)*;
+ *     factor     = '(' expression ')' | Num;
+ * </pre></blockquote>
+ * <p>
+ * This class implements this grammar as a utility class,
+ * but introduces a definitional loop in so doing.
+ * <p>
+ */
 public class Midiloop {
 
     /**
@@ -40,7 +48,7 @@ public class Midiloop {
      * expressions in parentheses.
      *
      * @return a parser that will recognize either numbers, or arithmetic
-     * expressions in parentheses
+     *         expressions in parentheses
      */
     protected Parser<Token, Double, NullCloneable> factor() {
         Alternation<Token, Double, NullCloneable> factor = new Alternation<>();
@@ -76,7 +84,7 @@ public class Midiloop {
      * just multiplication.
      *
      * @return a parser that will recognize arithmetic expressions containing
-     * just multiplication
+     *         just multiplication
      */
     protected Parser<Token, Double, NullCloneable> term() {
         Sequence<Token, Double, NullCloneable> term = new Sequence<>();

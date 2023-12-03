@@ -5,6 +5,13 @@ import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import java.util.logging.Logger;
 import javax.swing.JSlider;
 
+/**
+ * This class provides a target for a <code>SlingParser
+ * </code>. The target holds a scope for variables, two
+ * sliders, and the <code>RenderableCollection</code> object
+ * which the user's commands will fill with renderable
+ * functions.
+ */
 public class SlingTarget implements PubliclyCloneable<SlingTarget> {
 
     /**
@@ -54,7 +61,7 @@ public class SlingTarget implements PubliclyCloneable<SlingTarget> {
      * renderable functions.
      *
      * @return the renderables collection which is the destination for the
-     * user's renderable functions
+     *         user's renderable functions
      */
     public RenderableCollection getRenderables() {
         return renderables;
@@ -64,6 +71,7 @@ public class SlingTarget implements PubliclyCloneable<SlingTarget> {
      * Return true, if the given variable name exists in this target's scope.
      *
      * @param s
+     *
      * @return
      */
     public boolean isDefined(String s) {
@@ -74,6 +82,7 @@ public class SlingTarget implements PubliclyCloneable<SlingTarget> {
      * Return a variable of the given name.
      *
      * @param name the name to look up
+     *
      * @return a variable of the given name
      *
      *
@@ -87,7 +96,7 @@ public class SlingTarget implements PubliclyCloneable<SlingTarget> {
      * lines to use in rendering a function.
      *
      * @return the special variable "nLine", which establishes the number of
-     * lines to use in rendering a function
+     *         lines to use in rendering a function
      */
     public Variable nLine() {
         Variable v;

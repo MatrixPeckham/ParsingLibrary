@@ -2,9 +2,31 @@ package com.matrixpeckham.parse.engine;
 
 import static com.matrixpeckham.parse.engine.Unification.empty;
 import static java.lang.System.arraycopy;
+
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * A DynamicRule represents a provable statement that a
+ * structure is true if a following series of other
+ * structures are true.
+ * <p>
+ * For example,
+ * <blockquote><pre>
+ *     bachelor(X) :- male(X), unmarried(X);
+ * </pre></blockquote>
+ * <p>
+ * is a logical rule.
+ * <p>
+ * The head of this rule is the structure <code>bachelor(X)
+ * </code>. A structure <code>bachelor(B)</code> can prove
+ * itself by unifying with the head, and then proving the
+ * remaining structures or "tail".
+ * <p>
+ * The tail in this example contains <code>male(X)</code>
+ * and <code>unmarried(X)</code>.
+ * <p>
+ */
 public class DynamicRule extends Rule
         implements DynamicAxiom {
 
@@ -27,6 +49,7 @@ public class DynamicRule extends Rule
      *
      */
     protected DynamicRule tail;
+
     /*
      * Construct a provable rule for the given axiom source,
      * scope, and structures -- these structures must all be
@@ -51,11 +74,11 @@ public class DynamicRule extends Rule
     /**
      * Construct a provable rule for the given axiom source, scope, and rule.
      *
-     * @param as the source to consult for proving the structures in this
-     * dynamic rule
+     * @param as    the source to consult for proving the structures in this
+     *              dynamic rule
      *
      * @param scope a home for the variables in this dynamic rule
-     * @param rule the non-dynamic source of this rule.
+     * @param rule  the non-dynamic source of this rule.
      */
     protected DynamicRule(
             AxiomSource as, Scope scope, Rule rule) {
@@ -67,14 +90,14 @@ public class DynamicRule extends Rule
     /**
      * "Can establish" means that either a rule can prove itself, or that the
      * rule is empty.
-     *
+     * <p>
      * When a structure unifies with the head of a rule, the structure asks the
      * rule's tail if it can "establish" itself. This amounts to proving the
      * tail, unless this rule is empty. If this rule is empty, it can
      * "establish" itself, but it cannot "find next proof".
      *
      * @return <code>true</code> if this rule is empty, or if it is nonempty and
-     * can find another proof
+     *         can find another proof
      */
     public boolean canEstablish() {
         if (isEmpty()) {
@@ -158,6 +181,7 @@ public class DynamicRule extends Rule
      * @param as
      * @param scope
      * @param structures
+     *
      * @return
      */
     protected static Structure[] provableStructures(

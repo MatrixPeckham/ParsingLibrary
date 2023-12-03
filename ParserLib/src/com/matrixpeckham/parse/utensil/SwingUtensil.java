@@ -1,30 +1,28 @@
 package com.matrixpeckham.parse.utensil;
 
-import java.awt.BorderLayout;
 import static java.awt.Color.black;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 import static java.awt.Font.PLAIN;
-import java.awt.Frame;
 import static java.awt.Toolkit.getDefaultToolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import static java.lang.System.exit;
-import java.util.logging.Logger;
 import static javax.swing.BorderFactory.createBevelBorder;
 import static javax.swing.BorderFactory.createTitledBorder;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import static javax.swing.border.BevelBorder.RAISED;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import static javax.swing.border.TitledBorder.LEFT;
 import static javax.swing.border.TitledBorder.TOP;
 
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.logging.Logger;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
+/**
+ * This class harbors a few handy swing utilities.
+ */
 public class SwingUtensil {
+
     /*
      * Set the location of a frame to be the center of the
      * screen.
@@ -85,6 +83,7 @@ public class SwingUtensil {
      * Return a standard titled border.
      *
      * @param title
+     *
      * @return
      */
     public static TitledBorder ideTitledBorder(String title) {
@@ -102,6 +101,7 @@ public class SwingUtensil {
      *
      * @param c
      * @param title
+     *
      * @return
      */
     public static JFrame launch(Component c, String title) {
@@ -113,20 +113,20 @@ public class SwingUtensil {
         frame.setVisible(true);
         return frame;
     }
-    /*
-     * Set up an exit listener for a frame.
-     */
 
     /**
+     * Set up an exit listener for a frame.
      *
      * @param f
      */
     public static void listen(Frame f) {
         f.addWindowListener(new WindowAdapter() {
+
             @Override
             public void windowClosing(WindowEvent e) {
                 exit(0);
             }
+
         ;
     }
 

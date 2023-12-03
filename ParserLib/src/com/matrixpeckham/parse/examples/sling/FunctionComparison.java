@@ -1,10 +1,16 @@
 package com.matrixpeckham.parse.examples.sling;
 
-import com.matrixpeckham.parse.engine.BooleanTerm;
-import com.matrixpeckham.parse.engine.Gateway;
-import com.matrixpeckham.parse.engine.Term;
+import com.matrixpeckham.parse.engine.*;
 import java.util.logging.Logger;
 
+/**
+ * This class's constructor accepts two functions and an
+ * operator, and can evaluate and compare the functions.
+ * An object of this class can say whether a comparison holds
+ * for two functions. A comparison must ultimately be between
+ * two numbers rather than two functions. This class actually
+ * compares the y components of functions at time zero.
+ */
 public class FunctionComparison extends Gateway
         implements BooleanTerm {
 
@@ -28,7 +34,7 @@ public class FunctionComparison extends Gateway
      *
      * @param operator the comparison operator
      *
-     * @param f0 the first function
+     * @param f0       the first function
      * @param f1
      */
     public FunctionComparison(
@@ -49,7 +55,7 @@ public class FunctionComparison extends Gateway
      * of the functions at time zero, and compares these values.
      *
      * @return <code>true</code> if the comparison operator holds true between
-     * the values of this comparison's terms.
+     *         the values of this comparison's terms.
      */
     @Override
     public boolean canProveOnce() {
@@ -85,7 +91,7 @@ public class FunctionComparison extends Gateway
      * between the values of the two terms.
      *
      * @return <code>Boolean.TRUE</code> if the comparison operator holds true
-     * between the values of the two terms.
+     *         between the values of the two terms.
      */
     @Override
     public Object eval() {

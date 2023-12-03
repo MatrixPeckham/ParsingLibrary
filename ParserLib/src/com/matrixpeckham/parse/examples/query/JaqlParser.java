@@ -3,18 +3,33 @@ package com.matrixpeckham.parse.examples.query;
 import com.matrixpeckham.parse.engine.Axiom;
 import com.matrixpeckham.parse.engine.Term;
 import com.matrixpeckham.parse.examples.track.Track;
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Empty;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.CaselessLiteral;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.Word;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.TypeOrType;
 import java.util.logging.Logger;
 
+/**
+ * This class provides a parser that recognizes a
+ * select query, without any where clauses. "Jaql" stands
+ * for "Just Another Query Language".
+ * <p>
+ * The grammar this class supports is:
+ * <p>
+ * <blockquote><pre>
+ *     select        = "select" selectTerms "from" classNames
+ *                     optionalWhere;
+ *     selectTerms   = commaList(selectTerm);
+ *     selectTerm    = expression;
+ *     classNames    = commaList(className);
+ *     className     = Word;
+ *     optionalwhere = empty | "where" comparisons;
+ *     comparisons   = commaList(comparison);
+ *     commaList(p) = p (',' p)*;
+ * </pre></blockquote>
+ * <p>
+ * This grammar uses <code>expression</code> and <code>
+ * comparison</code> from <code>ComparisonParser</code>.
+ */
 public class JaqlParser {
 
     /**
@@ -36,11 +51,9 @@ public class JaqlParser {
     public JaqlParser(Speller speller) {
         this.speller = speller;
     }
-    /*
-     * Recognize a class name.
-     */
 
     /**
+     * Recognize a class name.
      *
      * @return
      */
@@ -48,30 +61,27 @@ public class JaqlParser {
         return new Word<TypeOrType<Axiom, Term>, QueryBuilder>().setAssembler(
                 new ClassNameAssembler());
     }
-    /*
-     * Recognize a sequence of class names separated by commas.
-     */
 
     /**
+     * Recognize a sequence of class names separated by commas.
      *
      * @return
      */
     protected Parser<Token, TypeOrType<Axiom, Term>, QueryBuilder> classNames() {
         return commaList(className());
     }
-    /*
-     * Using the given parser, this method composes a new
-     * parser with the grammar:
-     *
-     *     commaList(p) = p (',' p)*;
-     *
-     * The Jaql language uses this construction several
-     * times.
-     */
 
     /**
+     * Using the given parser, this method composes a new
+     * parser with the grammar:
+     * <p>
+     * commaList(p) = p (',' p)*;
+     * <p>
+     * The Jaql language uses this construction several
+     * times.
      *
      * @param p
+     *
      * @return
      */
     protected static Sequence<Token, TypeOrType<Axiom, Term>, QueryBuilder> commaList(
@@ -88,12 +98,10 @@ public class JaqlParser {
         s.add(new Repetition<>(commaP));
         return s;
     }
-    /*
-     * Recognize a comparison -- just use <code>comparison
-     * </code> from <code>ComparisonParser</code>.
-     */
 
     /**
+     * Recognize a comparison -- just use <code>comparison
+     * </code> from <code>ComparisonParser</code>.
      *
      * @return
      */
@@ -112,22 +120,18 @@ public class JaqlParser {
         }
         return comparisonParser;
     }
-    /*
-     * Recognize a comma-separated sequence of comparisons.
-     */
 
     /**
+     * Recognize a comma-separated sequence of comparisons.
      *
      * @return
      */
     protected Parser<Token, TypeOrType<Axiom, Term>, QueryBuilder> comparisons() {
         return commaList(comparison());
     }
-    /*
-     * Recognize either nothing or a where clause.
-     */
 
     /**
+     * Recognize either nothing or a where clause.
      *
      * @return
      */
@@ -151,17 +155,15 @@ public class JaqlParser {
         s.add(selectTerms());
         s.
                 add(new CaselessLiteral<TypeOrType<Axiom, Term>, QueryBuilder>(
-                                "from").discard());
+                        "from").discard());
         s.add(classNames());
         s.add(optionalWhere());
         return s;
     }
-    /*
-     * Recognize a select term, which can be any valid
-     * expression.
-     */
 
     /**
+     * Recognize a select term, which can be any valid
+     * expression.
      *
      * @return
      */
@@ -173,11 +175,9 @@ public class JaqlParser {
         s.setAssembler(new SelectTermAssembler());
         return s;
     }
-    /*
-     * Recognize a comma-separated sequence of select terms.
-     */
 
     /**
+     * Recognize a comma-separated sequence of select terms.
      *
      * @return
      */
@@ -193,12 +193,10 @@ public class JaqlParser {
     public Parser<Token, TypeOrType<Axiom, Term>, QueryBuilder> start() {
         return select();
     }
-    /*
-     * Recognize a where clause, which is "where" followed by
-     * a comma-separated list of comparisons.
-     */
 
     /**
+     * Recognize a where clause, which is "where" followed by
+     * a comma-separated list of comparisons.
      *
      * @return
      */
@@ -207,7 +205,7 @@ public class JaqlParser {
                 = new Sequence<>();
         s.
                 add(new CaselessLiteral<TypeOrType<Axiom, Term>, QueryBuilder>(
-                                "where").discard());
+                        "where").discard());
         s.add(comparisons());
         return s;
     }

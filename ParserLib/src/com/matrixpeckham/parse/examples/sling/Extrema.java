@@ -2,7 +2,11 @@ package com.matrixpeckham.parse.examples.sling;
 
 import java.util.logging.Logger;
 
-
+/**
+ * This class holds onto two points, so that methods that
+ * find a maximum and minimum value over some range can
+ * return both points as a single <code>Extrema</code> object.
+ */
 public class Extrema {
 
     /**
@@ -17,6 +21,7 @@ public class Extrema {
 
     /**
      * Creates a pair of points as a single value.
+     *
      * @param max
      */
     public Extrema(Point min, Point max) {
@@ -29,7 +34,7 @@ public class Extrema {
      * extremes.
      *
      * @return the ratio of the width of the extremes to the height of the
-     * extremes
+     *         extremes
      */
     public double aspectRatio() {
         double numer = max.x - min.x;
@@ -43,7 +48,7 @@ public class Extrema {
 
     /**
      *
-     * @return 
+     * @return
      */
     @Override
     public String toString() {
@@ -51,4 +56,5 @@ public class Extrema {
     }
 
     private static final Logger LOG = Logger.getLogger(Extrema.class.getName());
+
 }

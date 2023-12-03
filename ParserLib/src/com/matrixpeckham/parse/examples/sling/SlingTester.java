@@ -2,13 +2,14 @@ package com.matrixpeckham.parse.examples.sling;
 
 import com.matrixpeckham.parse.imperative.Command;
 import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.TokenAssembly;
-import com.matrixpeckham.parse.parse.tokens.TokenTester;
-import com.matrixpeckham.parse.parse.tokens.Tokenizer;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.TypeOrType;
 import java.util.logging.Logger;
 
+/**
+ * This class tests that class <code>SlingParser</code> can
+ * parse random language elements.
+ */
 public class SlingTester extends TokenTester<TypeOrType<SlingFunction, Command>, SlingTarget> {
 
     /**
@@ -17,6 +18,7 @@ public class SlingTester extends TokenTester<TypeOrType<SlingFunction, Command>,
     public SlingTester() {
         super(new SlingParser().statement());
     }
+
     /*
      * Return an assembly for a given string, using the Sling
      * tokenizer.
@@ -29,6 +31,7 @@ public class SlingTester extends TokenTester<TypeOrType<SlingFunction, Command>,
         t.setString(s);
         return new TokenAssembly<>(t);
     }
+
     /*
      * The Sling parser expects a SlingTarget object as an
      * assembly's target. Normally, this target expects two

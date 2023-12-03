@@ -2,19 +2,39 @@ package com.matrixpeckham.parse.examples.logic;
 
 //import com.sun.java.swing.*;
 //import com.sun.java.swing.border.*;
-import com.matrixpeckham.parse.engine.Program;
-import com.matrixpeckham.parse.engine.Query;
-import com.matrixpeckham.parse.engine.Unification;
 import static com.matrixpeckham.parse.examples.logic.LogikusFacade.program;
 import static com.matrixpeckham.parse.examples.logic.LogikusFacade.query;
+import static javax.swing.SwingUtilities.invokeAndWait;
+
+import com.matrixpeckham.parse.engine.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-import static javax.swing.SwingUtilities.invokeAndWait;
 
+/**
+ * This class supports a <code>LogikusIde</code> object,
+ * handling the interaction of the IDE's components.
+ * <p>
+ * An object of the IDE (Interactive Development
+ * Environment) has text areas for a Logikus program, a
+ * query against the program, and for the results of a
+ * query.
+ * <p>
+ * When a user clicks on the "Next" or "Rest" button, the
+ * mediator parses the program (if it has changed), and
+ * parses the query (if the query has changed). The
+ * mediator then proves the query against the program.
+ * After each proof, the mediator displays the query's
+ * variables in the results text area.
+ * <p>
+ * The mediator uses a separate thread to prove the query.
+ * While this thread conducts a proof, the mediator
+ * disables most of the IDE's components, except for the
+ * "Halt" button, which stops the proof thread.
+ */
 public class LogikusMediator
         implements ActionListener, Runnable {
 
@@ -121,13 +141,11 @@ public class LogikusMediator
             setComputing(false);
         }
     }
-    /*
-     * Parse the program and query (if they have changed)
-     * and proved the query in a separate thread.
-     */
 
     /**
-     *
+     * Parse the program and query (if they have changed)
+     * and proved the query in a separate thread.
+     * <p>
      */
     protected void conductProof() {
         setComputing(true);
@@ -198,12 +216,10 @@ public class LogikusMediator
         this.resultsArea = resultsArea;
         this.queryArea = queryArea;
     }
-    /*
-     * Parses the program and query texts.
-     */
 
     /**
-     *
+     * Parses the program and query texts.
+     * <p>
      */
     protected void parseProgramAndQuery() {
 
@@ -226,12 +242,10 @@ public class LogikusMediator
         }
         lastQueryText = queryText;
     }
-    /*
-     * Proves the query against the program.
-     */
 
     /**
-     *
+     * Proves the query against the program.
+     * <p>
      */
     protected void proveNext() {
         if (query.canFindNextProof()) {
@@ -245,13 +259,11 @@ public class LogikusMediator
             display("no\n");
         }
     }
-    /*
-     * Proves the query against the program until no proofs
-     * remain.
-     */
 
     /**
-     *
+     * Proves the query against the program until no proofs
+     * remain.
+     * <p>
      */
     protected void proveRemaining() {
         Unification vars = query.variables();
@@ -283,18 +295,15 @@ public class LogikusMediator
             setComputing(false);
         }
     }
-    /*
+
+    /**
      * Sets the state of the IDE to computing or not. Most of the
      * IDE's controls are grayed out during computation of a
      * program.
      *
-     * @param   boolean  if true, indicates that a proof thread
-     *                   is finding one or more proofs
-     */
-
-    /**
+     * @param computing if true, indicates that a proof thread
+     *                  is finding one or more proofs
      *
-     * @param computing
      */
     protected void setComputing(boolean computing) {
 

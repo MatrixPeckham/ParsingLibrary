@@ -1,17 +1,48 @@
 package com.matrixpeckham.parse.examples.arithmetic;
 
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Num;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.TokenAssembly;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
+/**
+ * This class provides a parser that recognizes
+ * arithmetic expressions. This class includes the method
+ * <code>value</code>, which is a "façade" that provides an
+ * example and makes the parser easy to use. For example,
+ * <p>
+ * <blockquote><pre>
+ *
+ *     System.out.println(
+ *         ArithmeticParser.value("(5 + 4) * 3 ^ 2 - 81"));
+ * </pre></blockquote>
+ * <p>
+ * This prints out <code>0.0</code>.
+ * <p>
+ * <p>
+ * This class exists to show how a simple arithmetic
+ * parser works. It recognizes expressions according to
+ * the following rules:
+ * <p>
+ * <blockquote><pre>
+ *     expression    = term (plusTerm | minusTerm)*;
+ *     term          = factor (timesFactor | divideFactor)*;
+ *     plusTerm      = '+' term;
+ *     minusTerm     = '-' term;
+ *     factor        = phrase expFactor | phrase;
+ *     timesFactor   = '*' factor;
+ *     divideFactor  = '/' factor;
+ *     expFactor     = '^' factor;
+ *     phrase        = '(' expression ')' | Num;
+ * </pre></blockquote>
+ * <p>
+ * These rules recognize conventional operator precedence and
+ * associativity. They also avoid the problem of left
+ * recursion, and their implementation avoids problems with
+ * the infinite loop inherent in the cyclic dependencies of
+ * the rules. In other words, the rules may look simple, but
+ * their structure is subtle.
+ */
 public class ArithmeticParser {
 
     /**
@@ -27,7 +58,7 @@ public class ArithmeticParser {
     /*
      * Returns a parser that for the grammar rule:
      *
-     *     divideFactor = '/' factor;
+     * divideFactor = '/' factor;
      *
      * This parser has an assembler that will pop two
      * numbers from the stack and push their quotient.
@@ -43,10 +74,11 @@ public class ArithmeticParser {
         s.setAssembler(new DivideAssembler());
         return s;
     }
+
     /*
      * Returns a parser that for the grammar rule:
      *
-     *     expFactor = '^' factor;
+     * expFactor = '^' factor;
      *
      * This parser has an assembler that will pop two
      * numbers from the stack and push the result of
@@ -91,10 +123,11 @@ public class ArithmeticParser {
         }
         return expression;
     }
+
     /*
      * Returns a parser that for the grammar rule:
      *
-     *     factor = phrase expFactor | phrase;
+     * factor = phrase expFactor | phrase;
      */
 
     /**
@@ -119,10 +152,11 @@ public class ArithmeticParser {
         }
         return factor;
     }
+
     /*
      * Returns a parser that for the grammar rule:
      *
-     *     minusTerm = '-' term;
+     * minusTerm = '-' term;
      *
      * This parser has an assembler that will pop two
      * numbers from the stack and push their difference.
@@ -139,10 +173,11 @@ public class ArithmeticParser {
         s.setAssembler(new MinusAssembler());
         return s;
     }
+
     /*
      * Returns a parser that for the grammar rule:
      *
-     *    phrase = '(' expression ')' | Num;
+     * phrase = '(' expression ')' | Num;
      *
      * This parser adds an assembler to Num, that will
      * replace the top token in the stack with the token's
@@ -167,10 +202,11 @@ public class ArithmeticParser {
                 new NumAssembler()));
         return phrase;
     }
+
     /*
      * Returns a parser that for the grammar rule:
      *
-     *     plusTerm = '+' term;
+     * plusTerm = '+' term;
      *
      * This parser has an assembler that will pop two
      * numbers from the stack and push their sum.
@@ -196,10 +232,11 @@ public class ArithmeticParser {
     public static Parser<Token, Double, NullCloneable> start() {
         return new ArithmeticParser().expression();
     }
+
     /*
      * Returns a parser that for the grammar rule:
      *
-     *    term = factor (timesFactor | divideFactor)*;
+     * term = factor (timesFactor | divideFactor)*;
      */
 
     /**
@@ -219,10 +256,11 @@ public class ArithmeticParser {
         s.add(new Repetition<>(a));
         return s;
     }
+
     /*
      * Returns a parser that for the grammar rule:
      *
-     *     timesFactor = '*' factor;
+     * timesFactor = '*' factor;
      *
      * This parser has an assembler that will pop two
      * numbers from the stack and push their product.
@@ -249,7 +287,7 @@ public class ArithmeticParser {
      * @param s the string to evaluate.
      *
      * @exception ArithmeticExpressionException if this parser does not
-     * recognize the given string as a valid expression
+     *                                          recognize the given string as a valid expression
      */
     public static double value(String s)
             throws ArithmeticExpressionException {

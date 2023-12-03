@@ -3,6 +3,12 @@ package com.matrixpeckham.parse.examples.sling;
 import com.matrixpeckham.parse.imperative.Command;
 import java.util.logging.Logger;
 
+/**
+ * This command, when executed, evaluates a function and sets
+ * it as the value of a variable.
+ *
+ * @author Steven J. Metsker
+ */
 public class AssignFunctionCommand extends Command {
 
     /**
@@ -21,7 +27,7 @@ public class AssignFunctionCommand extends Command {
      *
      * @param v the variable to assign to
      * @param f the function to evaluate and assign to the variable at execution
-     * time
+     *          time
      */
     public AssignFunctionCommand(Variable v, SlingFunction f) {
         this.v = v;

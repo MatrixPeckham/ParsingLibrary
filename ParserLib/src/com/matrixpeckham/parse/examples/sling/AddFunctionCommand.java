@@ -3,6 +3,10 @@ package com.matrixpeckham.parse.examples.sling;
 import com.matrixpeckham.parse.imperative.Command;
 import java.util.logging.Logger;
 
+/**
+ * This command, when executed, evaluates a renderable
+ * function and adds it to a renderable collection.
+ */
 public class AddFunctionCommand extends Command {
 
     /**

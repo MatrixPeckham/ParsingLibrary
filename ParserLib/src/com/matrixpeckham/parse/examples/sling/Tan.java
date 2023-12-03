@@ -1,8 +1,16 @@
 package com.matrixpeckham.parse.examples.sling;
 
 import static java.lang.Math.tan;
+
 import java.util.logging.Logger;
 
+/**
+ * This class wraps a tan function around another source
+ * function.
+ * <p>
+ * The tan function is the ratio of a sling stone's y
+ * component to its x component.
+ */
 public class Tan extends SlingFunction {
 
     /**
@@ -31,7 +39,7 @@ public class Tan extends SlingFunction {
      * Returns, essentially, <code>tan(source.f(t))</code>.
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return a new point: <code>(t, tan(source.f(t).y))</code>
      *

@@ -4,6 +4,11 @@ import com.matrixpeckham.parse.parse.Assembly;
 import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import java.util.logging.Logger;
 
+/**
+ * A TokenAssembly is an Assembly whose elements are Tokens.
+ * Tokens are, roughly, the chunks of text that a <code>
+ * Tokenizer</code> returns.
+ */
 public class TokenAssembly<Val, Tar extends PubliclyCloneable<Tar>>
         extends Assembly<Token, Val, Tar> {
 
@@ -60,7 +65,7 @@ public class TokenAssembly<Val, Tar extends PubliclyCloneable<Tar>>
      * @param delimiter the mark to show between consumed elements
      *
      * @return a textual description of the amount of this assembly that has
-     * been consumed
+     *         been consumed
      */
     @Override
     public String consumed(String delimiter) {
@@ -101,7 +106,7 @@ public class TokenAssembly<Val, Tar extends PubliclyCloneable<Tar>>
      * @return the next token from the associated token string.
      *
      * @exception ArrayIndexOutOfBoundsException if there are no more tokens in
-     * this tokenizer's string.
+     *                                           this tokenizer's string.
      */
     @Override
     public Token next() {
@@ -145,7 +150,7 @@ public class TokenAssembly<Val, Tar extends PubliclyCloneable<Tar>>
      * @param delimiter the mark to show between consumed elements
      *
      * @return a textual description of the amount of this assembly that remains
-     * to be consumed
+     *         to be consumed
      */
     @Override
     public String remainder(String delimiter) {

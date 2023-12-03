@@ -1,10 +1,53 @@
 package com.matrixpeckham.parse.combinatorics;
 
 import static com.matrixpeckham.parse.combinatorics.Combinatoric.check;
+
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
+/**
+ * The Combinations class provides an enumeration of all
+ * subsets of a group of n objects taken r at a time. The
+ * constructor for Combinations accepts the group as an array
+ * of Objects, along with the number to select.
+ * <p>
+ * For example, to choose 3 boys from a list of 5, begin with
+ * an array of names:
+ * <p>
+ * <blockquote><pre>
+ *     Object[] boys =
+ *         {"Alfred", "Ben", "Carl", "Drew", "Edwin"};
+ * </pre></blockquote>
+ * To see all combinations of these 5 names taken 3 at a
+ * time, create and use a Combinations enumeration:
+ * <p>
+ * <blockquote><pre>
+ *     Combinations c = new Combinations(boys, 3);
+ *     while (c.hasMoreElements()) {
+ *         Object[] combo = (Object[])c.nextElement();
+ *         for (int i = 0; i < combo.length; i++) {
+ *             System.out.print((String)combo[i] + " ");
+ *         }
+ *     System.out.println();
+ *     }
+ * </pre></blockquote>
+ * <p>
+ * This will print out a 10 line list:
+ * <blockquote><pre>
+ * 	Alfred Ben Carl
+ * 	Alfred Ben Drew
+ * 	Alfred Ben Edwin
+ * 	Alfred Carl Drew
+ * 	Alfred Carl Edwin
+ * 	Alfred Drew Edwin
+ * 	Ben Carl Drew
+ * 	Ben Carl Edwin
+ * 	Ben Drew Edwin
+ * 	Carl Drew Edwin
+ * </pre></blockquote>
+ * <p>
+ */
 public class Combinations<T> implements java.util.Iterator<T[]> {
 
     /**
@@ -34,7 +77,8 @@ public class Combinations<T> implements java.util.Iterator<T[]> {
      *
      * @param inArray the group to choose from
      *
-     * @param m int the number to select in each choice
+     * @param m       int the number to select in each choice
+     *
      * @throws com.matrixpeckham.parse.combinatorics.CombinatoricException
      */
     public Combinations(T[] inArray, int m)
@@ -78,7 +122,7 @@ public class Combinations<T> implements java.util.Iterator<T[]> {
      * 4}, and {2, 3, 4}.
      * <p>
      * The algorithm is from "Applied Combinatorics", by Alan Tucker.
-     *
+     * <p>
      */
     protected void moveIndex() {
         int i = rightmostIndexBelowMax();
@@ -94,7 +138,7 @@ public class Combinations<T> implements java.util.Iterator<T[]> {
 
     /**
      * @return java.lang.Object, the next combination from the supplied Object
-     * array.
+     *         array.
      * <p>
      * Actually, an array of Objects is returned. The declaration must say just
      * "Object", since the Combinations class implements Iterator, which

@@ -6,6 +6,43 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+/**
+ * A <code>SymbolNode</code> object is a member of a tree that
+ * contains all possible prefixes of allowable symbols. Multi-
+ * character symbols appear in a <code>SymbolNode</code> tree
+ * with one node for each character.
+ * <p>
+ * For example, the symbol <code>=:~</code> will appear in a
+ * tree as three nodes. The first node contains an equals sign,
+ * and has a child; that child contains a colon and has a
+ * child; this third child contains a tilde, and has no
+ * children of its own. If the colon node had another child
+ * for a dollar sign character, then the tree would contain
+ * the symbol <code>=:$</code>.
+ * <p>
+ * A tree of <code>SymbolNode</code> objects collaborate to
+ * read a (potentially multi-character) symbol from an input
+ * stream. A root node with no character of its own finds an
+ * initial node that represents the first character in the
+ * input. This node looks to see if the next character in the
+ * stream matches one of its children. If so, the node
+ * delegates its reading task to its child. This approach
+ * walks down the tree, pulling symbols from the input that
+ * match the path down the tree.
+ * <p>
+ * When a node does not have a child that matches the next
+ * character, we will have read the longest possible symbol
+ * prefix. This prefix may or may not be a valid symbol.
+ * Consider a tree that has had <code>=:~</code> added and has
+ * not had <code>=:</code> added. In this tree, of the three
+ * nodes that contain <code>=:~</code>, only the first and
+ * third contain complete symbols. If, say, the input contains
+ * <code>=:a</code>, the colon node will not have a child that
+ * matches the 'a' and so it will stop reading. The colon node
+ * has to "unread": it must push back its character, and ask
+ * its parent to unread. Unreading continues until it reaches
+ * an ancestor that represents a valid symbol.
+ */
 public class SymbolNode {
 
     /**
@@ -41,12 +78,10 @@ public class SymbolNode {
         this.parent = parent;
         this.myChar = myChar;
     }
-    /*
-     * Add a line of descendants that represent the characters
-     * in the given string.
-     */
 
     /**
+     * Add a line of descendants that represent the characters
+     * in the given string.
      *
      * @param s
      */
@@ -66,15 +101,15 @@ public class SymbolNode {
     public String ancestry() {
         return parent.ancestry() + myChar;
     }
-    /*
-     * Find the descendant that takes as many characters as
-     * possible from the input.
-     */
 
     /**
+     * Find the descendant that takes as many characters as
+     * possible from the input.
      *
      * @param r
+     *
      * @return
+     *
      * @throws IOException
      */
     protected SymbolNode deepestRead(PushbackReader r)
@@ -88,13 +123,12 @@ public class SymbolNode {
         }
         return n.deepestRead(r);
     }
-    /*
-     * Find or create a child for the given character.
-     */
 
     /**
+     * Find or create a child for the given character.
      *
      * @param c
+     *
      * @return
      */
     protected SymbolNode ensureChildWithChar(char c) {
@@ -105,13 +139,12 @@ public class SymbolNode {
         }
         return n;
     }
-    /*
-     * Find a child with the given character.
-     */
 
     /**
+     * Find a child with the given character.
      *
      * @param c
+     *
      * @return
      */
     protected SymbolNode findChildWithChar(char c) {
@@ -124,14 +157,13 @@ public class SymbolNode {
         }
         return null;
     }
-    /*
-     * Find a descendant which is down the path the given string
-     * indicates.
-     */
 
     /**
+     * Find a descendant which is down the path the given string
+     * indicates.
      *
      * @param s
+     *
      * @return
      */
     protected SymbolNode findDescendant(String s) {
@@ -142,12 +174,10 @@ public class SymbolNode {
         }
         return n.findDescendant(s.substring(1));
     }
-    /*
-     * Mark this node as valid, which means its ancestry is a
-     * complete symbol, not just a prefix.
-     */
 
     /**
+     * Mark this node as valid, which means its ancestry is a
+     * complete symbol, not just a prefix.
      *
      * @param b
      */
@@ -164,6 +194,7 @@ public class SymbolNode {
     public String toString() {
         return "" + myChar + '(' + valid + ')';
     }
+
     /*
      * Unwind to a valid node; this node is "valid" if its
      * ancestry represents a complete symbol. If this node is
@@ -174,7 +205,9 @@ public class SymbolNode {
     /**
      *
      * @param r
+     *
      * @return
+     *
      * @throws IOException
      */
     protected SymbolNode unreadToValid(PushbackReader r)

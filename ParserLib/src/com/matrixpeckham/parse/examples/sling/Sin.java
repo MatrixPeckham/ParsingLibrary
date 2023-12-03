@@ -1,8 +1,16 @@
 package com.matrixpeckham.parse.examples.sling;
 
 import static java.lang.Math.sin;
+
 import java.util.logging.Logger;
 
+/**
+ * This class wraps a sin function around another source
+ * function.
+ * <p>
+ * The sin function is the y component of a stone's location
+ * at an angle given in radians.
+ */
 public class Sin extends SlingFunction {
 
     /**
@@ -31,7 +39,7 @@ public class Sin extends SlingFunction {
      * Returns, essentially, <code>sin(source.f(t))</code>.
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return a new point: <code>(t, sin(source.f(t).y))</code>
      *

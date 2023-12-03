@@ -3,6 +3,14 @@ package com.matrixpeckham.parse.parse.tokens;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * A token represents a logical chunk of a string. For
+ * example, a typical tokenizer would break the string
+ * <code>"1.23 <= 12.3"</code> into three tokens: the number
+ * 1.23, a less-than-or-equal symbol, and the number 12.3. A
+ * token is a receptacle, and relies on a tokenizer to decide
+ * precisely how to divide a string into tokens.
+ */
 public class Token {
 
     /**

@@ -1,11 +1,7 @@
 package com.matrixpeckham.parse.examples.query;
 
 //import com.sun.java.swing.*;
-import com.matrixpeckham.parse.engine.Axiom;
-import com.matrixpeckham.parse.engine.DynamicRule;
-import com.matrixpeckham.parse.engine.Query;
-import com.matrixpeckham.parse.engine.Structure;
-import com.matrixpeckham.parse.engine.Term;
+import com.matrixpeckham.parse.engine.*;
 import com.matrixpeckham.parse.parse.Assembly;
 import com.matrixpeckham.parse.parse.Parser;
 import com.matrixpeckham.parse.parse.tokens.Token;
@@ -17,6 +13,12 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
+/**
+ * This class controls the interaction of the visual
+ * components in a <code>JaqlUe</code>.
+ *
+ * @see JaqlUe
+ */
 public class JaqlMediator implements ActionListener {
 
     /**
@@ -83,12 +85,10 @@ public class JaqlMediator implements ActionListener {
             resultArea.setText("");
         }
     }
-    /*
-     * This method provides all the "go" actions and relies on
-     * actionPerformed to handle exceptions.
-     */
 
     /**
+     * This method provides all the "go" actions and relies on
+     * actionPerformed to handle exceptions.
      *
      * @param e
      */
@@ -103,12 +103,10 @@ public class JaqlMediator implements ActionListener {
         Query q = b.build(chipSource());
         showResults(q);
     }
-    /*
-     * Return a ChipSource, an axiom source for facts about
-     * chips, customers, and orders.
-     */
 
     /**
+     * Return a ChipSource, an axiom source for facts about
+     * chips, customers, and orders.
      *
      * @return
      */
@@ -122,7 +120,7 @@ public class JaqlMediator implements ActionListener {
     /**
      * Initialize this object, using the components of
      *
-     * @param goButton a <code>JaqlUe</code>.
+     * @param goButton     a <code>JaqlUe</code>.
      * @param clearButton
      * @param queryArea
      * @param resultArea
@@ -141,11 +139,9 @@ public class JaqlMediator implements ActionListener {
         this.queryArea = queryArea;
         this.resultArea = resultArea;
     }
-    /*
-     * Apply the Jaql parser to the input.
-     */
 
     /**
+     * Apply the Jaql parser to the input.
      *
      * @return
      */
@@ -158,11 +154,9 @@ public class JaqlMediator implements ActionListener {
                 = parser().completeMatch(a);
         return result;
     }
-    /*
-     * The parser to use for queries.
-     */
 
     /**
+     * The parser to use for queries.
      *
      * @return
      */
@@ -172,11 +166,9 @@ public class JaqlMediator implements ActionListener {
         }
         return parser;
     }
-    /*
-     * Show the results of a successfully built query.
-     */
 
     /**
+     * Show the results of a successfully built query.
      *
      * @param q
      */
@@ -197,12 +189,10 @@ public class JaqlMediator implements ActionListener {
             resultArea.append("\n");
         }
     }
-    /*
-     * Return a speller to use for checking class and variable
-     * names;
-     */
 
     /**
+     * Return a speller to use for checking class and variable
+     * names;
      *
      * @return
      */

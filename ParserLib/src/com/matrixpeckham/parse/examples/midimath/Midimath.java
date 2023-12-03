@@ -1,19 +1,23 @@
 package com.matrixpeckham.parse.examples.midimath;
 
-import com.matrixpeckham.parse.examples.arithmetic.NumAssembler;
-import com.matrixpeckham.parse.examples.arithmetic.PlusAssembler;
-import com.matrixpeckham.parse.examples.arithmetic.TimesAssembler;
-import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Num;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.TokenAssembly;
+import com.matrixpeckham.parse.examples.arithmetic.*;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
+/**
+ * This class creates and uses a parser that recognizes
+ * arithmetic expressions that use addition and
+ * multiplication. The rules of the Midimath language are:
+ * <p>
+ * <blockquote><pre>
+ *     expression = term ('+' term)*;
+ *     term       = Num ('*' Num)*;
+ * </pre></blockquote>
+ * <p>
+ * This class exists to show operator precedence.
+ */
 public class Midimath {
 
     /**
@@ -51,7 +55,7 @@ public class Midimath {
      * just multiplication.
      *
      * @return a parser that will recognize arithmetic expressions containing
-     * just multiplication
+     *         just multiplication
      */
     protected Parser<Token, Double, NullCloneable> term() {
         Sequence<Token, Double, NullCloneable> term = new Sequence<>();

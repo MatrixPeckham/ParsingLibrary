@@ -1,12 +1,11 @@
 package com.matrixpeckham.parse.parse.tokens;
 
-import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.ParserTester;
+import com.matrixpeckham.parse.parse.*;
 import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import java.util.logging.Logger;
 
 /**
+ * Tester for token based assemblies.
  *
  * @author Owner
  * @param <Val>
@@ -24,9 +23,10 @@ public class TokenTester<Val, Tar extends PubliclyCloneable<Tar>>
     }
 
     /**
-     * assembly method comment.
+     * Make a new token assembly.
      *
      * @param s
+     *
      * @return
      */
     @Override

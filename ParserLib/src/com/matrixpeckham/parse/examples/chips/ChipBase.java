@@ -3,6 +3,10 @@ package com.matrixpeckham.parse.examples.chips;
 import java.util.*;
 import java.util.logging.Logger;
 
+/**
+ * This class contains a small database of chips, customers,
+ * and orders.
+ */
 public class ChipBase {
 
     /**

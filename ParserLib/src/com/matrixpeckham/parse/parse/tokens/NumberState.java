@@ -1,10 +1,18 @@
 package com.matrixpeckham.parse.parse.tokens;
 
 import static com.matrixpeckham.parse.parse.tokens.Token.TT_NUMBER;
+
 import java.io.IOException;
 import java.io.PushbackReader;
 import java.util.logging.Logger;
 
+/**
+ * A NumberState object returns a number from a reader. This
+ * state's idea of a number allows an optional, initial
+ * minus sign, followed by one or more digits. A decimal
+ * point and another string of digits may follow these
+ * digits.
+ */
 public class NumberState extends TokenizerState {
 
     /**
@@ -31,16 +39,16 @@ public class NumberState extends TokenizerState {
      *
      */
     protected boolean gotAdigit;
-    /*
-     * Convert a stream of digits into a number, making this
-     * number a fraction if the boolean parameter is true.
-     */
 
     /**
+     * Convert a stream of digits into a number, making this
+     * number a fraction if the boolean parameter is true.
      *
      * @param r
      * @param fraction
+     *
      * @return
+     *
      * @throws IOException
      */
     protected double absorbDigits(
@@ -67,7 +75,9 @@ public class NumberState extends TokenizerState {
      *
      * @param r
      * @param cin
+     *
      * @return a number token from a reader
+     *
      * @throws java.io.IOException
      */
     @Override
@@ -81,13 +91,12 @@ public class NumberState extends TokenizerState {
         r.unread(c);
         return value(r, t);
     }
-    /*
-     * Parse up to a decimal point.
-     */
 
     /**
+     * Parse up to a decimal point.
      *
      * @param r
+     *
      * @throws IOException
      */
     protected void parseLeft(PushbackReader r)
@@ -99,13 +108,12 @@ public class NumberState extends TokenizerState {
         }
         value = absorbDigits(r, false);
     }
-    /*
-     * Parse from a decimal point to the end of the number.
-     */
 
     /**
+     * Parse from a decimal point to the end of the number.
      *
      * @param r
+     *
      * @throws IOException
      */
     protected void parseRight(PushbackReader r)
@@ -117,11 +125,9 @@ public class NumberState extends TokenizerState {
             value += absorbDigits(r, true);
         }
     }
-    /*
-     * Prepare to assemble a new number.
-     */
 
     /**
+     * Prepare to assemble a new number.
      *
      * @param cin
      */
@@ -132,15 +138,15 @@ public class NumberState extends TokenizerState {
         absorbedDot = false;
         gotAdigit = false;
     }
-    /*
-     * Put together the pieces of a number.
-     */
 
     /**
+     * Put together the pieces of a number.
      *
      * @param r
      * @param t
+     *
      * @return
+     *
      * @throws IOException
      */
     protected Token value(PushbackReader r, Tokenizer t)

@@ -9,11 +9,7 @@ package com.matrixpeckham.parse.utensil;
  */
 /**
  * Defines a type of object which anybody can copy.
- *
- * @author Steven J. Metsker
- *
- * @version 1.0
- * @param <T>
+ * <p>
  */
 public interface PubliclyCloneable<T> {
 
@@ -24,4 +20,5 @@ public interface PubliclyCloneable<T> {
      * @return a copy of the receiving object
      */
     public T copy();
+
 }

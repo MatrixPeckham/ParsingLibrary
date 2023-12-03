@@ -2,6 +2,9 @@ package com.matrixpeckham.parse.examples.robot;
 
 import java.util.logging.Logger;
 
+/**
+ * Just for demonstration.
+ */
 public class PickCommand extends RobotCommand {
 
     @Override

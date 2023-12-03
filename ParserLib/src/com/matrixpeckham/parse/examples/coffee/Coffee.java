@@ -4,6 +4,15 @@ import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * A Coffee object represents a type of coffee. Each type
+ * of coffee has a name, and may have a former name. Each
+ * type also has a roast, which may be Regular, French, or
+ * Italian. We offer some types of coffee in two roasts,
+ * where French is an alternative to the normal roast.
+ * Finally, each type has a country of origin, and a price
+ * per pound.
+ */
 public class Coffee implements PubliclyCloneable<Coffee> {
 
     /**
@@ -57,8 +66,8 @@ public class Coffee implements PubliclyCloneable<Coffee> {
      *
      * @param o2 the other
      *
-     * @return  <code>true</code> if the objects are equal and <code>false</code>
-     * otherwise.
+     * @return <code>true</code> if the objects are equal and <code>false</code>
+     *         otherwise.
      */
     public static boolean equal(Object o1, Object o2) {
         if (o1 == null || o2 == null) {
@@ -75,8 +84,8 @@ public class Coffee implements PubliclyCloneable<Coffee> {
      *
      * @param o the object to compare with.
      *
-     * @return  <code>true</code> if the objects are equal and <code>false</code>
-     * otherwise.
+     * @return <code>true</code> if the objects are equal and <code>false</code>
+     *         otherwise.
      */
     @Override
     public boolean equals(Object o) {
@@ -121,7 +130,7 @@ public class Coffee implements PubliclyCloneable<Coffee> {
      * addition to another roast.
      *
      * @return true, if we offer a french roast version of this coffee in
-     * addition to another roast
+     *         addition to another roast
      */
     public boolean getAlsoOfferFrench() {
         return alsoOfferFrench;
@@ -177,7 +186,7 @@ public class Coffee implements PubliclyCloneable<Coffee> {
      * roast, we offer a french roast version of this coffee.
      *
      * @param alsoOfferFrench true, if we offer a french roast version of this
-     * coffee
+     *                        coffee
      */
     public void setAlsoOfferFrench(boolean alsoOfferFrench) {
         this.alsoOfferFrench = alsoOfferFrench;

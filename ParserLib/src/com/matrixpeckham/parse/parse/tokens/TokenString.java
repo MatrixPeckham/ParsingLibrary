@@ -1,11 +1,19 @@
 package com.matrixpeckham.parse.parse.tokens;
 
 import static com.matrixpeckham.parse.parse.tokens.Token.TT_EOF;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+/**
+ * A TokenString is like a String, but it is a series of
+ * Tokens rather than a series of chars. Once a TokenString is
+ * created, it is "immutable", meaning it cannot change. This
+ * lets you freely copy TokenStrings without worrying about
+ * their state.
+ */
 public class TokenString {
 
     /**

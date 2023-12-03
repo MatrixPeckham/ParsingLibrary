@@ -1,5 +1,9 @@
 package com.matrixpeckham.parse.examples.sling;
 
+/**
+ * This class represents time, which the Sling environment
+ * defines to vary from 0 to 1 as a plot unfolds.
+ */
 public class T extends SlingFunction {
 
     @Override
@@ -11,10 +15,10 @@ public class T extends SlingFunction {
      * Returns the given time
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return the given time, placing it in the y component, and augmenting a
-     * point with time also in the x component. The point returned is (t, t).
+     *         point with time also in the x component. The point returned is (t, t).
      */
     @Override
     public Point f(double t) {
@@ -30,4 +34,5 @@ public class T extends SlingFunction {
     public String toString() {
         return "t";
     }
+
 }

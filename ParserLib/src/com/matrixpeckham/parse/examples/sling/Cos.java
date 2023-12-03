@@ -1,8 +1,16 @@
 package com.matrixpeckham.parse.examples.sling;
 
 import static java.lang.Math.cos;
+
 import java.util.logging.Logger;
 
+/**
+ * This class wraps a cos function around another source
+ * function.
+ * <p>
+ * The cos function is the x component of a stone's location
+ * at an angle given in radians.
+ */
 public class Cos extends SlingFunction {
 
     /**
@@ -31,7 +39,7 @@ public class Cos extends SlingFunction {
      * Returns, essentially, <code>cos(source.f(t))</code>.
      *
      * @param t a number that represents how far along a plot is, and thus tells
-     * which point to return
+     *          which point to return
      *
      * @return a new point: <code>(t, cos(source.f(t).y))</code>
      *

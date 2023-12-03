@@ -1,17 +1,42 @@
 package com.matrixpeckham.parse.examples.regular;
 
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.chars.CharacterAssembly;
-import com.matrixpeckham.parse.parse.chars.Digit;
-import com.matrixpeckham.parse.parse.chars.Letter;
-import com.matrixpeckham.parse.parse.chars.SpecificChar;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.chars.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
+/**
+ * This class provides a parser that recognizes regular
+ * expressions.
+ * <p>
+ * Regular expressions are a "metalanguage", which means they
+ * form a language for describing languages. For example,
+ * <code>a*</code> is a regular expression that describes a
+ * simple language whose elements are strings composed of 0
+ * or more <code>a's</code>. Thus the result of parsing
+ * <code>a*</code> is a new parser, namely a
+ * parser that will match strings of <code>a's</code>.
+ * <p>
+ * This class exists to show how a simple regular expression
+ * parser works. It recognizes expressions according to
+ * the following rules.
+ * <p>
+ * <blockquote><pre>
+ *     expression    = term orTerm*;
+ *     term          = factor nextFactor*;
+ *     orTerm        = '|' term;
+ *     factor        = phrase | phraseStar;
+ *     nextFactor    = factor;
+ *     phrase        = letterOrDigit | '(' expression ')';
+ *     phraseStar    = phrase '*';
+ *     letterOrDigit = Letter | Digit;
+ * </pre></blockquote>
+ * <p>
+ * These rules recognize conventional operator precedence.
+ * They also avoid the problem of left recursion, and their
+ * implementation avoids problems with the infinite loop
+ * inherent in the cyclic dependencies of the rules.
+ */
 public class RegularParser {
 
     /**
@@ -35,13 +60,11 @@ public class RegularParser {
         }
         return expression;
     }
-    /*
-     * Returns a parser that for the grammar rule:
-     *
-     *    factor = phrase | phraseStar;
-     */
 
     /**
+     * Returns a parser that for the grammar rule:
+     * <p>
+     * factor = phrase | phraseStar;
      *
      * @return
      */
@@ -52,17 +75,15 @@ public class RegularParser {
         a.add(phraseStar());
         return a;
     }
-    /*
+
+    /**
      * Returns a parser that for the grammar rule:
-     *
-     *    letterOrDigit = Letter | Digit;
-     *
+     * <p>
+     * letterOrDigit = Letter | Digit;
+     * <p>
      * This parser has an assembler that will pop a
      * character and push a SpecificChar parser in its
      * place.
-     */
-
-    /**
      *
      * @return
      */
@@ -74,16 +95,14 @@ public class RegularParser {
         a.setAssembler(new CharAssembler());
         return a;
     }
-    /*
-     * Returns a parser that for the grammar rule:
-     *
-     *    nextFactor = factor;
-     *
-     * This parser has an assembler that will pop two
-     * parsers and push a Sequence of them.
-     */
 
     /**
+     * Returns a parser that for the grammar rule:
+     * <p>
+     * nextFactor = factor;
+     * <p>
+     * This parser has an assembler that will pop two
+     * parsers and push a Sequence of them.
      *
      * @return
      */
@@ -93,16 +112,14 @@ public class RegularParser {
         p.setAssembler(new AndAssembler());
         return p;
     }
-    /*
-     * Returns a parser that for the grammar rule:
-     *
-     *    orTerm = '|' term;
-     *
-     * This parser has an assembler that will pop two
-     * parsers and push an Alternation of them.
-     */
 
     /**
+     * Returns a parser that for the grammar rule:
+     * <p>
+     * orTerm = '|' term;
+     * <p>
+     * This parser has an assembler that will pop two
+     * parsers and push an Alternation of them.
      *
      * @return
      */
@@ -111,18 +128,16 @@ public class RegularParser {
                 = new Sequence<>();
         s.
                 add(new SpecificChar<Parser<Character, NullCloneable, NullCloneable>, NullCloneable>(
-                                '|').discard());
+                        '|').discard());
         s.add(term());
         s.setAssembler(new OrAssembler());
         return s;
     }
-    /*
-     * Returns a parser that for the grammar rule:
-     *
-     *     phrase = letterOrDigit | '(' expression ')';
-     */
 
     /**
+     * Returns a parser that for the grammar rule:
+     * <p>
+     * phrase = letterOrDigit | '(' expression ')';
      *
      * @return
      */
@@ -135,25 +150,23 @@ public class RegularParser {
                 = new Sequence<>();
         s.
                 add(new SpecificChar<Parser<Character, NullCloneable, NullCloneable>, NullCloneable>(
-                                '(').discard());
+                        '(').discard());
         s.add(expression());
         s.
                 add(new SpecificChar<Parser<Character, NullCloneable, NullCloneable>, NullCloneable>(
-                                ')').discard());
+                        ')').discard());
 
         a.add(s);
         return a;
     }
-    /*
-     * Returns a parser that for the grammar rule:
-     *
-     *    phraseStar = phrase '*';
-     *
-     * This parser has an assembler that will pop a
-     * parser and push a Repetition of it.
-     */
 
     /**
+     * Returns a parser that for the grammar rule:
+     * <p>
+     * phraseStar = phrase '*';
+     * <p>
+     * This parser has an assembler that will pop a
+     * parser and push a Repetition of it.
      *
      * @return
      */
@@ -163,7 +176,7 @@ public class RegularParser {
         s.add(phrase());
         s.
                 add(new SpecificChar<Parser<Character, NullCloneable, NullCloneable>, NullCloneable>(
-                                '*').discard());
+                        '*').discard());
         s.setAssembler(new StarAssembler());
         return s;
     }
@@ -176,13 +189,11 @@ public class RegularParser {
     public static Parser<Character, Parser<Character, NullCloneable, NullCloneable>, NullCloneable> start() {
         return new RegularParser().expression();
     }
-    /*
-     * Returns a parser that for the grammar rule:
-     *
-     *    term = factor nextFactor*;
-     */
 
     /**
+     * Returns a parser that for the grammar rule:
+     * <p>
+     * term = factor nextFactor*;
      *
      * @return
      */
@@ -198,19 +209,19 @@ public class RegularParser {
      * Return a parser that will match a <code>
      * CharacterAssembly</code>, according to the value of a regular expression
      * given in a string.
-     *
+     * <p>
      * For example, given the string <code>a*</code>, this method will return a
      * parser which will match any element of the set
      * <code>{"", "a", "aa", "aaa", ...}</code>.
      *
      * @return a parser that will match a <code>
      *         CharacterAssembly</code>, according to the value of a regular expression
-     * in the given string
+     *         in the given string
      *
      * @param s the string to evaluate
      *
      * @exception RegularExpressionException if this parser does not recognize
-     * the given string as a valid expression
+     *                                       the given string as a valid expression
      */
     public static Parser<Character, NullCloneable, NullCloneable> value(String s)
             throws RegularExpressionException {

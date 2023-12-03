@@ -2,6 +2,9 @@ package com.matrixpeckham.parse.examples.chips;
 
 import java.util.logging.Logger;
 
+/**
+ * A customer has an ID, and a last and first name.
+ */
 public class Customer {
 
     /**

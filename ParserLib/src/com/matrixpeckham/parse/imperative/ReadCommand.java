@@ -1,15 +1,15 @@
 package com.matrixpeckham.parse.imperative;
 
-import com.matrixpeckham.parse.engine.Atom;
-import com.matrixpeckham.parse.engine.Evaluation;
-import com.matrixpeckham.parse.engine.Variable;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import static java.lang.System.in;
+
+import com.matrixpeckham.parse.engine.*;
+import java.io.*;
 import java.util.logging.Logger;
 
+/**
+ * This command, when executed, reads in a string and
+ * assigns it to a supplied variable.
+ */
 public class ReadCommand extends Command {
 
     /**
@@ -25,7 +25,7 @@ public class ReadCommand extends Command {
     /**
      * Construct a "read" command to read a value, assigning it to the supplied
      * variable.
-     *
+     * <p>
      * This constructor sets the command to read from <code>
      * System.in</code>.
      *
@@ -41,7 +41,7 @@ public class ReadCommand extends Command {
      * assigning the value to the supplied variable.
      *
      * @param variable the variable to assign to
-     * @param reader where to read from
+     * @param reader   where to read from
      */
     public ReadCommand(Variable variable, BufferedReader reader) {
         this.variable = variable;
@@ -53,7 +53,7 @@ public class ReadCommand extends Command {
      * stream, assigning the value to the supplied variable.
      *
      * @param variable the variable to assign to
-     * @param in where to read from
+     * @param in       where to read from
      *
      */
     public ReadCommand(Variable variable, InputStream in) {

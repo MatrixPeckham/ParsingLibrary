@@ -1,16 +1,55 @@
 package com.matrixpeckham.parse.examples.query;
 
-import com.matrixpeckham.parse.engine.AxiomSource;
-import com.matrixpeckham.parse.engine.Comparison;
-import com.matrixpeckham.parse.engine.Query;
-import com.matrixpeckham.parse.engine.Structure;
-import com.matrixpeckham.parse.engine.Term;
 import static com.matrixpeckham.parse.examples.query.ChipSource.queryStructure;
+
+import com.matrixpeckham.parse.engine.*;
 import com.matrixpeckham.parse.utensil.PubliclyCloneable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+/**
+ * This class accepts terms, class names and comparisons,
+ * and then builds a query from them.
+ * <p>
+ * The query this builder creates will have the form:
+ * <p>
+ * <blockquote><pre>
+ *     q(term0, term1, ...),
+ *     className0, className1, ...,
+ *     comparison0, comparison1, ...
+ * </pre></blockquote>
+ * <p>
+ * The first structure forms a "projection", which is
+ * set of terms that should all be valid after the
+ * remaining structures prove themselves. To use the query
+ * after building it, prove its tail to establish values
+ * for its head.
+ * <p>
+ * For example, consider the select statement:
+ * <p>
+ * <blockquote><pre>
+ *    select PricePerBag * 0.9
+ *        from chip
+ *        where PricePerBag > 10
+ * </pre></blockquote>
+ * <p>
+ * a parser for this statement can pass a QueryBuilder
+ * one term, one class name and one comparison; the builder
+ * will take these and build the query:
+ * <p>
+ * <blockquote><pre>
+ *     q(*(PricePerBag, 0.9)),
+ *     chip(ChipID, ChipName, PricePerBag, Ounces, Oil),
+ *     >(PricePerBag, 10.0)
+ * </pre></blockquote>
+ * <p>
+ * A program can prove the tail of this query (that is, all
+ * the structures after the first). Each proof of the tail
+ * will establish a value for the PricePerBag variable.
+ * After each proof, the term in the head structure will
+ * have a value of .9 times the PricePerBag.
+ */
 public class QueryBuilder implements PubliclyCloneable<QueryBuilder> {
 
     /**
@@ -80,6 +119,7 @@ public class QueryBuilder implements PubliclyCloneable<QueryBuilder> {
      * received so far.
      *
      * @param as
+     *
      * @return
      */
     public Query build(AxiomSource as) {

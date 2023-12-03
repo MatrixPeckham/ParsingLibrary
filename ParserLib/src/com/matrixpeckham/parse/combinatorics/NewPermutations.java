@@ -3,6 +3,21 @@ package com.matrixpeckham.parse.combinatorics;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
+/**
+ * This didn't go in the book, it was in the code download. It shows how to
+ * provide
+ * permuations just using static methods that operate on an
+ * array.
+ * <p>
+ * This code brings out the subtle complexity in Comparators and
+ * Comparables. Most fundamental classes like String and Integer
+ * implement Comparable. This code assumes that if you don't
+ * supply a Comparator, you are permuting an array of Comparables,
+ * like Strings. This class provides the seemingly handy
+ * comparableComparator that creates a Comparator that assumes
+ * its args are Comparables.
+ * <p>
+ */
 public class NewPermutations<T extends Comparable<T>> {
 
     /**
@@ -41,6 +56,7 @@ public class NewPermutations<T extends Comparable<T>> {
      * The algorithm is from "Applied Combinatorics", by Alan Tucker.
      *
      * @param array
+     *
      * @return
      */
     public boolean moveIndex(T[] array) {
@@ -64,6 +80,7 @@ public class NewPermutations<T extends Comparable<T>> {
      *
      * @param array
      * @param c
+     *
      * @return
      */
     public boolean moveIndex(T[] array, Comparator<T> c) {
@@ -117,7 +134,7 @@ public class NewPermutations<T extends Comparable<T>> {
 
     /**
      * @return int the index of the first element from the right that is less
-     * than its neighbor on the right.
+     *         than its neighbor on the right.
      */
     private int rightmostDip(T[] array, Comparator<T> c) {
         for (int i = array.length - 2; i >= 0; i--) {

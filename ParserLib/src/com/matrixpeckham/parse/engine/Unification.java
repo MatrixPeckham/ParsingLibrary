@@ -4,16 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
-/*
- * Copyright (c) 1999 Steven J. Metsker. All Rights Reserved.
- *
- * Steve Metsker makes no representations or warranties about
- * the fitness of this software for any particular purpose,
- * including the implied warranty of merchantability.
- */
 /**
  * A Unification is a collection of variables.
- *
+ * <p>
  * Structures and variables use unifications to keep track of the variable
  * assignments that make a proof work. The unification class itself provides
  * behavior for adding and accessing variables.
@@ -117,7 +110,7 @@ public class Unification {
      * variable names.
      *
      * @return a string representation of this unification, without printing
-     * variable names
+     *         variable names
      */
     public String toStringQuiet() {
         StringBuilder buf = new StringBuilder();
@@ -138,22 +131,25 @@ public class Unification {
             variableAt(i).unbind();
         }
     }
+
     /*
      * Returns the variable at the indicated index.
      *
-     * @param   int   the index of the variable to return
+     * @param int the index of the variable to return
      *
-     * @return   variable   the variable at the indicated index
+     * @return variable the variable at the indicated index
      */
 
     /**
      *
      * @param i
+     *
      * @return
      */
     protected Variable variableAt(int i) {
         return vector().get(i);
     }
+
     /*
      * lazy-initialize this unification's vector
      */

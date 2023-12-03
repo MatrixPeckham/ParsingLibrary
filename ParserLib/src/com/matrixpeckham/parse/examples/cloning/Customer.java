@@ -2,6 +2,11 @@ package com.matrixpeckham.parse.examples.cloning;
 
 import java.util.logging.Logger;
 
+/**
+ *
+ * This class has a properly functioning, public clone()
+ * method.
+ */
 public class Customer implements Cloneable {
 
     /**

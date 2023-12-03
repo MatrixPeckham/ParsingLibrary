@@ -5,9 +5,14 @@ import static java.lang.Math.min;
 import java.math.BigInteger;
 import java.util.logging.Logger;
 
+/**
+ * Class with static methods to calculate permutation counts.
+ */
 public class Combinatoric {
 
     /**
+     * Calculates n choose m.
+     *
      * @return BigInteger, the number of unordered subsets of m objects chosen
      *         from a group of n objects.
      *
@@ -26,13 +31,13 @@ public class Combinatoric {
     }
 
     /**
-     * Check that 0 <= m <= n.
+     * Check that 0 &lt;= m &lt;= n.
      *
      * @param n int
      *
      * @param m int
      *
-     * @exception CombinatoricException unless n >= m >= 0
+     * @exception CombinatoricException unless n &gt;= m &gt;= 0
      */
     static void check(int n, int m)
             throws CombinatoricException {
@@ -52,6 +57,8 @@ public class Combinatoric {
     }
 
     /**
+     * Calculates the factorial of a number.
+     *
      * @return BigInteger, the product of the numbers 1 ... n
      *
      * @param n int
@@ -72,6 +79,8 @@ public class Combinatoric {
     }
 
     /**
+     * Calculate the number of permutations of n objects.
+     *
      * @return BigInteger, the number of possible ways of ordering n objects
      *
      * @param n int
@@ -85,6 +94,8 @@ public class Combinatoric {
     }
 
     /**
+     * Calculates the number of permutations of m objects chosen from n items.
+     *
      * @return BigInteger, the number of possible arrangements, or orderings, of
      *         m objects chosen from a group of n objects.
      *

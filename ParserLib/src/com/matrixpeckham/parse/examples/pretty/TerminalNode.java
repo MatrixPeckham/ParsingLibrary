@@ -3,8 +3,7 @@ package com.matrixpeckham.parse.examples.pretty;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Owner
+ * Node to pretty print terminals
  */
 public class TerminalNode extends ComponentNode {
 
@@ -31,6 +30,7 @@ public class TerminalNode extends ComponentNode {
      * @param depth
      * @param label
      * @param ignored
+     *
      * @return
      */
     @Override

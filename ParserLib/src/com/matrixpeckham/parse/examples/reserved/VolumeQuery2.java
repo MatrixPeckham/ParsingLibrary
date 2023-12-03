@@ -1,39 +1,35 @@
 package com.matrixpeckham.parse.examples.reserved;
 
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Assembler;
-import com.matrixpeckham.parse.parse.Assembly;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.Tokenizer;
-import com.matrixpeckham.parse.parse.tokens.Word;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.NullCloneable;
 import java.util.logging.Logger;
 
+/**
+ * This class shows the use of a customized tokenizer, and
+ * the use of a terminal that looks for the new token type.
+ */
 public class VolumeQuery2 {
 
     /**
      * Return a parser that recognizes the grammar:
-     *
+     * <p>
      * query = (Word | volume)* '?';
      *
      * @return a parser that recognizes queries containing volumes and random
-     * words.
+     *         words.
      */
     public static Parser<Token, String, NullCloneable> query() {
 
         Parser<Token, String, NullCloneable> a
                 = new Alternation<Token, String, NullCloneable>()
-                .add(new Word<>())
-                .add(volume());
+                        .add(new Word<>())
+                        .add(volume());
 
         Parser<Token, String, NullCloneable> s
                 = new Sequence<Token, String, NullCloneable>()
-                .add(new Repetition<>(a))
-                .add(new Symbol<>('?'));
+                        .add(new Repetition<>(a))
+                        .add(new Symbol<>('?'));
 
         return s;
     }
@@ -43,7 +39,7 @@ public class VolumeQuery2 {
      * WordState.
      *
      * @return a custom tokenizer that uses WordOrReservedState in place of
-     * WordState
+     *         WordState
      */
     public static Tokenizer tokenizer() {
 
@@ -60,16 +56,14 @@ public class VolumeQuery2 {
 
         return t;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *    volume = "cups" | "gallon" | "liter";
-     *
-     * This parser stacks the recognized word as an
-     * argument to "VOL()".
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * volume = "cups" | "gallon" | "liter";
+     * <p>
+     * This parser stacks the recognized word as an
+     * argument to "VOL()".
      *
      * @return
      */
@@ -80,11 +74,13 @@ public class VolumeQuery2 {
 
         // an anonymous Assembler subclass notes volume matches
         p.setAssembler(new Assembler<Token, String, NullCloneable>() {
+
             @Override
             public void workOn(Assembly<Token, String, NullCloneable> a) {
                 String o = a.popVal();
                 a.push("VOL(" + o + ")");
             }
+
         });
 
         return p;

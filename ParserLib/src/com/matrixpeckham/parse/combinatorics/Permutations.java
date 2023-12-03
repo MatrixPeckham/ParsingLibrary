@@ -1,30 +1,74 @@
 package com.matrixpeckham.parse.combinatorics;
 
 import static com.matrixpeckham.parse.combinatorics.Combinatoric.check;
+
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
+/**
+ * The Permutations class provides an enumeration of all
+ * permutations of an array of objects. Each 'permutation' is
+ * an ordered list of the group.
+ * <p>
+ * For example, to see all of the ways we can select a school
+ * representative and an alternate from a list of 4 children,
+ * begin with an array of names::
+ * <blockquote><pre>
+ *     Object[] children = {
+ *         "Leonardo", "Monica", "Nathan", "Olivia"};
+ * </pre></blockquote>
+ * To see all 2-permutations of these 4 names, create and use
+ * a Permutations enumeration:
+ * <blockquote><pre>
+ *     Permutations c = new Permutations(children, 2);
+ *     while (c.hasMoreElements()) {
+ *         Object[] perm = (Object[])c.nextElement();
+ *         for (int i = 0; i < perm.length; i++) {
+ *             System.out.print(perm[i] + " ");
+ *         }
+ *     System.out.println();
+ *     }
+ * </pre></blockquote>
+ * This will print out:
+ * <blockquote><pre>
+ * 	Leonardo Monica
+ * 	Leonardo Nathan
+ * 	Leonardo Olivia
+ * 	Monica Leonardo
+ * 	Monica Nathan
+ * 	Monica Olivia
+ * 	Nathan Leonardo
+ * 	Nathan Monica
+ * 	Nathan Olivia
+ * 	Olivia Leonardo
+ * 	Olivia Monica
+ * 	Olivia Nathan
+ * </pre></blockquote>
+ */
 public class Permutations<T> implements java.util.Iterator<T[]> {
 
     /**
-     *
+     * Holds the initial array.
      */
     protected T[] inArray;
 
+    /**
+     * Total objects
+     */
     protected int n,
             /**
-             *
+             * Number of objects to choose
              */
             m;
 
     /**
-     *
+     * Array to hold indexes to make permutations
      */
     protected int[] index;
 
     /**
-     *
+     * boolean to store when we're done
      */
     protected boolean hasMore = true;
 
@@ -50,10 +94,10 @@ public class Permutations<T> implements java.util.Iterator<T[]> {
      *
      * @param inArray java.lang.Object[], the group to line up
      *
-     * @param m int, the number of objects to use
+     * @param m       int, the number of objects to use
      *
      * @exception CombinatoricException if m is greater than the length of
-     * inArray, or less than 0.
+     *                                  inArray, or less than 0.
      */
     public Permutations(T[] inArray, int m)
             throws CombinatoricException {
@@ -62,7 +106,7 @@ public class Permutations<T> implements java.util.Iterator<T[]> {
         this.inArray = Arrays.copyOf(inArray, n);
         this.m = m;
 
-// throw exception unless n >= m >= 0
+        // throw exception unless n >= m >= 0
         check(n, m);
 
         /**
@@ -105,7 +149,7 @@ public class Permutations<T> implements java.util.Iterator<T[]> {
      * of the dip point is reversed, yielding {1, 3, 0, 2, 4}.
      * <p>
      * The algorithm is from "Applied Combinatorics", by Alan Tucker.
-     *
+     * <p>
      */
     protected final void moveIndex() {
 
@@ -183,7 +227,7 @@ public class Permutations<T> implements java.util.Iterator<T[]> {
 
     /**
      * @return int the index of the first element from the right that is less
-     * than its neighbor on the right.
+     *         than its neighbor on the right.
      */
     protected int rightmostDip() {
         for (int i = n - 2; i >= 0; i--) {

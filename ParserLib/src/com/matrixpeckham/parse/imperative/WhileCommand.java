@@ -3,6 +3,11 @@ package com.matrixpeckham.parse.imperative;
 import com.matrixpeckham.parse.engine.BooleanTerm;
 import java.util.logging.Logger;
 
+/**
+ * This command mimics a normal "while" loop, executing
+ * a command in a loop, so long as some condition holds
+ * true.
+ */
 public class WhileCommand extends Command {
 
     /**
@@ -19,9 +24,9 @@ public class WhileCommand extends Command {
      * Construct a "while" command from the given condition and command.
      *
      * @param condition the condition to check each time before executing the
-     * body
+     *                  body
      *
-     * @param command the command to repeatedly execute
+     * @param command   the command to repeatedly execute
      */
     public WhileCommand(BooleanTerm condition, Command command) {
         this.condition = condition;

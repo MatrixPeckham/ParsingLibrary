@@ -2,7 +2,10 @@ package com.matrixpeckham.parse.examples.string;
 
 import java.util.logging.Logger;
 
-
+/**
+ * This class wraps a <code>substring</code> function around
+ * an instance of another <code>StringFunction</code> class.
+ */
 public class Substring extends StringFunction {
 
     /**
@@ -24,6 +27,7 @@ public class Substring extends StringFunction {
      * Construct a <code>Substring</code> function that will wrap itself around
      * the supplied source, returning the portion of a string from the given
      * index to the string's end.
+     *
      * @param from
      */
     public Substring(StringFunction source, int from) {
@@ -35,6 +39,7 @@ public class Substring extends StringFunction {
      * Construct a <code>Substring</code> function that will wrap itself around
      * the supplied source, returning the portion of a string from the given
      * <code>from</code> index to the given <code>to</code> index.
+     *
      * @param to
      */
     public Substring(StringFunction source, int from, int to) {
@@ -47,7 +52,8 @@ public class Substring extends StringFunction {
      * Return a substring of the value of <code>source.f(s)
      * </code>, where <code>s</code> is the supplied string, and
      * <code>source</code> is this function's source function.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String f(String s) {
@@ -60,4 +66,5 @@ public class Substring extends StringFunction {
 
     private static final Logger LOG
             = Logger.getLogger(Substring.class.getName());
+
 }

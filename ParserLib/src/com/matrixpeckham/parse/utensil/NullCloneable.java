@@ -10,6 +10,7 @@ package com.matrixpeckham.parse.utensil;
 import java.util.logging.Logger;
 
 /**
+ * Basic Clonable object for use in some demonstration classes.
  *
  * @author William Matrix Peckham
  */

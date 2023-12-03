@@ -3,18 +3,67 @@ package com.matrixpeckham.parse.examples.sling;
 import com.matrixpeckham.parse.examples.reserved.WordOrReservedState;
 import com.matrixpeckham.parse.examples.track.Track;
 import com.matrixpeckham.parse.imperative.Command;
-import com.matrixpeckham.parse.parse.Alternation;
-import com.matrixpeckham.parse.parse.Parser;
-import com.matrixpeckham.parse.parse.Repetition;
-import com.matrixpeckham.parse.parse.Sequence;
-import com.matrixpeckham.parse.parse.tokens.Num;
-import com.matrixpeckham.parse.parse.tokens.Symbol;
-import com.matrixpeckham.parse.parse.tokens.Token;
-import com.matrixpeckham.parse.parse.tokens.Tokenizer;
-import com.matrixpeckham.parse.parse.tokens.Word;
+import com.matrixpeckham.parse.parse.*;
+import com.matrixpeckham.parse.parse.tokens.*;
 import com.matrixpeckham.parse.utensil.TypeOrType;
 import java.util.logging.Logger;
 
+/**
+ *
+ * This class provides a parser for Sling, an imperative
+ * language that plots the path of a sling stone.
+ * <p>
+ * <p>
+ * The grammar this class supports is:
+ * <blockquote><pre>
+ *
+ * statements    = statement statement*;
+ * statement     = assignment | forStatement | plotStatement;
+ * assignment    = variable '=' expression ';' ;
+ * plotStatement = "plot" expression ';';
+ * forStatement  =
+ *     "for" '(' variable ',' expression ',' expression  ')'
+ *     '{' statements '}';
+ * <br>
+ * variable   = Word;
+ * <br>
+ * expression       = term (plusTerm | minusTerm)*;
+ * plusTerm         = '+' term;
+ * minusTerm        = '-' term;
+ * term             = element (timesElement | divideElement |
+ *                             remainderElement)*;
+ * timesElement     = '*' element;
+ * divideElement    = '/' element;
+ * remainderElement = '%' element;
+ * element          = '(' expression ')' | baseElement |
+ *                    negative;
+ * <br>
+ * negative    = '-' baseElement;
+ * <br>
+ * baseElement =
+ *     Num | "pi" | "random" | "s1" | "s2" | "t" | variable |
+ *     oneArg("abs")    | oneArg("ceil")       |
+ *     oneArg("cos")    | oneArg("floor")      |
+ *     oneArg("sin")    | oneArg("tan")        |
+ *     twoArgs("polar") | twoArgs("cartesian") |
+ *     twoArgs("scale") | twoArgs("sling");
+ * <br>
+ * oneArg(i)  = i '(' expression ')';
+ * twoArgs(i) = i '(' expression ',' expression ')';
+ *
+ * </pre></blockquote>
+ * <p>
+ * The following program describes about 10,000 interesting
+ * plots:
+ * <p>
+ * <blockquote><pre>
+ *     plot sling(1, 1) + sling(s1, 100*s2);
+ * </pre></blockquote>
+ * <p>
+ * <p>
+ * The class <code>SlingIde</code> provides an interactive
+ * development environment for Sling.
+ */
 public class SlingParser {
 
     /**
@@ -41,13 +90,11 @@ public class SlingParser {
      *
      */
     protected Tokenizer tokenizer;
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     assignment = variable '=' expression ';' ;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * assignment = variable '=' expression ';' ;
      *
      * @return
      */
@@ -63,16 +110,14 @@ public class SlingParser {
         t.setAssembler(new AssignmentAssembler());
         return t;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     baseElement =
-     *        Num | "pi" | "random" | "s1" | "s2" | "t" | variable |
-     *       ("abs" |"ceil" |"cos" | "floor" |"sin" |"tan") oneArg |
-     *       ("polar" | "cartesian" | "scale" | "sling") twoArgs;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * baseElement =
+     * Num | "pi" | "random" | "s1" | "s2" | "t" | variable |
+     * ("abs" |"ceil" |"cos" | "floor" |"sin" |"tan") oneArg |
+     * ("polar" | "cartesian" | "scale" | "sling") twoArgs;
      *
      * @return
      */
@@ -99,11 +144,9 @@ public class SlingParser {
         }
         return baseElement;
     }
-    /*
-     * Recognize a comma.
-     */
 
     /**
+     * Recognize a comma.
      *
      * @return
      */
@@ -111,13 +154,11 @@ public class SlingParser {
         return new Symbol<TypeOrType<SlingFunction, Command>, SlingTarget>(',').
                 discard();
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     divideElement  = '/' element;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * divideElement = '/' element;
      *
      * @return
      */
@@ -130,13 +171,11 @@ public class SlingParser {
         t.setAssembler(new FunctionAssembler(new Arithmetic('/')));
         return t;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     element = '(' expression ')' | baseElement | negative;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * element = '(' expression ')' | baseElement | negative;
      *
      * @return
      */
@@ -156,13 +195,11 @@ public class SlingParser {
         a.add(negative());
         return a;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     expression = term (plusTerm | minusTerm)*;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * expression = term (plusTerm | minusTerm)*;
      *
      * @return
      */
@@ -179,15 +216,13 @@ public class SlingParser {
         }
         return expression;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     forStatement  =
-     *       "for" '(' variable ',' expression ',' expression  ')'
-     *       '{' statements '}';
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * forStatement =
+     * "for" '(' variable ',' expression ',' expression ')'
+     * '{' statements '}';
      *
      * @return
      */
@@ -216,23 +251,19 @@ public class SlingParser {
         t.setAssembler(new ForAssembler());
         return t;
     }
-    /*
-     * Recognize a left brace, and leave it on the stack as
-     * a fence.
-     */
 
     /**
+     * Recognize a left brace, and leave it on the stack as
+     * a fence.
      *
      * @return
      */
     protected static Parser<Token, TypeOrType<SlingFunction, Command>, SlingTarget> lBrace() {
         return new Symbol<>('{');
     }
-    /*
-     * Recognize a left parenthesis.
-     */
 
     /**
+     * Recognize a left parenthesis.
      *
      * @return
      */
@@ -240,13 +271,11 @@ public class SlingParser {
         return new Symbol<TypeOrType<SlingFunction, Command>, SlingTarget>('(').
                 discard();
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     minusTerm  = '-' term;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * minusTerm = '-' term;
      *
      * @return
      */
@@ -259,13 +288,11 @@ public class SlingParser {
         t.setAssembler(new FunctionAssembler(new Arithmetic('-')));
         return t;
     }
-    /*
-     *  Returns a parser that will recognize the grammar:
-     *
-     *      negative = '-' baseElement;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * negative = '-' baseElement;
      *
      * @return
      */
@@ -278,17 +305,16 @@ public class SlingParser {
         s.setAssembler(new NegativeAssembler());
         return s;
     }
-    /*
+
+    /**
      * Reserves the given name, and creates and returns an
      * parser that recognizes the name. Sets the assembler of
      * the parser to be a <code>FunctionAssembler</code> for
      * the given function.
-     */
-
-    /**
      *
      * @param name
      * @param f
+     *
      * @return
      */
     protected Parser<Token, TypeOrType<SlingFunction, Command>, SlingTarget> noArgs(
@@ -298,12 +324,10 @@ public class SlingParser {
         p.setAssembler(new FunctionAssembler(f));
         return p;
     }
-    /*
-     * Constructs and returns a parser that recognizes a
-     * number and that uses a <code>NumAssembler</code>.
-     */
 
     /**
+     * Constructs and returns a parser that recognizes a
+     * number and that uses a <code>NumAssembler</code>.
      *
      * @return
      */
@@ -311,15 +335,14 @@ public class SlingParser {
         return new Num<TypeOrType<SlingFunction, Command>, SlingTarget>().
                 setAssembler(new NumAssembler());
     }
-    /*
-     * Return a parser that recognizes and stacks a one-
-     * argument function.
-     */
 
     /**
+     * Return a parser that recognizes and stacks a one-
+     * argument function.
      *
      * @param name
      * @param f
+     *
      * @return
      */
     protected Parser<Token, TypeOrType<SlingFunction, Command>, SlingTarget> oneArg(
@@ -333,12 +356,10 @@ public class SlingParser {
         t.setAssembler(new FunctionAssembler(f));
         return t;
     }
-    /*
-     * Returns a parser that recognizes the literal "pi". Sets
-     * the parser's assembler to be a <code>PiAssembler</code>.
-     */
 
     /**
+     * Returns a parser that recognizes the literal "pi". Sets
+     * the parser's assembler to be a <code>PiAssembler</code>.
      *
      * @return
      */
@@ -348,13 +369,11 @@ public class SlingParser {
         pi.setAssembler(new PiAssembler());
         return pi;
     }
-    /*
-     * Return a parser that recognizes the grammar:
-     *
-     *     plotStatement = "plot" expression ';';
-     */
 
     /**
+     * Return a parser that recognizes the grammar:
+     * <p>
+     * plotStatement = "plot" expression ';';
      *
      * @return
      */
@@ -367,13 +386,11 @@ public class SlingParser {
         t.setAssembler(new PlotAssembler());
         return t;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     plusTerm  = '+' term;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * plusTerm = '+' term;
      *
      * @return
      */
@@ -386,11 +403,9 @@ public class SlingParser {
         t.setAssembler(new FunctionAssembler(new Arithmetic('+')));
         return t;
     }
-    /*
-     * Recognize a right brace.
-     */
 
     /**
+     * Recognize a right brace.
      *
      * @return
      */
@@ -398,13 +413,11 @@ public class SlingParser {
         return new Symbol<TypeOrType<SlingFunction, Command>, SlingTarget>('}').
                 discard();
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     remainderElement  = '%' element;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * remainderElement = '%' element;
      *
      * @return
      */
@@ -417,15 +430,14 @@ public class SlingParser {
         t.setAssembler(new FunctionAssembler(new Arithmetic('%')));
         return t;
     }
-    /*
+
+    /**
      * Mark the given word as reserved, meaning users cannot use
      * the word as a variable. Create a special literal parser
      * to recognize the word, and return this parser.
-     */
-
-    /**
      *
      * @param s
+     *
      * @return
      */
     protected ReservedLiteral<TypeOrType<SlingFunction, Command>, SlingTarget> reserve(
@@ -436,11 +448,9 @@ public class SlingParser {
         lit.discard();
         return lit;
     }
-    /*
-     * Recognize a right parenthesis.
-     */
 
     /**
+     * Recognize a right parenthesis.
      *
      * @return
      */
@@ -448,11 +458,9 @@ public class SlingParser {
         return new Symbol<TypeOrType<SlingFunction, Command>, SlingTarget>(')').
                 discard();
     }
-    /*
-     * Recognize the first slider variable.
-     */
 
     /**
+     * Recognize the first slider variable.
      *
      * @return
      */
@@ -464,11 +472,9 @@ public class SlingParser {
         return p;
 
     }
-    /*
-     * Recognize the second slider variable.
-     */
 
     /**
+     * Recognize the second slider variable.
      *
      * @return
      */
@@ -478,13 +484,11 @@ public class SlingParser {
         p.setAssembler(new SliderAssembler(2));
         return p;
     }
-    /*
+
+    /**
      * Returns a parser that recognizes scale functions, and
      * sets the parser's assembler to be a <code>ScaleAssembler
      * </code>.
-     */
-
-    /**
      *
      * @return
      */
@@ -504,11 +508,9 @@ public class SlingParser {
         t.setAssembler(new ScaleAssembler());
         return t;
     }
-    /*
-     * Recognize a semicolon.
-     */
 
     /**
+     * Recognize a semicolon.
      *
      * @return
      */
@@ -516,24 +518,20 @@ public class SlingParser {
         return new Symbol<TypeOrType<SlingFunction, Command>, SlingTarget>(';').
                 discard();
     }
-    /*
-     * Recoginze Sling <code>statements</code>.
-     */
 
     /**
+     * Recoginze Sling <code>statements</code>.
      *
      * @return
      */
     public Parser<Token, TypeOrType<SlingFunction, Command>, SlingTarget> start() {
         return statements();
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     statement = assignment | forStatement | plotStatement;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * statement = assignment | forStatement | plotStatement;
      *
      * @return
      */
@@ -546,13 +544,11 @@ public class SlingParser {
         }
         return statement;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     statements = statement statement*;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * statements = statement statement*;
      *
      * @return
      */
@@ -563,14 +559,12 @@ public class SlingParser {
         s.add(new Repetition<>(statement()));
         return s;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     term = element (timesElement | divideElement |
-     *                     remainderElement)*;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * term = element (timesElement | divideElement |
+     * remainderElement)*;
      *
      * @return
      */
@@ -586,13 +580,11 @@ public class SlingParser {
         s.add(new Repetition<>(a));
         return s;
     }
-    /*
-     * Returns a parser that will recognize the grammar:
-     *
-     *     timesElement  = '*' element;
-     */
 
     /**
+     * Returns a parser that will recognize the grammar:
+     * <p>
+     * timesElement = '*' element;
      *
      * @return
      */
@@ -622,15 +614,14 @@ public class SlingParser {
         }
         return tokenizer;
     }
-    /*
-     * Return a parser that recognizes and stacks a one-
-     * argument function.
-     */
 
     /**
+     * Return a parser that recognizes and stacks a one-
+     * argument function.
      *
      * @param name
      * @param f
+     *
      * @return
      */
     protected Parser<Token, TypeOrType<SlingFunction, Command>, SlingTarget> twoArg(
@@ -646,11 +637,9 @@ public class SlingParser {
         t.setAssembler(new FunctionAssembler(f));
         return t;
     }
-    /*
-     * Recognize a word as a variable.
-     */
 
     /**
+     * Recognize a word as a variable.
      *
      * @return
      */
@@ -658,13 +647,11 @@ public class SlingParser {
         return new Word<TypeOrType<SlingFunction, Command>, SlingTarget>().
                 setAssembler(new VariableAssembler());
     }
-    /*
+
+    /**
      * Returns a WordOrReservedState object, which is a tokenizer
      * state that differentiates reserved words from nonreserved
      * words.
-     */
-
-    /**
      *
      * @return
      */

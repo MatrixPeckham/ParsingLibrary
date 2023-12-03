@@ -2,24 +2,24 @@ package com.matrixpeckham.parse.examples.logic;
 
 //import com.sun.java.swing.*;
 //import com.sun.java.swing.border.*;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.ideFont;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.ideTextArea;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.ideTitledBorder;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.launch;
-import static com.matrixpeckham.parse.utensil.SwingUtensil.textPanel;
+import static com.matrixpeckham.parse.utensil.SwingUtensil.*;
+import static javax.swing.Box.createHorizontalBox;
+import static javax.swing.Box.createHorizontalGlue;
+import static javax.swing.JSplitPane.VERTICAL_SPLIT;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.logging.Logger;
-import javax.swing.Box;
-import static javax.swing.Box.createHorizontalBox;
-import static javax.swing.Box.createHorizontalGlue;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import static javax.swing.JSplitPane.VERTICAL_SPLIT;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
-
+/**
+ * This class provides an interactive development environment
+ * for Logikus.
+ * <p>
+ * This class contains just the Swing components, and
+ * delegates responsibility for the interaction of these
+ * components to a LogikusMediator object.
+ */
 public class LogikusIde {
 
     /**
@@ -66,12 +66,10 @@ public class LogikusIde {
      *
      */
     protected JButton clearResultsButton;
-    /*
-     * Creates and returns the box that contains all of the IDE's
-     * buttons.
-     */
 
     /**
+     * Creates and returns the box that contains all of the IDE's
+     * buttons.
      *
      * @return
      */
@@ -82,12 +80,10 @@ public class LogikusIde {
         b.add(clearButtonPanel());
         return b;
     }
-    /*
-     * Creates and returns the panel that contains the IDE's
-     * clear buttons.
-     */
 
     /**
+     * Creates and returns the panel that contains the IDE's
+     * clear buttons.
      *
      * @return
      */
@@ -98,11 +94,9 @@ public class LogikusIde {
         p.add(clearResultsButton());
         return p;
     }
-    /*
-     * The button that clears the results area.
-     */
 
     /**
+     * The button that clears the results area.
      *
      * @return
      */
@@ -114,11 +108,9 @@ public class LogikusIde {
         }
         return clearProgramButton;
     }
-    /*
-     * The button that clears the results area.
-     */
 
     /**
+     * The button that clears the results area.
      *
      * @return
      */
@@ -130,11 +122,9 @@ public class LogikusIde {
         }
         return clearResultsButton;
     }
-    /*
-     * The button that halts the proof thread.
-     */
 
     /**
+     * The button that halts the proof thread.
      *
      * @return
      */
@@ -150,18 +140,17 @@ public class LogikusIde {
 
     /**
      * Launch a Logikus interactive development environment.
+     *
      * @param args
      */
     public static void main(String[] args) {
         launch(
                 new LogikusIde().mainPanel(), "Logikus");
     }
-    /*
-     * Builds and returns the panel that contains all the
-     * components of the IDE.
-     */
 
     /**
+     * Builds and returns the panel that contains all the
+     * components of the IDE.
      *
      * @return
      */
@@ -198,12 +187,10 @@ public class LogikusIde {
         whole.add(buttonBox(), "South");
         return whole;
     }
-    /*
-     * The object that controls or "mediates" the interaction
-     * of this development environment's Swing components.
-     */
 
     /**
+     * The object that controls or "mediates" the interaction
+     * of this development environment's Swing components.
      *
      * @return
      */
@@ -222,11 +209,9 @@ public class LogikusIde {
         }
         return mediator;
     }
-    /*
-     * The program text area.
-     */
 
     /**
+     * The program text area.
      *
      * @return
      */
@@ -236,12 +221,10 @@ public class LogikusIde {
         }
         return programArea;
     }
-    /*
-     * Creates and returns the panel that contains the IDE's
-     * proof buttons.
-     */
 
     /**
+     * Creates and returns the panel that contains the IDE's
+     * proof buttons.
      *
      * @return
      */
@@ -253,11 +236,9 @@ public class LogikusIde {
         p.add(haltButton());
         return p;
     }
-    /*
-     * The button that starts the proof thread.
-     */
 
     /**
+     * The button that starts the proof thread.
      *
      * @return
      */
@@ -269,12 +250,10 @@ public class LogikusIde {
         }
         return proveNextButton;
     }
-    /*
-     * The button that starts the proof thread, asking it to
-     * find all remaining proofs.
-     */
 
     /**
+     * The button that starts the proof thread, asking it to
+     * find all remaining proofs.
      *
      * @return
      */
@@ -286,11 +265,9 @@ public class LogikusIde {
         }
         return proveRestButton;
     }
-    /*
-     * The query text area.
-     */
 
     /**
+     * The query text area.
      *
      * @return
      */
@@ -300,11 +277,9 @@ public class LogikusIde {
         }
         return queryArea;
     }
-    /*
-     * The results text area.
-     */
 
     /**
+     * The results text area.
      *
      * @return
      */
@@ -317,4 +292,5 @@ public class LogikusIde {
 
     private static final Logger LOG
             = Logger.getLogger(LogikusIde.class.getName());
+
 }

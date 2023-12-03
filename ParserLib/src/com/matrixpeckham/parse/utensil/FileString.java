@@ -1,10 +1,12 @@
 package com.matrixpeckham.parse.utensil;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.logging.Logger;
 
+/**
+ * This class has a static method that returns a file's characters
+ * as a single String.
+ */
 public class FileString {
 
     /**
@@ -15,7 +17,7 @@ public class FileString {
      * @return string the contents of a file as a String
      *
      * @exception IOException if the file is not found, or if there is any
-     * problem reading the file
+     *                        problem reading the file
      */
     public static String stringFromFileNamed(String fileName)
             throws java.io.IOException {
